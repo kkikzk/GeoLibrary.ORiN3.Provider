@@ -15,6 +15,11 @@
       <group targetFramework="net8.0" />
     </dependencies>
     <icon>128x128.png</icon>
+    <releaseNotes>
+        First release.
+    </releaseNotes>
+    <projectUrl>https://github.com/kkikzk/GeoLibrary.ORiN3.Provider</projectUrl>
+    <repository type="git" url="https://github.com/kkikzk/GeoLibrary.ORiN3.Provider.git" />
   </metadata>
   <files>
     <file src="bin\Release\" target="lib\"/>
