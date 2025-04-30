@@ -1,0 +1,13 @@
+﻿{
+  "profiles": {
+    "GeoLibrary.ORiN3.Provider.FTP.Client": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": false,
+      "applicationUrl": "http://localhost:5186",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

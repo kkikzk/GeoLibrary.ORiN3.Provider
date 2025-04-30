@@ -1,0 +1,18 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="./../../SolutionDefines.targets" />
+  <Import Project="./../../SolutionDefines.ProjectVersion.targets" />
+  <PropertyGroup>
+    <TargetFramework>$(DotNetVersion)</TargetFramework>
+    <LangVersion>$(DotNetLangVersion)</LangVersion>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Colda.Auth" Version="$(ColdaAuthVersion)" />
+    <PackageReference Include="Message.Client.ORiN3.Provider" Version="$(ORiN3ProviderCoreVersion)" />
+    <PackageReference Include="ORiN3.Provider.Config" Version="$(ORiN3Version)" />
+    <PackageReference Include="ORiN3.Provider.Core" Version="$(ORiN3ProviderCoreVersion)" />
+    <PackageReference Include="xunit" Version="$(XUnitVersion)" />
+  </ItemGroup>
+</Project>

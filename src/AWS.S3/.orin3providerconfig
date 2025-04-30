@@ -1,0 +1,135 @@
+﻿{
+  "providerPath": "GeoLibrary.ORiN3.Provider.AWS.S3.dll",
+  "version": "1.0.0",
+  "providerId": "EBD91922-184D-4ECD-A7D8-3082DC617847",
+  "providerName": "AWS S3 Provider",
+  "manual": {
+    "default": "./_Doc/Manual/Provider/en/index.html",
+    "ja-JP": "./_Doc/Manual/Provider/ja/index.html"
+  },
+  "license": {
+    "default": "./_License"
+  },
+  "author": "GeoLibrary",
+  "comment": {
+    "default": "AWS S3 Provider.",
+    "ja-JP": "AWS S3プロバイダです。"
+  },
+  "classInfos": [
+    {
+      "id": "764458D8-F51E-4F01-8F74-163BFDA682B9",
+      "orin3ObjectType": "ORiN3Controller",
+      "displayName": "AWS S3",
+      "typeName": "GeoLibrary.ORiN3.Provider.AWS.S3.O3Object.Controller.S3Client, GeoLibrary.ORiN3.Provider.AWS.S3",
+      "comment": {
+        "default": "This is an ORiN3 Controller that functions as a client to connect to AWS S3.",
+        "ja-JP": "AWS S3に接続するためのクライアントとして動作するORiN3のControllerです。"
+      },
+      "parents": [ "Root" ],
+      "options": [
+        {
+          "name": "RegionEndpoint",
+          "comment": {
+            "default": "",
+            "ja-JP": "AWSのリージョンを指定します。"
+          },
+          "rule": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "AccessKeyID",
+          "optional": true,
+          "comment": {
+            "default": "",
+            "ja-JP": "S3へ接続するユーザのアクセスキーIDを指定します。"
+          },
+          "rule": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "SecretAccessKey",
+          "optional": true,
+          "comment": {
+            "default": "",
+            "ja-JP": "S3へ接続するユーザのシークレットアクセスキーを指定します。。"
+          },
+          "rule": {
+            "type": "string",
+            "secret": true
+          }
+        },
+        {
+          "name": "Password",
+          "optional": true,
+          "comment": {
+            "default": "",
+            "ja-JP": "パスワードを指定します。"
+          },
+          "rule": {
+            "type": "string",
+            "secret": true
+          }
+        },
+        {
+          "name": "Mode",
+          "optional": true,
+          "comment": {
+            "default": "",
+            "ja-JP": "モードを指定します。"
+          },
+          "rule": {
+            "type": "string",
+            "secret": true
+          }
+        },
+        {
+          "name": "Src IP Address",
+          "optional": true,
+          "comment": {
+            "default": "Specify the NIC that communicates with PLC.",
+            "ja-JP": "FTPサーバと通信を行うNICを指定します。"
+          },
+          "rule": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "id": "43ED37CD-90B1-4E2C-8079-626A1B2839C3",
+      "orin3ObjectType": "ORiN3File",
+      "displayName": "FTP Client File",
+      "typeName": "GeoLibrary.ORiN3.Provider.FTP.Client.O3Object.File.FtpClientFile, GeoLibrary.ORiN3.Provider.FTP.Client",
+      "comment": {
+        "default": "",
+        "ja-JP": ""
+      },
+      "parents": [ "11563710-5B28-4877-858B-2FECC350F112" ],
+      "options": [
+        {
+          "name": "Path",
+          "comment": {
+            "default": "",
+            "ja-JP": "パスを指定します。"
+          },
+          "rule": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "Mode",
+          "optional": true,
+          "comment": {
+            "default": "",
+            "ja-JP": "モードを指定します。"
+          },
+          "rule": {
+            "type": "string"
+          }
+        }
+      ]
+    }
+  ]
+}

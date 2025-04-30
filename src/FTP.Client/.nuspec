@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$authors$</authors>
+    <requireLicenseAcceptance>$requireLicenseAcceptance$</requireLicenseAcceptance>
+    <description>$description$
+
+[VERSION_INFO]</description>
+    <copyright>$copyright$</copyright>
+    <tags>$tags$</tags>
+    <dependencies>
+      <group targetFramework="$dotnet$" />
+    </dependencies>
+    <icon>bin\$dotnet$\_Resource\orin3_128x128.png</icon>
+  </metadata>
+  <files>
+    <file src="bin\$buildConfiguration$\" target="bin\"/>
+  </files>
+</package>

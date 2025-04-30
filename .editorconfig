@@ -1,0 +1,89 @@
+﻿root = true
+
+[*.cs]
+# [*.{cs,vb}]
+
+################################################################################
+# readonly付けれるところは付ける
+################################################################################
+dotnet_style_readonly_field = true:error
+
+################################################################################
+# private、もしくはprotectedの変数はアンダーバー始まり
+################################################################################
+# シンボルのグループ名
+dotnet_naming_rule.public_or_protected_field_must_underbarstart.symbols = public_or_protected_symbols
+# シンボルの種類 - field
+dotnet_naming_symbols.public_or_protected_symbols.applicable_kinds = field
+# シンボルのアクセシビリティレベル - private, protected
+dotnet_naming_symbols.public_or_protected_symbols.applicable_accessibilities =  private,protected
+# スタイル名
+dotnet_naming_rule.prefix_is_underbar.style = pre_under_bar
+# 大文字/小文字 - camel_case
+dotnet_naming_style.pre_under_bar.capitalization = camel_case
+# プレフィックス - '_'
+dotnet_naming_style.pre_under_bar.required_prefix = _
+# スタイル
+dotnet_naming_rule.public_or_protected_field_must_underbarstart.style = pre_under_bar
+# 重要度 - エラー
+dotnet_naming_rule.public_or_protected_field_must_underbarstart.severity = error
+
+################################################################################
+# constはパスカルケース
+################################################################################
+# シンボルのグループ名
+dotnet_naming_rule.const_field_must_be_pascal_case.symbols = const_fields
+# シンボルの種類 - field
+dotnet_naming_symbols.const_fields.applicable_kinds = field
+# シンボルのアクセシビリティレベル - *
+dotnet_naming_symbols.const_fields.applicable_accessibilities = *
+# シンボルの修飾子 - const
+dotnet_naming_symbols.const_fields.required_modifiers = const
+# スタイル名
+dotnet_naming_rule.first_word_must_be_upper.style = upper_start
+# 大文字/小文字 - pascal_case
+dotnet_naming_style.upper_start.capitalization = pascal_case
+# スタイル
+dotnet_naming_rule.const_field_must_be_pascal_case.style = upper_start
+# 重要度 - エラー
+dotnet_naming_rule.const_field_must_be_pascal_case.severity = error
+
+################################################################################
+# thisキーワードは絶対に必要な部分のみ
+################################################################################
+# フィールド アクセス - 'this' を優先しない, エラー
+dotnet_style_qualification_for_field = false:error
+# プロパティ アクセス - 'this' を優先しない, エラー
+dotnet_style_qualification_for_property = false:error
+# メソッド アクセス - 'this' を優先しない, エラー
+dotnet_style_qualification_for_method = false:error
+# イベント アクセス - 'this' を優先しない, エラー
+dotnet_style_qualification_for_event = false:error
+
+################################################################################
+# 引数やローカルの変数はキャメルケース
+################################################################################
+# シンボルのグループ名
+dotnet_naming_rule.parameter_or_local_must_be_camel_case.symbols = parameter_or_local_symbols
+# シンボルの種類 - parameter, local
+dotnet_naming_symbols.parameter_or_local_symbols.applicable_kinds = parameter,local
+# シンボルのアクセシビリティレベル - *
+#dotnet_naming_symbols.parameter_or_local_symbols.applicable_accessibilities = *
+# スタイル名
+dotnet_naming_rule.first_word_must_be_lower.style = lower_start
+# 大文字/小文字 - camel_case
+dotnet_naming_style.lower_start.capitalization = camel_case
+# スタイル
+dotnet_naming_rule.parameter_or_local_must_be_camel_case.style = lower_start
+# 重要度 - エラー
+dotnet_naming_rule.parameter_or_local_must_be_camel_case.severity = error
+
+################################################################################
+# 推論できる変数はvar
+################################################################################
+# ビルドイン型の場合
+csharp_style_var_for_built_in_types = true:error
+# 変数の型が明らかな場合
+csharp_style_var_when_type_is_apparent = true:error
+# その他の場所
+csharp_style_var_elsewhere = true:error

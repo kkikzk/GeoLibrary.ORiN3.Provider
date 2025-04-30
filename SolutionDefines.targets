@@ -1,0 +1,34 @@
+<Project DefaultTargets="Build" xmlns="http://schemas.Microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <CompanyName>GeoLibrary</CompanyName>
+    <ProductName>GeoLibrary ORiN3 Provider</ProductName>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DotNetVersion>net8.0</DotNetVersion>
+    <DotNetStandardVersion>netstandard2.1</DotNetStandardVersion>
+    <DotNetLangVersion>12.0</DotNetLangVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ORiN3Version>[1.0.*,1.1.0)</ORiN3Version>
+    <ORiN3ProviderCoreVersion>[1.0.*,1.1.0)</ORiN3ProviderCoreVersion>
+    <ColdaAuthVersion>[1.0.*,1.1.0)</ColdaAuthVersion>
+  </PropertyGroup>
+  <PropertyGroup>
+    <!-- Azure -->
+    <AzureBlobsVersion>[12.24.*,12.25.0)</AzureBlobsVersion>
+    <AzureFilesVersion>[12.22.*,12.23.0)</AzureFilesVersion>
+  </PropertyGroup>
+  <PropertyGroup> <!-- AWS S3 -->
+    <AWSS3Version>[3.7.*,3.8.0)</AWSS3Version>
+  </PropertyGroup>
+  <PropertyGroup> <!-- FTP Client -->
+    <FluentFTPVersion>[52.0.*,52.1.0)</FluentFTPVersion>
+  </PropertyGroup>
+  <PropertyGroup> <!-- Test -->
+    <MicrosoftNETTestSdkVersion>[17.8.*,17.9.0)</MicrosoftNETTestSdkVersion>
+    <XUnitVersion>[2.9.*,2.10.0)</XUnitVersion>
+    <XUnitRunnerVersion>[2.8.*,2.9.0)</XUnitRunnerVersion>
+    <CoverletVersion>[6.0.*,6.1.0)</CoverletVersion>
+    <SystemIOPortsVersion>[8.0.*,8.1.0)</SystemIOPortsVersion>
+  </PropertyGroup>
+</Project>

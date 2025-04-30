@@ -1,0 +1,91 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35527.113
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_SolutionItems", "_SolutionItems", "{4E997E7C-00AD-45DE-81A4-D5800A256802}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+		.gitignore = .gitignore
+		LICENSE = LICENSE
+		nuget.config = nuget.config
+		README.md = README.md
+		SolutionDefines.ProjectVersion.targets = SolutionDefines.ProjectVersion.targets
+		SolutionDefines.targets = SolutionDefines.targets
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{06E9B7BE-7275-4CD5-B647-D8F065D1CB32}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoLibrary.ORiN3.Provider.AWS.S3", "src\AWS.S3\GeoLibrary.ORiN3.Provider.AWS.S3.csproj", "{35E3395D-D3FF-4B04-8DE4-64D230E2FD7B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{3BA85508-AC7D-46AA-B017-127A8AF2742C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoLibrary.ORiN3.Provider.AWS.S3.Test", "test\AWS.S3.Test\GeoLibrary.ORiN3.Provider.AWS.S3.Test.csproj", "{D4F83726-D9F3-491A-A799-A81F11B67365}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{959A7E51-175F-43CD-8757-E6C6BB1419E8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoLibrary.ORiN3.Provider.BaseLib", "common\BaseLib\GeoLibrary.ORiN3.Provider.BaseLib.csproj", "{736303A5-5297-480D-9431-619D81532B37}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoLibrary.ORiN3.Provider.TestBaseLib", "common\TestBaseLib\GeoLibrary.ORiN3.Provider.TestBaseLib.csproj", "{25572C49-C664-41F3-8E99-0E113C9E1560}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoLibrary.ORiN3.Provider.FTP.Client", "src\FTP.Client\GeoLibrary.ORiN3.Provider.FTP.Client.csproj", "{9B5135A5-E073-4B39-9894-671DCB125124}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoLibrary.ORiN3.Provider.FTP.Client.Test", "test\FTP.Client.Test\GeoLibrary.ORiN3.Provider.FTP.Client.Test.csproj", "{18EBD133-C2D8-4A4A-BDE1-51E66EC47DF3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoLibrary.ORiN3.Provider.Azure.Storage", "src\Azure.Storage\GeoLibrary.ORiN3.Provider.Azure.Storage.csproj", "{5626B5B2-6B66-49A3-BAF7-6731D2427173}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeoLibrary.ORiN3.Provider.Azure.Storage.Test", "test\Azure.Storage.Test\GeoLibrary.ORiN3.Provider.Azure.Storage.Test.csproj", "{58EF525C-6EC1-4163-B13E-1E38E9B6F13B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{35E3395D-D3FF-4B04-8DE4-64D230E2FD7B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{35E3395D-D3FF-4B04-8DE4-64D230E2FD7B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{35E3395D-D3FF-4B04-8DE4-64D230E2FD7B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{35E3395D-D3FF-4B04-8DE4-64D230E2FD7B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D4F83726-D9F3-491A-A799-A81F11B67365}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D4F83726-D9F3-491A-A799-A81F11B67365}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D4F83726-D9F3-491A-A799-A81F11B67365}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D4F83726-D9F3-491A-A799-A81F11B67365}.Release|Any CPU.Build.0 = Release|Any CPU
+		{736303A5-5297-480D-9431-619D81532B37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{736303A5-5297-480D-9431-619D81532B37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{736303A5-5297-480D-9431-619D81532B37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{736303A5-5297-480D-9431-619D81532B37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25572C49-C664-41F3-8E99-0E113C9E1560}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25572C49-C664-41F3-8E99-0E113C9E1560}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25572C49-C664-41F3-8E99-0E113C9E1560}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25572C49-C664-41F3-8E99-0E113C9E1560}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B5135A5-E073-4B39-9894-671DCB125124}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B5135A5-E073-4B39-9894-671DCB125124}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B5135A5-E073-4B39-9894-671DCB125124}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B5135A5-E073-4B39-9894-671DCB125124}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18EBD133-C2D8-4A4A-BDE1-51E66EC47DF3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18EBD133-C2D8-4A4A-BDE1-51E66EC47DF3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18EBD133-C2D8-4A4A-BDE1-51E66EC47DF3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18EBD133-C2D8-4A4A-BDE1-51E66EC47DF3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5626B5B2-6B66-49A3-BAF7-6731D2427173}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5626B5B2-6B66-49A3-BAF7-6731D2427173}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5626B5B2-6B66-49A3-BAF7-6731D2427173}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5626B5B2-6B66-49A3-BAF7-6731D2427173}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58EF525C-6EC1-4163-B13E-1E38E9B6F13B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58EF525C-6EC1-4163-B13E-1E38E9B6F13B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58EF525C-6EC1-4163-B13E-1E38E9B6F13B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58EF525C-6EC1-4163-B13E-1E38E9B6F13B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{35E3395D-D3FF-4B04-8DE4-64D230E2FD7B} = {06E9B7BE-7275-4CD5-B647-D8F065D1CB32}
+		{D4F83726-D9F3-491A-A799-A81F11B67365} = {3BA85508-AC7D-46AA-B017-127A8AF2742C}
+		{736303A5-5297-480D-9431-619D81532B37} = {959A7E51-175F-43CD-8757-E6C6BB1419E8}
+		{25572C49-C664-41F3-8E99-0E113C9E1560} = {959A7E51-175F-43CD-8757-E6C6BB1419E8}
+		{9B5135A5-E073-4B39-9894-671DCB125124} = {06E9B7BE-7275-4CD5-B647-D8F065D1CB32}
+		{18EBD133-C2D8-4A4A-BDE1-51E66EC47DF3} = {3BA85508-AC7D-46AA-B017-127A8AF2742C}
+		{5626B5B2-6B66-49A3-BAF7-6731D2427173} = {06E9B7BE-7275-4CD5-B647-D8F065D1CB32}
+		{58EF525C-6EC1-4163-B13E-1E38E9B6F13B} = {3BA85508-AC7D-46AA-B017-127A8AF2742C}
+	EndGlobalSection
+EndGlobal

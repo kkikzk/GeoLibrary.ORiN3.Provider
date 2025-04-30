@@ -1,0 +1,354 @@
+﻿<h1>GeoLibrary ORiN3 Azure Storage Provider</h1>
+<ul>
+    <li>
+        <a href="#BlobStorageController">1. BlobStorageController</a>
+        <ul>
+            <li>
+                コマンド
+                <ul>
+                    <li><a href="#UploadBlockFromFile">1.1.1 UploadBlockFromFile</a></li>
+                    <li><a href="#UploadBlockFromDirectory">1.1.2 UploadBlockFromDirectory</a></li>
+                    <li><a href="#ListObjects">1.1.3 ListObjects</a></li>
+                    <li><a href="#DeleteObject">1.1.4 DeleteObject</a></li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li>
+        <a href="#BlockBlobFile">2. BlockBlobFile</a>
+        <ul>
+            <li>
+                コマンド
+                <ul>
+                    <li><a href="#GetProperties">2.1.1 GetProperties</a></li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+
+<h2 id="BlobStorageController">1 BlobStorageController</h2>
+<p>
+    BlobStorageControllerは、Azure Blob Storageへの接続とファイル操作を行うためのコントローラです。<br>
+    JSONオプションに指定する項目を以下に示します。各項目はJSON記法に則ってKeyと対応するValueを入力してください。
+</p>
+
+<h3>JSONオプション</h3>
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr>
+        <th>Key</th>
+        <th>型</th>
+        <th>必須</th>
+        <th>暗号化</th>
+        <th>説明</th>
+        <th>値範囲</th>
+        <th>デフォルト値</th>
+    </tr>
+    <tr>
+        <td>Account Name</td>
+        <td>string</td>
+        <td>✓</td>
+        <td></td>
+        <td>接続するAzure Storageアカウント名です。</td>
+        <td>ストレージアカウント名の命名規則に準拠</td>
+        <td>―</td>
+    </tr>
+    <tr>
+        <td>Access Key</td>
+        <td>string</td>
+        <td>✓</td>
+        <td>✓</td>
+        <td>Azure Storageアカウントのアクセスキーです。</td>
+        <td>有効なアクセスキー</td>
+        <td>―</td>
+    </tr>
+    <tr>
+        <td>Use Https</td>
+        <td>bool</td>
+        <td></td>
+        <td></td>
+        <td>HTTPSを使用するかどうか</td>
+        <td>`true` or `false`</td>
+        <td>true</td>
+    </tr>
+    <tr>
+        <td>Endpoint Suffix</td>
+        <td>string</td>
+        <td></td>
+        <td></td>
+        <td>Azureのエンドポイントサフィックス</td>
+        <td>任意のサフィックス</td>
+        <td>core.windows.net</td>
+    </tr>
+</table>
+
+<h2>1.1 コマンド</h2>
+
+<h3 id="UploadBlockFromFile">1.1.1 UploadBlockFromFile</h3>
+<p>ローカルファイルをAzure Blob Storageにアップロードします。</p>
+<h4>引数</h4>
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr>
+        <th>Key</th>
+        <th>型</th>
+        <th>必須</th>
+        <th>説明</th>
+        <th>デフォルト値</th>
+    </tr>
+    <tr>
+        <td>File Path</td>
+        <td>string</td>
+        <td>✓</td>
+        <td>アップロードするファイルのフルパス</td>
+        <td>―</td>
+    </tr>
+    <tr>
+        <td>Container Name</td>
+        <td>string</td>
+        <td>✓</td>
+        <td>アップロード先コンテナ名</td>
+        <td>―</td>
+    </tr>
+    <tr>
+        <td>Prefix</td>
+        <td>string</td>
+        <td> </td>
+        <td>Blob名の接頭辞</td>
+        <td>なし</td>
+    </tr>
+    <tr>
+        <td>Overwrite</td>
+        <td>bool</td>
+        <td> </td>
+        <td>既存Blobを上書きするか</td>
+        <td>true</td>
+    </tr>
+</table>
+
+<h4>戻り値</h4>
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr>
+        <th>Key</th>
+        <th>型</th>
+        <th>説明</th>
+    </tr>
+    <tr>
+        <td><a href="#Result">Result</a></td>
+        <td>int</td>
+        <td>実行結果コード</td>
+    </tr>
+    <tr>
+        <td>Blob Name</td>
+        <td>string</td>
+        <td>アップロードしたBlobの名前</td>
+    </tr>
+    <tr>
+        <td>Uri</td>
+        <td>string</td>
+        <td>BlobのURI</td>
+    </tr>
+    <tr>
+        <td>ETag</td>
+        <td>string</td>
+        <td>ETag値</td>
+    </tr>
+    <tr>
+        <td>Last Modified</td>
+        <td>datetime</td>
+        <td>最終更新日時 (UTC)</td>
+    </tr>
+    <tr>
+        <td>Azure Error Code</td>
+        <td>string</td>
+        <td>Azureエラーコード</td>
+    </tr>
+    <tr>
+        <td>HTTP Status</td>
+        <td>int</td>
+        <td>HTTPステータスコード</td>
+    </tr>
+    <tr>
+        <td>Error Message</td>
+        <td>string</td>
+        <td>エラーメッセージ</td>
+    </tr>
+    <tr>
+        <td>Stack Trace</td>
+        <td>string</td>
+        <td>スタックトレース</td>
+    </tr>
+</table>
+
+<h3 id="UploadBlockFromDirectory">1.1.2 UploadBlockFromDirectory</h3>
+<p>
+    ローカルディレクトリ内の全ファイルをAzure Blob Storageにアップロードします。<br>
+    サブディレクトリ以下にあるファイルはアップロード対象外です。<br>
+    処理の途中でエラーが発生した場合、移行のファイルアップロードは中断します。<br>
+    アップロードに成功したファイルの数は戻り値の『Uploaded Count』で確認できます。
+</p>
+<h4>引数</h4>
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr><th>Key</th><th>型</th><th>必須</th><th>説明</th><th>デフォルト値</th></tr>
+    <tr><td>Directory Path</td><td>string</td><td>✓</td><td>アップロード対象ディレクトリのパス</td><td>―</td></tr>
+    <tr><td>Container Name</td><td>string</td><td>✓</td><td>アップロード先コンテナ名</td><td>―</td></tr>
+    <tr><td>Prefix</td><td>string</td><td> </td><td>Blob名の接頭辞</td><td>なし</td></tr>
+    <tr><td>Overwrite</td><td>bool</td><td> </td><td>既存Blobを上書きするか</td><td>true</td></tr>
+</table>
+
+<h4>戻り値</h4>
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr><th>Key</th><th>型</th><th>説明</th></tr>
+    <tr><td><a href="#Result">Result</a></td><td>int</td><td>実行結果コード</td></tr>
+    <tr><td>Uploaded Count</td><td>int</td><td>アップロードしたファイル数</td></tr>
+    <tr><td>Azure Error Code</td><td>string</td><td>Azureエラーコード</td></tr>
+    <tr><td>HTTP Status</td><td>int</td><td>HTTPステータスコード</td></tr>
+    <tr><td>Error Message</td><td>string</td><td>エラーメッセージ</td></tr>
+    <tr><td>Stack Trace</td><td>string</td><td>スタックトレース</td></tr>
+</table>
+
+<h3 id="ListObjects">1.1.3 ListObjects</h3>
+<p>
+    指定コンテナ内のBlob一覧を取得します。<br>
+    Prefexを指定すれば特定の仮想ディレクトリ以下のBlob一覧を取得できます。
+</p>
+<h4>引数</h4>
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr><th>Key</th><th>型</th><th>必須</th><th>説明</th><th>デフォルト値</th></tr>
+    <tr><td>Container Name</td><td>string</td><td>✓</td><td>対象コンテナ名</td><td>―</td></tr>
+    <tr><td>Prefix</td><td>string</td><td> </td><td>対象Blob名の接頭辞</td><td>なし</td></tr>
+</table>
+
+<h4>戻り値</h4>
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr><th>Key</th><th>型</th><th>説明</th></tr>
+    <tr><td><a href="#Result">Result</a></td><td>int</td><td>実行結果コード</td></tr>
+    <tr><td>Object Count</td><td>int</td><td>取得できたBlob数</td></tr>
+    <tr><td>Object Names</td><td>string[]</td><td>Blob名リスト</td></tr>
+    <tr><td>Azure Error Code</td><td>string</td><td>Azureエラーコード</td></tr>
+    <tr><td>HTTP Status</td><td>int</td><td>HTTPステータスコード</td></tr>
+    <tr><td>Error Message</td><td>string</td><td>エラーメッセージ</td></tr>
+    <tr><td>Stack Trace</td><td>string</td><td>スタックトレース</td></tr>
+</table>
+
+<h3 id="DeleteObject">1.1.4 DeleteObject</h3>
+<p>指定Blobを削除します。</p>
+<h4>引数</h4>
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr><th>Key</th><th>型</th><th>必須</th><th>説明</th><th>デフォルト値</th></tr>
+    <tr><td>Container Name</td><td>string</td><td>✓</td><td>対象コンテナ名</td><td>―</td></tr>
+    <tr><td>Blob Path</td><td>string</td><td>✓</td><td>削除対象Blob</td><td>―</td></tr>
+    <tr><td>ETag</td><td>string</td><td></td><td>削除対象BlobのETag値</td><td>―</td></tr>
+</table>
+
+<h4>戻り値</h4>
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr><th>Key</th><th>型</th><th>説明</th></tr>
+    <tr><td><a href="#Result">Result</a></td><td>int</td><td>実行結果コード</td></tr>
+    <tr><td>Azure Error Code</td><td>string</td><td>Azureエラーコード</td></tr>
+    <tr><td>HTTP Status</td><td>int</td><td>HTTPステータスコード</td></tr>
+    <tr><td>Error Message</td><td>string</td><td>エラーメッセージ</td></tr>
+    <tr><td>Stack Trace</td><td>string</td><td>スタックトレース</td></tr>
+</table>
+
+<h2 id="BlockBlobFile">2 BlockBlobFile</h2>
+
+<p>
+    BlockBlobFileは、Azure Blob StorageのブロックBlobファイルを扱うためのクラスです。<br>
+    主に以下の操作を行います：
+
+    <ul>
+        <li>Azure Storageアカウント名とアクセスキーを使って接続</li>
+        <li>指定されたBlobファイルをダウンロードしてローカルに保持</li>
+        <li>取得したBlobファイルを読み取ることができます</li>
+    </ul>
+
+    JSONオプションに指定する項目を以下に示します。各項目はJSON記法に則ってKeyと対応するValueを入力してください。
+</p>
+
+<h3>JSONオプション</h3>
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr>
+        <th>Key</th>
+        <th>型</th>
+        <th>必須</th>
+        <th>説明</th>
+        <th>値範囲</th>
+        <th>デフォルト値</th>
+    </tr>
+    <tr>
+        <td>Container Name</td>
+        <td>string</td>
+        <td>✓</td>
+        <td>操作対象のコンテナ名</td>
+        <td>任意のコンテナ名</td>
+        <td>―</td>
+    </tr>
+    <tr>
+        <td>Blob Path</td>
+        <td>string</td>
+        <td>✓</td>
+        <td>対象ファイルのパス</td>
+        <td>任意のパス</td>
+        <td>―</td>
+    </tr>
+</table>
+
+<h2>2.1 コマンド</h2>
+
+<h2 id="GetProperties">2.1.1 GetProperties</h2>
+<p>指定されたBlobファイルのプロパティを取得します。</p>
+
+<h4>引数</h4>
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr><th>Key</th><th>型</th><th>必須</th><th>説明</th><th>デフォルト値</th></tr>
+    <tr><td>Command Name</td><td>string</td><td>✓</td><td>`GetProperties`</td><td>―</td></tr>
+</table>
+
+<h4>戻り値</h4>
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr><th>Key</th><th>型</th><th>説明</th></tr>
+    <tr><td><a href="#Result">Result</a></td><td>int</td><td>実行結果コード</td></tr>
+    <tr><td>Blob Name</td><td>string</td><td>Blobのファイル名</td></tr>
+    <tr><td>Content Length</td><td>long</td><td>ファイルのコンテンツ長</td></tr>
+    <tr><td>Content Type</td><td>string</td><td>コンテンツタイプ</td></tr>
+    <tr><td>Last Modified</td><td>string</td><td>最終更新日時 (ISO 8601形式)</td></tr>
+    <tr><td>Created On</td><td>string</td><td>作成日時 (ISO 8601形式)</td></tr>
+    <tr><td>Archived</td><td>bool</td><td>アーカイブされているかどうか</td></tr>
+    <tr><td>Server Encrypted</td><td>bool</td><td>サーバー側で暗号化されているか</td></tr>
+    <tr><td>Custom Metadata</td><td>string</td><td>Blobに関連するカスタムメタデータ</td></tr>
+</table>
+
+<h2 id="AppendBytes">2.1.1 AppendBytes</h2>
+<p>指定されたAppend Blobにデータを追記します。</p>
+
+<h4>引数</h4>
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr><th>Key</th><th>型</th><th>必須</th><th>説明</th><th>デフォルト値</th></tr>
+    <tr><td>Blob Path</td><td>string</td><td>✓</td><td>対象ファイルのパス</td><td>―</td></tr>
+    <tr><td>Container Name</td><td>string</td><td>✓</td><td>アップロード先コンテナ名</td><td>―</td></tr>
+    <tr><td>Bytes</td><td>byte[]</td><td>✓</td><td>追記するデータ</td><td>―</td></tr>
+</table>
+
+<h4>戻り値</h4>
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr><th>Key</th><th>型</th><th>説明</th></tr>
+    <tr><td><a href="#Result">Result</a></td><td>int</td><td>実行結果コード</td></tr>
+    <tr><td>Blob Name</td><td>string</td><td>Blobのファイル名</td></tr>
+    <tr><td>Uri</td><td>string</td><td>BlobのURI</td></tr>
+    <tr><td>ETag</td><td>string</td><td>ETag値</td></tr>
+    <tr><td>Last Modified</td><td>string</td><td>最終更新日時 (ISO 8601形式)</td></tr>
+    <tr><td>Azure Error Code</td><td>string</td><td>Azureエラーコード</td></tr>
+    <tr><td>HTTP Status</td><td>int</td><td>HTTPステータスコード</td></tr>
+    <tr><td>Error Message</td><td>string</td><td>エラーメッセージ</td></tr>
+    <tr><td>Stack Trace</td><td>string</td><td>スタックトレース</td></tr>
+</table>
+
+<h2 id="Appendix">Appendix</h2>
+<h3 id="Result">Result</h3>
+<ul>
+    <li><strong>Unknown (-1):</strong> Unknown error</li>
+    <li><strong>Success (0):</strong> Operation completed successfully</li>
+    <li><strong>AzureError (1):</strong> Error reported from Azure SDK or service</li>
+    <li><strong>OtherError (2):</strong> Other errors (network issues, unexpected errors)</li>
+</ul>
+
