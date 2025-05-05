@@ -16,7 +16,7 @@
     </dependencies>
     <icon>128x128.png</icon>
     <releaseNotes>
-        First release.
+        Added support for Azure File Storage.
     </releaseNotes>
     <projectUrl>https://github.com/kkikzk/GeoLibrary.ORiN3.Provider</projectUrl>
     <repository type="git" url="https://github.com/kkikzk/GeoLibrary.ORiN3.Provider.git" />
