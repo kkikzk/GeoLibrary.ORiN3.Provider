@@ -22,4 +22,9 @@ internal class BlobBaseClientWrapper(BlobBaseClient client) : IBlobBaseClient
     {
         return _client.DownloadToAsync(path, token);
     }
+
+    public Task SetHttpHeadersAsync(BlobHttpHeaders blobHttpHeaders, CancellationToken cancellationToken)
+    {
+        return _client.SetHttpHeadersAsync(blobHttpHeaders, cancellationToken: cancellationToken);
+    }
 }

@@ -1,1 +1,700 @@
-<h1>GeoLibrary ORiN3 Azure Storage Provider</h1>
+﻿<h1>GeoLibrary ORiN3 Azure Storage Provider</h1>
+<ul>
+    <li>
+        <a href="#BlobStorageController">BlobStorageController</a>
+        <ul>
+            <li>
+                Command
+                <ul>
+                    <li><a href="#UploadBlock">UploadBlock</a></li>
+                    <li><a href="#UploadBlockFromFile">UploadBlockFromFile</a></li>
+                    <li><a href="#UploadBlockFromDirectory">UploadBlockFromDirectory</a></li>
+                    <li><a href="#ListObjects">ListObjects</a></li>
+                    <li><a href="#DeleteObject">DeleteObject</a></li>
+                    <li><a href="#Append">Append</a></li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li>
+        <a href="#FileStorageController">FileStorageController</a>
+        <ul>
+            <li>
+                Command
+                <ul>
+                    <li><a href="#Upload">Upload</a></li>
+                    <li><a href="#UploadFromFile">UploadFromFile</a></li>
+                    <li><a href="#UploadFromDirectory">UploadFromDirectory</a></li>
+                    <li><a href="#ListItems">ListItems</a></li>
+                    <li><a href="#DeleteFile">DeleteFile</a></li>
+                    <li><a href="#DeleteDirectory">DeleteDirectory</a></li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li>
+        <a href="#BlockBlobFile">BlockBlobFile</a>
+        <ul>
+            <li>
+                Command
+                <ul>
+                    <li><a href="#BlockBlobFile_GetProperties">GetProperties</a></li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li>
+        <a href="#AppendBlobFile">AppendBlockFile</a>
+        <ul>
+            <li>
+                Command
+                <ul>
+                    <li><a href="#AppendBlobFile_GetProperties">GetProperties</a></li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li>
+        <a href="#PageBlobFile">PageBlockFile</a>
+        <ul>
+            <li>
+                Command
+                <ul>
+                    <li><a href="#PageBlobFile_GetProperties">GetProperties</a></li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li>
+        <a href="#AzureFile">AzureFile</a>
+        <ul>
+            <li>
+                Command
+                <ul>
+                    <li><a href="#AzureFile_GetProperties">GetProperties</a></li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+    <li>
+        <a href="#Appendix">Appendix</a>
+    </li>
+</ul>
+
+<!-- ############################## BlobStorageController ############################## -->
+
+<h2 id="BlobStorageController">BlobStorageController</h2>
+<p>
+    BlobStorageController is a controller for connecting to Azure Blob Storage and performing file operations.<br>
+    The following items can be specified in the JSON options. Specify each item using JSON syntax with the appropriate key and value.
+</p>
+
+<h3>Type Name</h3>
+GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage
+
+<h3>JSON Options</h3>
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr><th>Key</th>             <th>Type</th>   <th>Required</th> <th>Encrypted</th> <th>Description</th>                              <th>Value Range</th>                            <th>Default</th></tr>
+    <tr><td>Account Name</td>    <td>string</td> <td>✓</td>        <td></td>          <td>The Azure Storage account name to connect to.</td>     <td>Follows Azure naming rules</td>       <td></td></tr>
+    <tr><td>Account Key</td>     <td>string</td> <td>✓</td>        <td>✓</td>         <td>The access key for the Azure Storage account.</td>     <td>Valid access key</td>                 <td></td></tr>
+    <tr><td>Use Https</td>       <td>bool</td>   <td></td>         <td></td>          <td>Whether to use HTTPS</td>                            <td>`true` or `false`</td>                <td>true</td></tr>
+    <tr><td>Endpoint Suffix</td><td>string</td> <td></td>         <td></td>          <td>The endpoint suffix for Azure</td>                     <td>Any suffix</td>                       <td>core.windows.net</td></tr>
+</table>
+
+<h3>Parent Object</h3>
+Root
+
+<h3>Child Objects</h3>
+<ul>
+    <li>
+        <a href="#BlockBlobFile">BlockBlobFile</a>
+    </li>
+    <li>
+        <a href="#AppendBlobFile">AppendBlockFile</a>
+    </li>
+    <li>
+        <a href="#PageBlobFile">PageBlockFile</a>
+    </li>
+</ul>
+
+<h2>Command</h2>
+<h3 id="UploadBlock">UploadBlock</h3>
+<p>
+    Uploads the content of a blob as a byte array to Azure Blob Storage as a Block Blob.
+</p>
+<h4>Arguments</h4>
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr><th>Key</th><th>Type</th><th>Required</th><th>Description</th><th>Default</th></tr>
+    <tr><td>Bytes</td><td>string</td><td>✓</td><td>Data to upload</td><td></td></tr>
+    <tr><td>Container Name</td><td>string</td><td>✓</td><td>Destination container name</td><td></td></tr>
+    <tr><td>Blob Path</td><td>string</td><td>✓</td><td>Blob path</td><td></td></tr>
+    <tr><td>Overwrite</td><td>bool</td><td></td><td>Whether to overwrite the existing blob</td><td>true</td></tr>
+</table>
+<h4>Return Values</h4>
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr><th>Key</th><th>Type</th><th>Description</th></tr>
+    <tr><td><a href="#Result">Result</a></td><td>int</td><td>Execution result code</td></tr>
+    <tr><td>Blob Path</td><td>string</td><td>Uploaded blob path</td></tr>
+    <tr><td>Uri</td><td>string</td><td>Blob URI</td></tr>
+    <tr><td>ETag</td><td>string</td><td>ETag value</td></tr>
+    <tr><td>Last Modified</td><td>DateTime</td><td>Last modified time (UTC)</td></tr>
+    <tr><td>Azure Error Code</td><td>string</td><td>Azure error code</td></tr>
+    <tr><td>HTTP Status</td><td>int</td><td>HTTP status code</td></tr>
+    <tr><td>Error Message</td><td>string</td><td>Error message</td></tr>
+    <tr><td>Stack Trace</td><td>string</td><td>Stack trace</td></tr>
+</table>
+
+<h3 id="UploadBlockFromFile">UploadBlockFromFile</h3>
+<p>
+    Uploads a local file to Azure Blob Storage as a Block Blob.<br>
+    The blob name will be the same as the local file name.<br>
+    Directory names in the local path are not used, so use the Prefix option if needed.<br>
+</p>
+<h4>Arguments</h4>
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr><th>Key</th><th>Type</th><th>Required</th><th>Description</th><th>Default</th></tr>
+    <tr><td>File Path</td><td>string</td><td>✓</td><td>Full path of the file to upload</td><td></td></tr>
+    <tr><td>Container Name</td><td>string</td><td>✓</td><td>Destination container name</td><td></td></tr>
+    <tr><td>Prefix</td><td>string</td><td></td><td>Prefix for the blob name</td><td></td></tr>
+    <tr><td>Overwrite</td><td>bool</td><td></td><td>Whether to overwrite the existing blob</td><td>true</td></tr>
+</table>
+<h4>Return Values</h4>
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr><th>Key</th><th>Type</th><th>Description</th></tr>
+    <tr><td><a href="#Result">Result</a></td><td>int</td><td>Execution result code</td></tr>
+    <tr><td>Blob Path</td><td>string</td><td>Uploaded blob path</td></tr>
+    <tr><td>Uri</td><td>string</td><td>Blob URI</td></tr>
+    <tr><td>ETag</td><td>string</td><td>ETag value</td></tr>
+    <tr><td>Last Modified</td><td>DateTime</td><td>Last modified time (UTC)</td></tr>
+    <tr><td>Azure Error Code</td><td>string</td><td>Azure error code</td></tr>
+    <tr><td>HTTP Status</td><td>int</td><td>HTTP status code</td></tr>
+    <tr><td>Error Message</td><td>string</td><td>Error message</td></tr>
+    <tr><td>Stack Trace</td><td>string</td><td>Stack trace</td></tr>
+</table>
+
+<h3 id="UploadBlockFromDirectory">UploadBlockFromDirectory</h3>
+<p>
+    Uploads all files in a local directory to Azure Blob Storage as Block Blobs.<br>
+    Files in subdirectories are not included.<br>
+    If an error occurs during processing, subsequent uploads are aborted.<br>
+    The number of successfully uploaded files can be checked using the "Uploaded Count" return value.<br>
+    The blob names will match the local file names.<br>
+    Directory names in the local path are not used, so specify a Prefix if necessary.<br>
+</p>
+<h4>Arguments</h4>
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr><th>Key</th><th>Type</th><th>Required</th><th>Description</th><th>Default</th></tr>
+    <tr><td>Directory Path</td><td>string</td><td>✓</td><td>Path to the directory containing files to upload</td><td></td></tr>
+    <tr><td>Container Name</td><td>string</td><td>✓</td><td>Destination container name</td><td></td></tr>
+    <tr><td>Prefix</td><td>string</td><td></td><td>Prefix for the blob name</td><td></td></tr>
+    <tr><td>Overwrite</td><td>bool</td><td></td><td>Whether to overwrite existing blobs</td><td>true</td></tr>
+</table>
+<h4>Return Values</h4>
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr><th>Key</th><th>Type</th><th>Description</th></tr>
+    <tr><td><a href="#Result">Result</a></td><td>int</td><td>Execution result code</td></tr>
+    <tr><td>Uploaded Count</td><td>int</td><td>Number of files successfully uploaded</td></tr>
+    <tr><td>Azure Error Code</td><td>string</td><td>Azure error code</td></tr>
+    <tr><td>HTTP Status</td><td>int</td><td>HTTP status code</td></tr>
+    <tr><td>Error Message</td><td>string</td><td>Error message</td></tr>
+    <tr><td>Stack Trace</td><td>string</td><td>Stack trace</td></tr>
+</table>
+
+<h3 id="ListObjects">ListObjects</h3>
+<p>
+    Retrieves a list of blobs in the specified container.<br>
+    If a prefix is specified, it returns only blobs under that virtual directory.<br>
+</p>
+<h4>Arguments</h4>
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr><th>Key</th><th>Type</th><th>Required</th><th>Description</th><th>Default</th></tr>
+    <tr><td>Container Name</td><td>string</td><td>✓</td><td>Target container name</td><td></td></tr>
+    <tr><td>Prefix</td><td>string</td><td></td><td>Prefix for the target blob names</td><td>None</td></tr>
+</table>
+<h4>Return Values</h4>
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr><th>Key</th><th>Type</th><th>Description</th></tr>
+    <tr><td><a href="#Result">Result</a></td><td>int</td><td>Execution result code</td></tr>
+    <tr><td>Object Count</td><td>int</td><td>Number of blobs retrieved</td></tr>
+    <tr><td>Object Names</td><td>string[]</td><td>List of blob names</td></tr>
+    <tr><td>Azure Error Code</td><td>string</td><td>Azure error code</td></tr>
+    <tr><td>HTTP Status</td><td>int</td><td>HTTP status code</td></tr>
+    <tr><td>Error Message</td><td>string</td><td>Error message</td></tr>
+    <tr><td>Stack Trace</td><td>string</td><td>Stack trace</td></tr>
+</table>
+
+<h3 id="DeleteObject">DeleteObject</h3>
+<p>
+    Deletes a specified blob.<br>
+    If an ETag is specified, the blob will not be deleted unless it matches.
+</p>
+<h4>Arguments</h4>
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr><th>Key</th><th>Type</th><th>Required</th><th>Description</th><th>Default</th></tr>
+    <tr><td>Container Name</td><td>string</td><td>✓</td><td>Target container name</td><td></td></tr>
+    <tr><td>Blob Path</td><td>string</td><td>✓</td><td>Path of the blob to delete</td><td></td></tr>
+    <tr><td>ETag</td><td>string</td><td></td><td>ETag of the blob to delete</td><td>null</td></tr>
+</table>
+<h4>Return Values</h4>
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr><th>Key</th><th>Type</th><th>Description</th></tr>
+    <tr><td><a href="#Result">Result</a></td><td>int</td><td>Execution result code</td></tr>
+    <tr><td>Azure Error Code</td><td>string</td><td>Azure error code</td></tr>
+    <tr><td>HTTP Status</td><td>int</td><td>HTTP status code</td></tr>
+    <tr><td>Error Message</td><td>string</td><td>Error message</td></tr>
+    <tr><td>Stack Trace</td><td>string</td><td>Stack trace</td></tr>
+</table>
+
+<h2 id="Append">Append</h2>
+<p>
+    Appends data to a specified Append Blob.
+</p>
+<h4>Arguments</h4>
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr><th>Key</th><th>Type</th><th>Required</th><th>Description</th><th>Default</th></tr>
+    <tr><td>Bytes</td><td>string</td><td>✓</td><td>Data to append</td><td></td></tr>
+    <tr><td>Container Name</td><td>string</td><td>✓</td><td>Destination container name</td><td></td></tr>
+    <tr><td>Blob Path</td><td>string</td><td>✓</td><td>Path of the blob</td><td></td></tr>
+    <tr><td>ETag</td><td>string</td><td></td><td>ETag of the target blob</td><td>null</td></tr>
+</table>
+<h4>Return Values</h4>
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr><th>Key</th><th>Type</th><th>Description</th></tr>
+    <tr><td><a href="#Result">Result</a></td><td>int</td><td>Execution result code</td></tr>
+    <tr><td>Blob Path</td><td>string</td><td>Blob file path</td></tr>
+    <tr><td>Uri</td><td>string</td><td>Blob URI</td></tr>
+    <tr><td>ETag</td><td>string</td><td>ETag value</td></tr>
+    <tr><td>Last Modified</td><td>DateTime</td><td>Last modified time (UTC)</td></tr>
+    <tr><td>Azure Error Code</td><td>string</td><td>Azure error code</td></tr>
+    <tr><td>HTTP Status</td><td>int</td><td>HTTP status code</td></tr>
+    <tr><td>Error Message</td><td>string</td><td>Error message</td></tr>
+    <tr><td>Stack Trace</td><td>string</td><td>Stack trace</td></tr>
+</table>
+
+<!-- ############################## FileStorageController ############################## -->
+
+<h2 id="FileStorageController">FileStorageController</h2>
+<p>
+    FileStorageController is a controller for connecting to Azure File Storage and performing file operations.<br>
+    The following items can be specified in the JSON options. Specify each item using JSON syntax with the appropriate key and value.
+</p>
+
+<h3>Type Name</h3>
+GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.FileStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage
+
+<h3>JSON Options</h3>
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr><th>Key</th><th>Type</th><th>Required</th><th>Encrypted</th><th>Description</th><th>Value Range</th><th>Default</th></tr>
+    <tr><td>Account Name</td><td>string</td><td>✓</td><td></td><td>The Azure Storage account name to connect to.</td><td>Follows Azure naming rules</td><td></td></tr>
+    <tr><td>Account Key</td><td>string</td><td>✓</td><td>✓</td><td>The access key for the Azure Storage account.</td><td>Valid access key</td><td></td></tr>
+    <tr><td>Use Https</td><td>bool</td><td></td><td></td><td>Whether to use HTTPS</td><td>`true` or `false`</td><td>true</td></tr>
+    <tr><td>Endpoint Suffix</td><td>string</td><td></td><td></td><td>Endpoint suffix for Azure</td><td>Any suffix</td><td>core.windows.net</td></tr>
+</table>
+
+<h3>Parent Object</h3>
+Root
+
+<h3>Child Objects</h3>
+<ul>
+    <li>
+        <a href="#AzureFile">AzureFile</a>
+    </li>
+</ul>
+
+<h2>Command</h2>
+<h3 id="Upload">Upload</h3>
+<p>
+    Uploads content to Azure File Storage as a byte array.<br>
+    If the specified path in Remote File Path includes directories that do not exist, they will be created automatically.
+</p>
+<h4>Arguments</h4>
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr><th>Key</th><th>Type</th><th>Required</th><th>Description</th><th>Default</th></tr>
+    <tr><td>Bytes</td><td>string</td><td>✓</td><td>Data to upload</td><td></td></tr>
+    <tr><td>Share Name</td><td>string</td><td>✓</td><td>Name of the destination share</td><td></td></tr>
+    <tr><td>Remote File Path</td><td>string</td><td>✓</td><td>Path to upload to</td><td></td></tr>
+</table>
+<h4>Return Values</h4>
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr><th>Key</th><th>Type</th><th>Description</th></tr>
+    <tr><td><a href="#Result">Result</a></td><td>int</td><td>Execution result code</td></tr>
+    <tr><td>File Path</td><td>string</td><td>Path of the uploaded file</td></tr>
+    <tr><td>Uri</td><td>string</td><td>URI of the file</td></tr>
+    <tr><td>ETag</td><td>string</td><td>ETag value</td></tr>
+    <tr><td>Last Modified</td><td>DateTime</td><td>Last modified time (UTC)</td></tr>
+    <tr><td>Azure Error Code</td><td>string</td><td>Azure error code</td></tr>
+    <tr><td>HTTP Status</td><td>int</td><td>HTTP status code</td></tr>
+    <tr><td>Error Message</td><td>string</td><td>Error message</td></tr>
+    <tr><td>Stack Trace</td><td>string</td><td>Stack trace</td></tr>
+</table>
+
+<h3 id="UploadFromFile">UploadFromFile</h3>
+<p>
+    Uploads a specified local file to Azure File Storage.<br>
+    If the directory specified in Remote Directory Path does not exist, it will be created.
+</p>
+<h4>Arguments</h4>
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr><th>Key</th><th>Type</th><th>Required</th><th>Description</th><th>Default</th></tr>
+    <tr><td>File Path</td><td>string</td><td>✓</td><td>The file to upload</td><td></td></tr>
+    <tr><td>Share Name</td><td>string</td><td>✓</td><td>Name of the destination share</td><td></td></tr>
+    <tr><td>Remote Directory Path</td><td>string</td><td></td><td>Path to the destination directory</td><td></td></tr>
+</table>
+<h4>Return Values</h4>
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr><th>Key</th><th>Type</th><th>Description</th></tr>
+    <tr><td><a href="#Result">Result</a></td><td>int</td><td>Execution result code</td></tr>
+    <tr><td>File Path</td><td>string</td><td>Path of the uploaded file</td></tr>
+    <tr><td>Uri</td><td>string</td><td>URI of the file</td></tr>
+    <tr><td>ETag</td><td>string</td><td>ETag value</td></tr>
+    <tr><td>Last Modified</td><td>DateTime</td><td>Last modified time (UTC)</td></tr>
+    <tr><td>Azure Error Code</td><td>string</td><td>Azure error code</td></tr>
+    <tr><td>HTTP Status</td><td>int</td><td>HTTP status code</td></tr>
+    <tr><td>Error Message</td><td>string</td><td>Error message</td></tr>
+    <tr><td>Stack Trace</td><td>string</td><td>Stack trace</td></tr>
+</table>
+
+<h3 id="UploadFromDirectory">UploadFromDirectory</h3>
+<p>
+    Uploads all files in a local directory to Azure File Storage.<br>
+    Files in subdirectories are not included.<br>
+    If an error occurs during processing, subsequent uploads are aborted.<br>
+    The number of successfully uploaded files can be checked using the "Uploaded Count" return value.<br>
+    File names will match the local file names.<br>
+    Specify Remote Directory Path if necessary.<br>
+    If the directory specified in Remote Directory Path does not exist, it will be created.
+</p>
+<h4>Arguments</h4>
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr><th>Key</th><th>Type</th><th>Required</th><th>Description</th><th>Default</th></tr>
+    <tr><td>Directory Path</td><td>string</td><td>✓</td><td>Path of the directory to upload</td><td></td></tr>
+    <tr><td>Share Name</td><td>string</td><td>✓</td><td>Name of the destination share</td><td></td></tr>
+    <tr><td>Remote Directory Path</td><td>string</td><td></td><td>Path of the destination directory</td><td></td></tr>
+</table>
+<h4>Return Values</h4>
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr><th>Key</th><th>Type</th><th>Description</th></tr>
+    <tr><td><a href="#Result">Result</a></td><td>int</td><td>Execution result code</td></tr>
+    <tr><td>Uploaded Count</td><td>int</td><td>Number of files successfully uploaded</td></tr>
+    <tr><td>Azure Error Code</td><td>string</td><td>Azure error code</td></tr>
+    <tr><td>HTTP Status</td><td>int</td><td>HTTP status code</td></tr>
+    <tr><td>Error Message</td><td>string</td><td>Error message</td></tr>
+    <tr><td>Stack Trace</td><td>string</td><td>Stack trace</td></tr>
+</table>
+
+<h3 id="ListItems">ListItems</h3>
+<p>
+    Retrieves a list of blobs in the specified container.<br>
+    If a prefix is specified, it returns only blobs under that virtual directory.
+</p>
+<h4>Arguments</h4>
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr><th>Key</th><th>Type</th><th>Required</th><th>Description</th><th>Default</th></tr>
+    <tr><td>Share Name</td><td>string</td><td>✓</td><td>Name of the target share</td><td></td></tr>
+    <tr><td>Remote Directory Path</td><td>string</td><td></td><td>Path of the target directory</td><td>None</td></tr>
+</table>
+<h4>Return Values</h4>
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr><th>Key</th><th>Type</th><th>Description</th></tr>
+    <tr><td><a href="#Result">Result</a></td><td>int</td><td>Execution result code</td></tr>
+    <tr><td>Count</td><td>int</td><td>Number of files retrieved</td></tr>
+    <tr><td>Names</td><td>string[]</td><td>List of file names</td></tr>
+    <tr><td>Azure Error Code</td><td>string</td><td>Azure error code</td></tr>
+    <tr><td>HTTP Status</td><td>int</td><td>HTTP status code</td></tr>
+    <tr><td>Error Message</td><td>string</td><td>Error message</td></tr>
+    <tr><td>Stack Trace</td><td>string</td><td>Stack trace</td></tr>
+</table>
+
+<h3 id="DeleteFile">DeleteFile</h3>
+<p>
+    Deletes a specified file.
+</p>
+<h4>Arguments</h4>
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr><th>Key</th><th>Type</th><th>Required</th><th>Description</th><th>Default</th></tr>
+    <tr><td>Share Name</td><td>string</td><td>✓</td><td>Name of the target share</td><td></td></tr>
+    <tr><td>Remote File Path</td><td>string</td><td>✓</td><td>Path of the file to delete</td><td></td></tr>
+</table>
+<h4>Return Values</h4>
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr><th>Key</th><th>Type</th><th>Description</th></tr>
+    <tr><td><a href="#Result">Result</a></td><td>int</td><td>Execution result code</td></tr>
+    <tr><td>Azure Error Code</td><td>string</td><td>Azure error code</td></tr>
+    <tr><td>HTTP Status</td><td>int</td><td>HTTP status code</td></tr>
+    <tr><td>Error Message</td><td>string</td><td>Error message</td></tr>
+    <tr><td>Stack Trace</td><td>string</td><td>Stack trace</td></tr>
+</table>
+
+<h3 id="DeleteDirectory">DeleteDirectory</h3>
+<p>
+    Deletes a specified directory.<br>
+    If the directory contains any files or subdirectories, the operation will fail.
+</p>
+<h4>Arguments</h4>
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr><th>Key</th><th>Type</th><th>Required</th><th>Description</th><th>Default</th></tr>
+    <tr><td>Share Name</td><td>string</td><td>✓</td><td>Name of the target share</td><td></td></tr>
+    <tr><td>Remote Directory Path</td><td>string</td><td>✓</td><td>Path of the directory to delete</td><td></td></tr>
+</table>
+<h4>Return Values</h4>
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr><th>Key</th><th>Type</th><th>Description</th></tr>
+    <tr><td><a href="#Result">Result</a></td><td>int</td><td>Execution result code</td></tr>
+    <tr><td>Azure Error Code</td><td>string</td><td>Azure error code</td></tr>
+    <tr><td>HTTP Status</td><td>int</td><td>HTTP status code</td></tr>
+    <tr><td>Error Message</td><td>string</td><td>Error message</td></tr>
+    <tr><td>Stack Trace</td><td>string</td><td>Stack trace</td></tr>
+</table>
+
+<!-- ############################## BlockBlobFile ############################## -->
+
+<h2 id="BlockBlobFile">BlockBlobFile</h2>
+<p>
+    BlockBlobFile is a class for handling Block Blobs in Azure Blob Storage.<br>
+    It mainly performs the following operations:
+    <ul>
+        <li>Connects using Azure Storage account name and access key</li>
+        <li>Downloads the specified blob file and stores it locally</li>
+        <li>Allows reading of the downloaded blob file</li>
+    </ul>
+    This object is read-only and cannot be used to write data.<br>
+    The following items can be specified in the JSON options. Specify each item using JSON syntax with the appropriate key and value.
+</p>
+
+<h3>Type Name</h3>
+GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.File.BlockBlobFile, GeoLibrary.ORiN3.Provider.Azure.Storage
+
+<h3>JSON Options</h3>
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr><th>Key</th><th>Type</th><th>Required</th><th>Description</th><th>Value Range</th><th>Default</th></tr>
+    <tr><td>Container Name</td><td>string</td><td>✓</td><td>Target container name</td><td>Any container name</td><td></td></tr>
+    <tr><td>Blob Path</td><td>string</td><td>✓</td><td>Path of the target file</td><td>Any path</td><td></td></tr>
+</table>
+
+<h3>Parent Object</h3>
+<ul>
+    <li>
+        <a href="#BlobStorageController">BlobStorageController</a>
+    </li>
+</ul>
+
+<h3>Child Objects</h3>
+None
+
+<h2>Command</h2>
+<h2 id="BlockBlobFile_GetProperties">GetProperties</h2>
+<p>
+    Retrieves the properties of the specified blob file.
+</p>
+<h4>Arguments</h4>
+None
+<h4>Return Values</h4>
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr><th>Key</th><th>Type</th><th>Description</th></tr>
+    <tr><td><a href="#Result">Result</a></td><td>int</td><td>Execution result code</td></tr>
+    <tr><td>Blob Path</td><td>string</td><td>Blob file path</td></tr>
+    <tr><td>Content Length</td><td>long</td><td>Length of the file content</td></tr>
+    <tr><td>Content Type</td><td>string</td><td>Content type</td></tr>
+    <tr><td>Last Modified</td><td>DateTime</td><td>Last modified date (UTC)</td></tr>
+    <tr><td>Created On</td><td>DateTime</td><td>Creation date (UTC)</td></tr>
+    <tr><td>Archived</td><td>bool</td><td>Whether the blob is archived</td></tr>
+    <tr><td>Server Encrypted</td><td>bool</td><td>Whether the blob is encrypted on the server</td></tr>
+    <tr><td>ETag</td><td>string</td><td>ETag</td></tr>
+    <tr><td>Custom Metadata</td><td>string</td><td>Custom metadata (JSON)</td></tr>
+    <tr><td>Error Message</td><td>string</td><td>Error message</td></tr>
+    <tr><td>Stack Trace</td><td>string</td><td>Stack trace</td></tr>
+</table>
+
+<!-- ############################## AppendkBlobFile ############################## -->
+
+<h2 id="AppendBlobFile">AppendBlobFile</h2>
+<p>
+    AppendBlobFile is a class for handling Append Blobs in Azure Blob Storage.<br>
+    It mainly performs the following operations:
+    <ul>
+        <li>Connects using Azure Storage account name and access key</li>
+        <li>Downloads the specified blob file and stores it locally</li>
+        <li>Allows reading of the downloaded blob file</li>
+    </ul>
+    This object is read-only and cannot be used to write data.<br>
+    The following items can be specified in the JSON options. Specify each item using JSON syntax with the appropriate key and value.
+</p>
+
+<h3>Type Name</h3>
+GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.File.AppendBlobFile, GeoLibrary.ORiN3.Provider.Azure.Storage
+
+<h3>JSON Options</h3>
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr><th>Key</th><th>Type</th><th>Required</th><th>Description</th><th>Value Range</th><th>Default</th></tr>
+    <tr><td>Container Name</td><td>string</td><td>✓</td><td>Target container name</td><td>Any container name</td><td></td></tr>
+    <tr><td>Blob Path</td><td>string</td><td>✓</td><td>Path of the target file</td><td>Any path</td><td></td></tr>
+</table>
+
+<h3>Parent Object</h3>
+<ul>
+    <li>
+        <a href="#BlobStorageController">BlobStorageController</a>
+    </li>
+</ul>
+
+<h3>Child Objects</h3>
+None
+
+<h2>Command</h2>
+<h2 id="AppendBlobFile_GetProperties">GetProperties</h2>
+<p>
+    Retrieves the properties of the specified blob file.
+</p>
+<h4>Arguments</h4>
+None
+<h4>Return Values</h4>
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr><th>Key</th><th>Type</th><th>Description</th></tr>
+    <tr><td><a href="#Result">Result</a></td><td>int</td><td>Execution result code</td></tr>
+    <tr><td>Blob Path</td><td>string</td><td>Blob file path</td></tr>
+    <tr><td>Content Length</td><td>long</td><td>Length of the file content</td></tr>
+    <tr><td>Content Type</td><td>string</td><td>Content type</td></tr>
+    <tr><td>Last Modified</td><td>DateTime</td><td>Last modified date (UTC)</td></tr>
+    <tr><td>Created On</td><td>DateTime</td><td>Creation date (UTC)</td></tr>
+    <tr><td>Archived</td><td>bool</td><td>Whether the blob is archived</td></tr>
+    <tr><td>Server Encrypted</td><td>bool</td><td>Whether the blob is encrypted on the server</td></tr>
+    <tr><td>ETag</td><td>string</td><td>ETag</td></tr>
+    <tr><td>Custom Metadata</td><td>string</td><td>Custom metadata (JSON)</td></tr>
+    <tr><td>Error Message</td><td>string</td><td>Error message</td></tr>
+    <tr><td>Stack Trace</td><td>string</td><td>Stack trace</td></tr>
+</table>
+
+<!-- ############################## PageBlobFile ############################## -->
+
+<h2 id="PageBlobFile">PageBlobFile</h2>
+<p>
+    PageBlobFile is a class for handling Page Blobs in Azure Blob Storage.<br>
+    It mainly performs the following operations:
+    <ul>
+        <li>Connects using Azure Storage account name and access key</li>
+        <li>Directly accesses the specified blob file for reading and writing</li>
+    </ul>
+    You can also create a new Page Blob if necessary, but the blob size must be a multiple of 512.<br>
+    The 'Length' parameter is only used when creating a new file.<br>
+    The following items can be specified in the JSON options. Specify each item using JSON syntax with the appropriate key and value.
+</p>
+
+<h3>Type Name</h3>
+GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.File.PageBlobFile, GeoLibrary.ORiN3.Provider.Azure.Storage
+
+<h3>JSON Options</h3>
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr><th>Key</th><th>Type</th><th>Required</th><th>Description</th><th>Value Range</th><th>Default</th></tr>
+    <tr><td>Container Name</td><td>string</td><td>✓</td><td>Target container name</td><td>Any container name</td><td></td></tr>
+    <tr><td>Blob Path</td><td>string</td><td>✓</td><td>Path of the target file</td><td>Any path</td><td></td></tr>
+    <tr><td>Create New If Not Exists</td><td>bool</td><td></td><td>Flag to create the file if it does not exist</td><td></td><td></td></tr>
+    <tr><td>Length</td><td>long</td><td></td><td>File size</td><td>Positive value</td><td></td></tr>
+</table>
+
+<h3>Parent Object</h3>
+<ul>
+    <li>
+        <a href="#BlobStorageController">BlobStorageController</a>
+    </li>
+</ul>
+
+<h3>Child Objects</h3>
+None
+
+<h2>Command</h2>
+<h2 id="PageBlobFile_GetProperties">GetProperties</h2>
+<p>
+    Retrieves the properties of the specified blob file.
+</p>
+<h4>Arguments</h4>
+None
+<h4>Return Values</h4>
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr><th>Key</th><th>Type</th><th>Description</th></tr>
+    <tr><td><a href="#Result">Result</a></td><td>int</td><td>Execution result code</td></tr>
+    <tr><td>Blob Path</td><td>string</td><td>Blob file path</td></tr>
+    <tr><td>Content Length</td><td>long</td><td>Length of the file content</td></tr>
+    <tr><td>Content Type</td><td>string</td><td>Content type</td></tr>
+    <tr><td>Last Modified</td><td>DateTime</td><td>Last modified date (UTC)</td></tr>
+    <tr><td>Created On</td><td>DateTime</td><td>Creation date (UTC)</td></tr>
+    <tr><td>Archived</td><td>bool</td><td>Whether the blob is archived</td></tr>
+    <tr><td>Server Encrypted</td><td>bool</td><td>Whether the blob is encrypted on the server</td></tr>
+    <tr><td>ETag</td><td>string</td><td>ETag</td></tr>
+    <tr><td>Custom Metadata</td><td>string</td><td>Custom metadata (JSON)</td></tr>
+    <tr><td>Error Message</td><td>string</td><td>Error message</td></tr>
+    <tr><td>Stack Trace</td><td>string</td><td>Stack trace</td></tr>
+</table>
+
+<!-- ############################## AzureFile ############################## -->
+
+<h2 id="AzureFile">AzureFile</h2>
+<p>
+    AzureFile is a class for handling files in Azure File Storage.<br>
+    It mainly performs the following operations:
+    <ul>
+        <li>Connects using Azure Storage account name and access key</li>
+        <li>Directly accesses the specified file for reading and writing</li>
+    </ul>
+    You can also create a new file if necessary.<br>
+    The 'Length' parameter is only used when creating a new file.<br>
+    The following items can be specified in the JSON options. Specify each item using JSON syntax with the appropriate key and value.
+</p>
+
+<h3>Type Name</h3>
+GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.File.AzureFile, GeoLibrary.ORiN3.Provider.Azure.Storage
+
+<h3>JSON Options</h3>
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr><th>Key</th><th>Type</th><th>Required</th><th>Description</th><th>Value Range</th><th>Default</th></tr>
+    <tr><td>Share Name</td><td>string</td><td>✓</td><td>Target Share name</td><td>Any Share name</td><td></td></tr>
+    <tr><td>File Name</td><td>string</td><td>✓</td><td>Target file name</td><td>Any file name</td><td></td></tr>
+    <tr><td>Directory Name</td><td>string</td><td>✓</td><td>Target directory name</td><td>Any path</td><td></td></tr>
+    <tr><td>Create New If Not Exists</td><td>bool</td><td></td><td>Flag to create the file if it does not exist</td><td></td><td></td></tr>
+    <tr><td>Length</td><td>long</td><td></td><td>File size</td><td>Positive value</td><td></td></tr>
+</table>
+
+<h3>Parent Object</h3>
+<ul>
+    <li>
+        <a href="#FileStorageController">FileStorageController</a>
+    </li>
+</ul>
+
+<h3>Child Objects</h3>
+None
+
+<h2>Command</h2>
+<h2 id="AzureFile_GetProperties">GetProperties</h2>
+<p>
+    Retrieves the properties of the specified file.
+</p>
+<h4>Arguments</h4>
+None
+<h4>Return Values</h4>
+<table border="1" cellspacing="0" cellpadding="4">
+    <tr><th>Key</th><th>Type</th><th>Description</th></tr>
+    <tr><td><a href="#Result">Result</a></td><td>int</td><td>Execution result code</td></tr>
+    <tr><td>File Name</td><td>string</td><td>File name</td></tr>
+    <tr><td>Directory Name</td><td>string</td><td>Directory path</td></tr>
+    <tr><td>Content Length</td><td>long</td><td>Length of the file content</td></tr>
+    <tr><td>Content Type</td><td>string</td><td>Content type</td></tr>
+    <tr><td>Last Modified</td><td>DateTime</td><td>Last modified date (UTC)</td></tr>
+    <tr><td>Created On</td><td>DateTime</td><td>Creation date (UTC)</td></tr>
+    <tr><td>Server Encrypted</td><td>bool</td><td>Whether the file is encrypted on the server</td></tr>
+    <tr><td>ETag</td><td>string</td><td>ETag</td></tr>
+    <tr><td>Custom Metadata</td><td>string</td><td>Custom metadata (JSON)</td></tr>
+    <tr><td>Error Message</td><td>string</td><td>Error message</td></tr>
+    <tr><td>Stack Trace</td><td>string</td><td>Stack trace</td></tr>
+</table>
+
+<!-- ############################## Appendix ############################## -->
+
+<h2 id="Appendix">Appendix</h2>
+<h3 id="Result">Result</h3>
+<ul>
+    <li><strong>Unknown (-1):</strong> Unknown error</li>
+    <li><strong>Success (0):</strong> Operation completed successfully</li>
+    <li><strong>AzureError (1):</strong> Error reported from Azure SDK or service</li>
+    <li><strong>OtherError (2):</strong> Other errors (network issues, unexpected errors)</li>
+</ul>
+

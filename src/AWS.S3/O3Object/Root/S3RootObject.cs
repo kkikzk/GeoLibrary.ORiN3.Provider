@@ -1,6 +1,6 @@
 ﻿using Amazon;
 using Colda.CommonUtilities.IO;
-using ORiN3.Provider.AWS.S3;
+using GeoLibrary.ORiN3.Provider.BaseLib;
 using ORiN3.Provider.Core;
 using ORiN3.Provider.Core.Abstract;
 using System.Reflection;

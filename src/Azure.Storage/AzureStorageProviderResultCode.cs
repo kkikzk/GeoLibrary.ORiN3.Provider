@@ -7,5 +7,5 @@ public enum AzureStorageProviderResultCode
     AzureApiExecutionError = ResultCode.ProviderSpecificResultCode + 1,
     BlobNotFound,
     BlobNotWritable,
-    InvalidBlobCreationOption,
+    InvalidCreationOption,
 }

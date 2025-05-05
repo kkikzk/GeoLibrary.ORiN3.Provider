@@ -24,16 +24,21 @@ internal class AppendBlobClientWrapper(AppendBlobClient client) : IAppendBlobCli
 
     public Task<Response<bool>> ExistsAsync(CancellationToken token)
     {
-        throw new NotImplementedException();
+        return _client.ExistsAsync(cancellationToken: token);
     }
 
     public Task<Response<BlobProperties>> GetPropertiesAsync(CancellationToken token)
     {
-        throw new NotImplementedException();
+        return _client.GetPropertiesAsync(cancellationToken: token);
     }
 
     public Task<Response> DownloadToAsync(string path, CancellationToken token)
     {
-        throw new NotImplementedException();
+        return _client.DownloadToAsync(path, cancellationToken: token);
+    }
+
+    public Task SetHttpHeadersAsync(BlobHttpHeaders blobHttpHeaders, CancellationToken cancellationToken)
+    {
+        return _client.SetHttpHeadersAsync(blobHttpHeaders, cancellationToken: cancellationToken);
     }
 }

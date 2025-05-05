@@ -1,8 +1,11 @@
 ﻿using Azure;
 using Azure.Storage.Blobs.Models;
 using Design.ORiN3.Provider.V1;
+using Design.ORiN3.Provider.V1.Base;
+using GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.File;
 using GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Interface;
 using GeoLibrary.ORiN3.Provider.Azure.Storage.Test.Mock;
+using GeoLibrary.ORiN3.Provider.BaseLib;
 using GeoLibrary.ORiN3.Provider.TestBaseLib;
 using Message.Client.ORiN3.Provider;
 using Xunit.Abstractions;
@@ -36,7 +39,7 @@ public class PageBlobFileTest : IClassFixture<ProviderTestFixture<PageBlobFileTe
     }
 
     [Theory]
-    [Trait("Category", "PageBlobFile")]
+    [Trait("Category", nameof(PageBlobFile))]
     [InlineData("containerName", "hoge.txt")]
     [InlineData("containerName2", "a/b/c/fuga.txt")]
     public async Task FileOptionTest(string containerName, string blobPath)
@@ -62,14 +65,14 @@ public class PageBlobFileTest : IClassFixture<ProviderTestFixture<PageBlobFileTe
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
             token: cts.Token);
 
         // act
         var sut = await controller.CreateFileAsync(
             name: "BlobFile",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.File.PageBlobFile, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Container Name\":\"" + containerName + "\",\"Blob Path\":\"" + blobPath + "\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Container Name\":\"" + containerName + "\",\"Blob Path\":\"" + blobPath + "\"}",
             token: cts.Token);
         await sut.OpenAsync(cts.Token);
 
@@ -84,7 +87,7 @@ public class PageBlobFileTest : IClassFixture<ProviderTestFixture<PageBlobFileTe
     }
 
     [Fact]
-    [Trait("Category", "PageBlobFile")]
+    [Trait("Category", nameof(PageBlobFile))]
     public async Task FileOptionCreateIfNotExistsTest()
     {
         // arrange
@@ -119,14 +122,14 @@ public class PageBlobFileTest : IClassFixture<ProviderTestFixture<PageBlobFileTe
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
             token: cts.Token);
 
         // act
         var sut = await controller.CreateFileAsync(
             name: "BlobFile",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.File.PageBlobFile, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Container Name\":\"containerName\",\"Blob Path\":\"hoge.txt\",\"Create New If Not Exists\":true,\"Length\":100}",
+            option: "{\"@Version\":\"0.0.1\",\"Container Name\":\"containerName\",\"Blob Path\":\"hoge.txt\",\"Create New If Not Exists\":true,\"Length\":100}",
             token: cts.Token);
         await sut.OpenAsync(cts.Token);
 
@@ -139,7 +142,7 @@ public class PageBlobFileTest : IClassFixture<ProviderTestFixture<PageBlobFileTe
     }
 
     [Fact]
-    [Trait("Category", "PageBlobFile")]
+    [Trait("Category", nameof(PageBlobFile))]
     public async Task FileOptionCreateIfNotExistsErrorTest()
     {
         // arrange
@@ -165,14 +168,14 @@ public class PageBlobFileTest : IClassFixture<ProviderTestFixture<PageBlobFileTe
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
             token: cts.Token);
 
         // act
         var sut = await controller.CreateFileAsync(
             name: "BlobFile",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.File.PageBlobFile, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Container Name\":\"containerName\",\"Blob Path\":\"hoge.txt\",\"Create New If Not Exists\":true,\"Length\":100}",
+            option: "{\"@Version\":\"0.0.1\",\"Container Name\":\"containerName\",\"Blob Path\":\"hoge.txt\",\"Create New If Not Exists\":true,\"Length\":100}",
             token: cts.Token);
         await sut.OpenAsync(cts.Token);
 
@@ -211,14 +214,14 @@ public class PageBlobFileTest : IClassFixture<ProviderTestFixture<PageBlobFileTe
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
             token: cts.Token);
 
         // act
         var sut = await controller.CreateFileAsync(
             name: "BlobFile",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.File.PageBlobFile, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Container Name\":\"containerName\",\"Blob Path\":\"hoge.txt\",\"Create New If Not Exists\":false,\"Length\":100}",
+            option: "{\"@Version\":\"0.0.1\",\"Container Name\":\"containerName\",\"Blob Path\":\"hoge.txt\",\"Create New If Not Exists\":false,\"Length\":100}",
             token: cts.Token);
 
         // assert
@@ -234,7 +237,7 @@ public class PageBlobFileTest : IClassFixture<ProviderTestFixture<PageBlobFileTe
     }
 
     [Fact]
-    [Trait("Category", "PageBlobFile")]
+    [Trait("Category", nameof(PageBlobFile))]
     public async Task FileOptionCreateIfNotExistsErrorTest3()
     {
         // arrange
@@ -260,14 +263,14 @@ public class PageBlobFileTest : IClassFixture<ProviderTestFixture<PageBlobFileTe
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
             token: cts.Token);
 
         // act
         var sut = await controller.CreateFileAsync(
             name: "BlobFile",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.File.PageBlobFile, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Container Name\":\"containerName\",\"Blob Path\":\"hoge.txt\",\"Create New If Not Exists\":true}",
+            option: "{\"@Version\":\"0.0.1\",\"Container Name\":\"containerName\",\"Blob Path\":\"hoge.txt\",\"Create New If Not Exists\":true}",
             token: cts.Token);
 
         // assert
@@ -283,7 +286,7 @@ public class PageBlobFileTest : IClassFixture<ProviderTestFixture<PageBlobFileTe
     }
 
     [Fact]
-    [Trait("Category", "PageBlobFile")]
+    [Trait("Category", nameof(PageBlobFile))]
     public async Task FileOptionCreateIfNotExistsErrorTest4()
     {
         // arrange
@@ -309,7 +312,7 @@ public class PageBlobFileTest : IClassFixture<ProviderTestFixture<PageBlobFileTe
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
             token: cts.Token);
 
         // act
@@ -319,7 +322,7 @@ public class PageBlobFileTest : IClassFixture<ProviderTestFixture<PageBlobFileTe
             _ = await controller.CreateFileAsync(
                 name: "BlobFile",
                 typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.File.PageBlobFile, GeoLibrary.ORiN3.Provider.Azure.Storage",
-                option: "{\"@Version\":\"1.0.0\",\"Container Name\":\"containerName\",\"Blob Path\":\"hoge.txt\",\"Create New If Not Exists\":true,\"Length\":-1}",
+                option: "{\"@Version\":\"0.0.1\",\"Container Name\":\"containerName\",\"Blob Path\":\"hoge.txt\",\"Create New If Not Exists\":true,\"Length\":-1}",
                 token: cts.Token);
         });
         Assert.False(called);
@@ -328,7 +331,7 @@ public class PageBlobFileTest : IClassFixture<ProviderTestFixture<PageBlobFileTe
     }
 
     [Fact]
-    [Trait("Category", "PageBlobFile")]
+    [Trait("Category", nameof(PageBlobFile))]
     public async Task FileOptionCreateIfNotExistsErrorTest5()
     {
         // arrange
@@ -346,14 +349,14 @@ public class PageBlobFileTest : IClassFixture<ProviderTestFixture<PageBlobFileTe
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
             token: cts.Token);
 
         // act
         var sut = await controller.CreateFileAsync(
             name: "BlobFile",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.File.PageBlobFile, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Container Name\":\"containerName\",\"Blob Path\":\"hoge.txt\",\"Create New If Not Exists\":true,\"Length\":10}",
+            option: "{\"@Version\":\"0.0.1\",\"Container Name\":\"containerName\",\"Blob Path\":\"hoge.txt\",\"Create New If Not Exists\":true,\"Length\":10}",
             token: cts.Token);
 
         // assert
@@ -368,7 +371,7 @@ public class PageBlobFileTest : IClassFixture<ProviderTestFixture<PageBlobFileTe
     }
 
     [Fact]
-    [Trait("Category", "PageBlobFile")]
+    [Trait("Category", nameof(PageBlobFile))]
     public async Task FileWriteAndReadTest()
     {
         // arrange
@@ -386,14 +389,14 @@ public class PageBlobFileTest : IClassFixture<ProviderTestFixture<PageBlobFileTe
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
             token: cts.Token);
 
         // act
         var sut = await controller.CreateFileAsync(
             name: "BlobFile",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.File.PageBlobFile, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Container Name\":\"containerName\",\"Blob Path\":\"hoge.txt\",\"Create New If Not Exists\":true,\"Length\":1024}",
+            option: "{\"@Version\":\"0.0.1\",\"Container Name\":\"containerName\",\"Blob Path\":\"hoge.txt\",\"Create New If Not Exists\":true,\"Length\":1024}",
             token: cts.Token);
         await sut.OpenAsync(cts.Token);
         await sut.SeekAsync(511, ORiN3FileSeekOrigin.Begin, cts.Token);
@@ -411,5 +414,88 @@ public class PageBlobFileTest : IClassFixture<ProviderTestFixture<PageBlobFileTe
         await sut.CloseAsync(cts.Token);
         await sut.DeleteAsync(cts.Token);
         await controller.DeleteAsync(cts.Token);
+    }
+
+    [Theory]
+    [Trait("Category", nameof(PageCalculator))]
+    [InlineData(0L, 512, 0L, 511L, 512)]
+    [InlineData(0L, 1024, 0L, 1023L, 1024)]
+    [InlineData(0L, 1536, 0L, 1535L, 1536)]
+    [InlineData(512L, 512, 512L, 1023L, 512)]
+    [InlineData(1024L, 512, 1024L, 1535, 512)]
+    [InlineData(0, 1, 0L, 511L, 512)]
+    [InlineData(1, 1, 0L, 511L, 512)]
+    [InlineData(510, 1, 0L, 511L, 512)]
+    [InlineData(511, 1, 0L, 511L, 512)]
+    [InlineData(512, 1, 512L, 1023L, 512)]
+    [InlineData(513, 1, 512L, 1023L, 512)]
+    [InlineData(1022, 1, 512L, 1023L, 512)]
+    [InlineData(1023, 1, 512L, 1023L, 512)]
+    [InlineData(1024, 1, 1024L, 1535L, 512)]
+    [InlineData(0, 2, 0L, 511L, 512)]
+    [InlineData(510, 2, 0L, 511L, 512)]
+    [InlineData(511, 2, 0L, 1023L, 1024)]
+    [InlineData(512, 2, 512L, 1023L, 512)]
+    [InlineData(1022, 2, 512L, 1023L, 512)]
+    [InlineData(1023, 2, 512L, 1535L, 1024)]
+    [InlineData(1024, 2, 1024L, 1535L, 512)]
+    [InlineData(0, 1024, 0L, 1023L, 1024)]
+    [InlineData(0, 1025, 0L, 1535L, 1536)]
+    [InlineData(511, 513, 0L, 1023L, 1024)]
+    [InlineData(511, 514, 0L, 1535L, 1536)]
+    [InlineData(1023, 514, 512L, 2047L, 1536)]
+    public void PageCalculatorTest(long dataPosition, int dataLength, long expectedPageFirstIndex, long expectedPageLastIndex, int expectedLength)
+    {
+        _output.WriteLine($"{nameof(dataPosition)}={dataPosition}, {nameof(dataLength)}={dataLength}, {nameof(expectedPageFirstIndex)}={expectedPageFirstIndex}, {nameof(expectedPageLastIndex)}={expectedPageLastIndex}, {nameof(expectedLength)}={expectedLength}");
+        var sut = new PageCalculator(dataPosition, dataLength);
+
+        _output.WriteLine($"{nameof(sut.PageFirstIndex)}={sut.PageFirstIndex}, {nameof(sut.PageLastIndex)}={sut.PageLastIndex}, {nameof(sut.Length)}={sut.Length}");
+        Assert.Equal(expectedPageFirstIndex, sut.PageFirstIndex);
+        Assert.Equal(expectedPageLastIndex, sut.PageLastIndex);
+        Assert.Equal(expectedLength, sut.Length);
+    }
+
+    [Theory]
+    [Trait("Category", nameof(PageCalculator))]
+    [InlineData(0)]
+    [InlineData(-1)]
+    public void PageCalculatorDataLengthErrorTest(int dataLength)
+    {
+        var exception = Assert.Throws<GeoLibraryProviderException>(() =>
+        {
+            _ = new PageCalculator(0, dataLength);
+        });
+
+        Assert.Equal((int)GeoLibraryProviderResultCode.Unknown, (int)exception.ResultCode);
+        Assert.Contains("dataLength", exception.Message);
+    }
+
+    [Theory]
+    [Trait("Category", nameof(PageCalculator))]
+    [InlineData(-1)]
+    public void PageCalculatorDataPositionErrorTest(int dataPosition)
+    {
+        var exception = Assert.Throws<GeoLibraryProviderException>(() =>
+        {
+            _ = new PageCalculator(dataPosition, 1);
+        });
+
+        Assert.Equal((int)GeoLibraryProviderResultCode.Unknown, (int)exception.ResultCode);
+        Assert.Contains("dataPosition", exception.Message);
+    }
+
+    [Theory]
+    [Trait("Category", nameof(PageCalculator))]
+    [InlineData(0)]
+    [InlineData(-1)]
+    public void PageCalculatorPageSizeErrorTest(long pageSize)
+    {
+        var exception = Assert.Throws<GeoLibraryProviderException>(() =>
+        {
+            _ = new PageCalculator(0, 1, pageSize);
+        });
+
+        Assert.Equal((int)GeoLibraryProviderResultCode.Unknown, (int)exception.ResultCode);
+        Assert.Contains("pageSize", exception.Message);
     }
 }

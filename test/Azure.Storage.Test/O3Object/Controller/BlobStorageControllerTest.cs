@@ -54,7 +54,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
         var sut = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"" + accountName + "\",\"Access Key\":\"" + accountKey + "\",\"Use Https\":" + useHttps + ",\"Endpoint Suffix\":\"" + endpointSuffix + "\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"" + accountName + "\",\"Account Key\":\"" + accountKey + "\",\"Use Https\":" + useHttps + ",\"Endpoint Suffix\":\"" + endpointSuffix + "\"}",
             token: cts.Token);
         var arguments = new Dictionary<string, object?>()
         {
@@ -70,11 +70,11 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
         await sut.DeleteAsync(cts.Token);
     }
 
-    [Theory(DisplayName = nameof(OptionalOptionTest))]
+    [Theory]
     [Trait("Category", "BlobStorageController.UploadBlock")]
-    [InlineData("{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"c6OZIVO5OxjhO81qy8MEhCE6haxaNSIugpW/9QEQmfAK2ylTZ\\u002B1fAidpEG0nrnUd\"}", "DefaultEndpointsProtocol=https;AccountName=iotsolution1;AccountKey=testKey;EndpointSuffix=core.windows.net")]
-    [InlineData("{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"c6OZIVO5OxjhO81qy8MEhCE6haxaNSIugpW/9QEQmfAK2ylTZ\\u002B1fAidpEG0nrnUd\",\"Use Https\":true}", "DefaultEndpointsProtocol=https;AccountName=iotsolution1;AccountKey=testKey;EndpointSuffix=core.windows.net")]
-    [InlineData("{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"c6OZIVO5OxjhO81qy8MEhCE6haxaNSIugpW/9QEQmfAK2ylTZ\\u002B1fAidpEG0nrnUd\",\"Endpoint Suffix\":\"core.windows.net\"}", "DefaultEndpointsProtocol=https;AccountName=iotsolution1;AccountKey=testKey;EndpointSuffix=core.windows.net")]
+    [InlineData("{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"c6OZIVO5OxjhO81qy8MEhCE6haxaNSIugpW/9QEQmfAK2ylTZ\\u002B1fAidpEG0nrnUd\"}", "DefaultEndpointsProtocol=https;AccountName=iotsolution1;AccountKey=testKey;EndpointSuffix=core.windows.net")]
+    [InlineData("{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"c6OZIVO5OxjhO81qy8MEhCE6haxaNSIugpW/9QEQmfAK2ylTZ\\u002B1fAidpEG0nrnUd\",\"Use Https\":true}", "DefaultEndpointsProtocol=https;AccountName=iotsolution1;AccountKey=testKey;EndpointSuffix=core.windows.net")]
+    [InlineData("{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"c6OZIVO5OxjhO81qy8MEhCE6haxaNSIugpW/9QEQmfAK2ylTZ\\u002B1fAidpEG0nrnUd\",\"Endpoint Suffix\":\"core.windows.net\"}", "DefaultEndpointsProtocol=https;AccountName=iotsolution1;AccountKey=testKey;EndpointSuffix=core.windows.net")]
     public async Task OptionalOptionTest(string option, string expected)
     {
         // arrange
@@ -163,7 +163,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
             token: cts.Token);
 
         // act
@@ -200,7 +200,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
             token: cts.Token);
 
         // act
@@ -246,7 +246,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
             token: cts.Token);
 
         // lack of option
@@ -400,7 +400,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
             token: cts.Token);
 
         // act
@@ -482,7 +482,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
             token: cts.Token);
 
         // act
@@ -519,7 +519,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
             token: cts.Token);
 
         // act
@@ -566,7 +566,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
             token: cts.Token);
 
         // lack of option
@@ -721,7 +721,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
             token: cts.Token);
 
         // act
@@ -761,7 +761,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
             token: cts.Token);
 
         // act
@@ -843,7 +843,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
             token: cts.Token);
 
         // act
@@ -881,7 +881,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
             token: cts.Token);
 
         // act
@@ -922,7 +922,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
             token: cts.Token);
 
         // lack of option
@@ -1077,7 +1077,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
             token: cts.Token);
 
         // act
@@ -1117,7 +1117,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
             token: cts.Token);
 
         // act
@@ -1174,7 +1174,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
             token: cts.Token);
 
         // act
@@ -1207,7 +1207,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
             token: cts.Token);
 
         // act
@@ -1244,7 +1244,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
             token: cts.Token);
 
         // lack of option
@@ -1360,7 +1360,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
             token: cts.Token);
 
         // act
@@ -1410,7 +1410,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
             token: cts.Token);
 
         // act
@@ -1445,7 +1445,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
             token: cts.Token);
 
         // act
@@ -1486,7 +1486,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
             token: cts.Token);
 
         // lack of option
@@ -1565,7 +1565,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
             token: cts.Token);
 
         // act
@@ -1599,7 +1599,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
             token: cts.Token);
 
         // act
@@ -1695,7 +1695,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
             token: cts.Token);
 
         // act
@@ -1733,7 +1733,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
             token: cts.Token);
 
         // act
@@ -1779,7 +1779,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
             token: cts.Token);
 
         // lack of option
@@ -1933,7 +1933,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\"}",
             token: cts.Token);
 
         // act

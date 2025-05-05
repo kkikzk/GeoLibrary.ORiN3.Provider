@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>GeoLibrary.ORiN3.Provider.Azure.Storage</id>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
     <title>GeoLibrary.ORiN3.Provider.Azure.Storage</title>
     <authors>KAKEI Kazuki</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>

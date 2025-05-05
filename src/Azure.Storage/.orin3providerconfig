@@ -1,6 +1,6 @@
 ﻿{
   "providerPath": "GeoLibrary.ORiN3.Provider.Azure.Storage.dll",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "providerId": "7AB23490-62D2-4B34-B4D9-C4223BB11066",
   "providerName": "Azure Storage Provider",
   "manual": {
@@ -12,14 +12,14 @@
   },
   "author": "GeoLibrary",
   "comment": {
-    "default": "Azure Storage Provider.",
+    "default": "This is an Azure Storage Provider.",
     "ja-JP": "Azure Storageプロバイダです。"
   },
   "classInfos": [
     {
       "id": "23E781AE-8449-4042-A76F-DC39E1E5807B",
       "orin3ObjectType": "ORiN3Controller",
-      "displayName": "Azure Blob Storage Controller",
+      "displayName": "Azure Blob Storage",
       "typeName": "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
       "comment": {
         "default": "This is an ORiN3 Controller that functions as a client to connect to Azure Blob Storage.",
@@ -30,7 +30,7 @@
         {
           "name": "Account Name",
           "comment": {
-            "default": "",
+            "default": "Specifies the account name.",
             "ja-JP": "アカウント名を指定します。"
           },
           "rule": {
@@ -38,10 +38,10 @@
           }
         },
         {
-          "name": "Access Key",
+          "name": "Account Key",
           "optional": true,
           "comment": {
-            "default": "",
+            "default": "Specifies the account key.",
             "ja-JP": "アカウントキーを指定します。"
           },
           "rule": {
@@ -53,7 +53,7 @@
           "name": "Use Https",
           "optional": true,
           "comment": {
-            "default": "",
+            "default": "Set to true for HTTPS or false for HTTP connection.",
             "ja-JP": "HTTPSで接続する場合はtrueを、HTTPで接続する場合はfalseを指定します。"
           },
           "rule": {
@@ -64,7 +64,64 @@
           "name": "Endpoint Suffix",
           "optional": true,
           "comment": {
-            "default": "",
+            "default": "Specifies the endpoint suffix.",
+            "ja-JP": "エンドポイントサフィックスを指定します。"
+          },
+          "rule": {
+            "type": "string"
+          }
+        }
+      ]
+    },
+    {
+      "id": "F45B4DC7-A433-4BEF-885D-BDC1AA6D6F0F",
+      "orin3ObjectType": "ORiN3Controller",
+      "displayName": "Azure File Storage",
+      "typeName": "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.FileStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
+      "comment": {
+        "default": "This is an ORiN3 Controller that functions as a client to connect to Azure File Storage.",
+        "ja-JP": "Azure File Storageに接続するためのクライアントとして動作するORiN3のControllerです。"
+      },
+      "parents": [ "Root" ],
+      "options": [
+        {
+          "name": "Account Name",
+          "comment": {
+            "default": "Specifies the account name.",
+            "ja-JP": "アカウント名を指定します。"
+          },
+          "rule": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "Account Key",
+          "optional": true,
+          "comment": {
+            "default": "Specifies the account key.",
+            "ja-JP": "アカウントキーを指定します。"
+          },
+          "rule": {
+            "type": "string",
+            "secret": true
+          }
+        },
+        {
+          "name": "Use Https",
+          "optional": true,
+          "comment": {
+            "default": "Set to true for HTTPS or false for HTTP connection.",
+            "ja-JP": "HTTPSで接続する場合はtrueを、HTTPで接続する場合はfalseを指定します。"
+          },
+          "rule": {
+            "type": "boolean"
+          }
+        },
+        {
+          "name": "Endpoint Suffix",
+          "optional": true,
+          "comment": {
+            "default": "Specifies the endpoint suffix.",
             "ja-JP": "エンドポイントサフィックスを指定します。"
           },
           "rule": {
@@ -76,7 +133,7 @@
     {
       "id": "0C9B69D9-5559-49DF-A300-5C2A291BC56D",
       "orin3ObjectType": "ORiN3File",
-      "displayName": "Azure Block Blob File",
+      "displayName": "Azure Block Blob",
       "typeName": "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.File.BlockBlobFile, GeoLibrary.ORiN3.Provider.Azure.Storage",
       "comment": {
         "default": "This is an ORiN3 File object for accessing a Block Blob in Azure Blob Storage.",
@@ -87,7 +144,7 @@
         {
           "name": "Container Name",
           "comment": {
-            "default": "",
+            "default": "Specifies the container name.",
             "ja-JP": "コンテナ名を指定します。"
           },
           "rule": {
@@ -97,7 +154,7 @@
         {
           "name": "Blob Path",
           "comment": {
-            "default": "",
+            "default": "Specifies the blob path (virtual directory + blob name).",
             "ja-JP": "Blobパス（仮想ディレクトリ + Blob名）を指定します。"
           },
           "rule": {
@@ -109,7 +166,7 @@
     {
       "id": "8CF7B8E8-64A3-4A4C-B4DB-DCA0D974E601",
       "orin3ObjectType": "ORiN3File",
-      "displayName": "Azure Append Blob File",
+      "displayName": "Azure Append Blob",
       "typeName": "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.File.AppendBlobFile, GeoLibrary.ORiN3.Provider.Azure.Storage",
       "comment": {
         "default": "This is an ORiN3 File object for accessing a Append Blob in Azure Blob Storage.",
@@ -120,7 +177,7 @@
         {
           "name": "Container Name",
           "comment": {
-            "default": "",
+            "default": "Specifies the container name.",
             "ja-JP": "コンテナ名を指定します。"
           },
           "rule": {
@@ -130,7 +187,7 @@
         {
           "name": "Blob Path",
           "comment": {
-            "default": "",
+            "default": "Specifies the blob path (virtual directory + blob name).",
             "ja-JP": "Blobパス（仮想ディレクトリ + Blob名）を指定します。"
           },
           "rule": {
@@ -138,12 +195,11 @@
           }
         }
       ]
-    }
-    ,
+    },
     {
       "id": "36709D05-886B-4FC3-A922-2B3A89E87B04",
       "orin3ObjectType": "ORiN3File",
-      "displayName": "Azure Page Blob File",
+      "displayName": "Azure Page Blob",
       "typeName": "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.File.PageBlobFile, GeoLibrary.ORiN3.Provider.Azure.Storage",
       "comment": {
         "default": "This is an ORiN3 File object for accessing a Page Blob in Azure Blob Storage.",
@@ -154,7 +210,7 @@
         {
           "name": "Container Name",
           "comment": {
-            "default": "",
+            "default": "Specifies the container name.",
             "ja-JP": "コンテナ名を指定します。"
           },
           "rule": {
@@ -164,7 +220,7 @@
         {
           "name": "Blob Path",
           "comment": {
-            "default": "",
+            "default": "Specifies the blob path (virtual directory + blob name).",
             "ja-JP": "Blobパス（仮想ディレクトリ + Blob名）を指定します。"
           },
           "rule": {
@@ -175,7 +231,7 @@
           "name": "Create New If Not Exists",
           "optional": true,
           "comment": {
-            "default": "",
+            "default": "Specifies whether to create the blob if it does not exist. If true, it will create a new one; if it already exists, nothing will be done.",
             "ja-JP": "Blobが存在しなかった場合に新規作成するかどうかを指定します。trueを指定すると新規作成しますが、すでに存在した場合は何もしません。"
           },
           "rule": {
@@ -186,11 +242,66 @@
           "name": "Length",
           "optional": true,
           "comment": {
-            "default": "Blobを新規作成する場合のサイズを指定します。既存のBlobを扱う際にこの値は使用しません。",
-            "ja-JP": ""
+            "default": "Specifies the size when creating a new blob. This value is not used for existing blobs.",
+            "ja-JP": "Blobを新規作成する場合のサイズを指定します。既存のBlobを扱う際にこの値は使用しません。"
           },
           "rule": {
             "type": "integer"
+          }
+        }
+      ]
+    },
+    {
+      "id": "E4F5380D-CF5A-49BE-86C0-6DDA62516848",
+      "orin3ObjectType": "ORiN3File",
+      "displayName": "Azure File",
+      "typeName": "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.File.AzureFile, GeoLibrary.ORiN3.Provider.Azure.Storage",
+      "comment": {
+        "default": "This is an ORiN3 File object for accessing a File in Azure File Storage.",
+        "ja-JP": "Azure File StorageのFileにアクセスするためのORiN3 Fileオブジェクトです。"
+      },
+      "parents": [ "F45B4DC7-A433-4BEF-885D-BDC1AA6D6F0F" ],
+      "options": [
+        {
+          "name": "Share Name",
+          "comment": {
+            "default": "Specifies the file share name.",
+            "ja-JP": "ファイル共有名を指定します。"
+          },
+          "rule": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "File Path",
+          "comment": {
+            "default": "Specifies the file name.",
+            "ja-JP": "ファイル名を指定します。"
+          },
+          "rule": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "Directory Path",
+          "optional": true,
+          "comment": {
+            "default": "Specifies the directory name (e.g., TopDirectory/SubDirectory).",
+            "ja-JP": "ディレクトリ名を指定します。（例：TopDirectory/SubDirectory）"
+          },
+          "rule": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "Lease Id",
+          "optional": true,
+          "comment": {
+            "default": "Specifies the lease id.",
+            "ja-JP": "Lease Idを指定します。）"
+          },
+          "rule": {
+            "type": "string"
           }
         }
       ]

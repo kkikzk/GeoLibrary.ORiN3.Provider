@@ -1,5 +1,5 @@
 ﻿using Colda.CommonUtilities.IO;
-using ORiN3.Provider.AWS.S3;
+using GeoLibrary.ORiN3.Provider.BaseLib;
 using ORiN3.Provider.Core;
 using ORiN3.Provider.Core.Abstract;
 using System.Reflection;
@@ -14,20 +14,20 @@ public class AzureRootObject : RootObjectBase
         LicenseCheckEnabled = false;
     }
 
-    private static DirectoryInfo? _tempDir;
-    internal static DirectoryInfo TempDir
+    private static DirectoryInfo? _workingDir;
+    internal static DirectoryInfo WorkingDir
     {
         get
         {
-            if (_tempDir == null)
+            if (_workingDir == null)
             {
-                throw new GeoLibraryProviderException(GeoLibraryProviderResultCode.Unknown, $"{nameof(_tempDir)} is null.");
+                throw new GeoLibraryProviderException(GeoLibraryProviderResultCode.Unknown, $"[info={nameof(AzureRootObject)}.{nameof(_workingDir)} is null.]");
             }
-            return _tempDir;
+            return _workingDir;
         }
     }
 
-    private static DirectoryInfo GetCurrentDirectory()
+    private static DirectoryInfo GetWorkingRootDirectory()
     {
         try
         {
@@ -53,22 +53,27 @@ public class AzureRootObject : RootObjectBase
         try
         {
             var id = Guid.NewGuid();
-            var tempDir = GetCurrentDirectory();
-            ORiN3ProviderLogger.LogTrace($"TempDir={tempDir.FullName}");
-            if (!tempDir.Exists)
+            var workingRootDir = GetWorkingRootDirectory();
+            ORiN3ProviderLogger.LogTrace($"Working root directory={workingRootDir.FullName}");
+            if (!workingRootDir.Exists)
             {
-                await tempDir.SafeCreateAsync().ConfigureAwait(false);
+                await workingRootDir.SafeCreateAsync().ConfigureAwait(false);
             }
 
-            _tempDir = new DirectoryInfo(Path.Combine(tempDir.FullName, id.ToString()));
-            if (!_tempDir.Exists)
+            _workingDir = new DirectoryInfo(Path.Combine(workingRootDir.FullName, id.ToString()));
+            if (!_workingDir.Exists)
             {
-                await _tempDir.SafeCreateAsync().ConfigureAwait(false);
+                await _workingDir.SafeCreateAsync().ConfigureAwait(false);
+                ORiN3ProviderLogger.LogTrace($"Working directory created. [path={_workingDir.FullName}]");
             }
+        }
+        catch (GeoLibraryProviderException)
+        {
+            throw;
         }
         catch (Exception ex)
         {
-            throw new GeoLibraryProviderException(GeoLibraryProviderResultCode.Unknown, "", ex);
+            throw new GeoLibraryProviderException(GeoLibraryProviderResultCode.FailedToCreateWorkingDir, $"Error occurred. [message={ex}]");
         }
     }
 
@@ -76,7 +81,8 @@ public class AzureRootObject : RootObjectBase
     {
         try
         {
-            await TempDir.SafeDeleteAsync(recursive: true).ConfigureAwait(false);
+            await WorkingDir.SafeDeleteAsync(recursive: true).ConfigureAwait(false);
+            ORiN3ProviderLogger.LogTrace($"Working Directory deleted. [path={WorkingDir.FullName}]");
         }
         catch
         {

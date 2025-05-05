@@ -70,14 +70,14 @@ public class BlockAndAppendBlobFileTest : IClassFixture<ProviderTestFixture<Bloc
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
             token: cts.Token);
 
         // act
         var sut = await controller.CreateFileAsync(
             name: "BlobFile",
             typeName: typeName,
-            option: "{\"@Version\":\"1.0.0\",\"Container Name\":\"" + containerName + "\",\"Blob Path\":\"" + blobPath + "\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Container Name\":\"" + containerName + "\",\"Blob Path\":\"" + blobPath + "\"}",
             token: cts.Token);
         await sut.OpenAsync(cts.Token);
 
@@ -124,7 +124,7 @@ public class BlockAndAppendBlobFileTest : IClassFixture<ProviderTestFixture<Bloc
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
             token: cts.Token);
 
         // act
@@ -133,7 +133,7 @@ public class BlockAndAppendBlobFileTest : IClassFixture<ProviderTestFixture<Bloc
             _ = await controller.CreateFileAsync(
                 name: "BlobFile",
                 typeName: typeName,
-                option: "{\"@Version\":\"1.0.0\",\"Blob Path\":\"" + blobPath + "\"}",
+                option: "{\"@Version\":\"0.0.1\",\"Blob Path\":\"" + blobPath + "\"}",
                 token: cts.Token);
         });
 
@@ -177,7 +177,7 @@ public class BlockAndAppendBlobFileTest : IClassFixture<ProviderTestFixture<Bloc
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
             token: cts.Token);
 
         // act
@@ -186,7 +186,7 @@ public class BlockAndAppendBlobFileTest : IClassFixture<ProviderTestFixture<Bloc
             _ = await controller.CreateFileAsync(
                 name: "BlobFile",
                 typeName: typeName,
-                option: "{\"@Version\":\"1.0.0\",\"Container Name\":\"" + containerName + "\"}",
+                option: "{\"@Version\":\"0.0.1\",\"Container Name\":\"" + containerName + "\"}",
                 token: cts.Token);
         });
 
@@ -222,12 +222,12 @@ public class BlockAndAppendBlobFileTest : IClassFixture<ProviderTestFixture<Bloc
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
             token: cts.Token);
         var sut = await controller.CreateFileAsync(
             name: "BlobFile",
             typeName: typeName,
-            option: "{\"@Version\":\"1.0.0\",\"Container Name\":\"" + containerName + "\",\"Blob Path\":\"" + blobPath + "\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Container Name\":\"" + containerName + "\",\"Blob Path\":\"" + blobPath + "\"}",
             token: cts.Token);
 
         // act
@@ -282,12 +282,12 @@ public class BlockAndAppendBlobFileTest : IClassFixture<ProviderTestFixture<Bloc
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
             token: cts.Token);
         var sut = await controller.CreateFileAsync(
             name: "BlobFile",
             typeName: typeName,
-            option: "{\"@Version\":\"1.0.0\",\"Container Name\":\"" + containerName + "\",\"Blob Path\":\"" + blobPath + "\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Container Name\":\"" + containerName + "\",\"Blob Path\":\"" + blobPath + "\"}",
             token: cts.Token);
 
         // act
@@ -320,12 +320,12 @@ public class BlockAndAppendBlobFileTest : IClassFixture<ProviderTestFixture<Bloc
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
             token: cts.Token);
         var sut = await controller.CreateFileAsync(
             name: "BlobFile",
             typeName: typeName,
-            option: "{\"@Version\":\"1.0.0\",\"Container Name\":\"" + containerName + "\",\"Blob Path\":\"" + blobPath + "\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Container Name\":\"" + containerName + "\",\"Blob Path\":\"" + blobPath + "\"}",
             token: cts.Token);
         await sut.OpenAsync(cts.Token);
 
@@ -355,12 +355,12 @@ public class BlockAndAppendBlobFileTest : IClassFixture<ProviderTestFixture<Bloc
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
             token: cts.Token);
         var sut = await controller.CreateFileAsync(
             name: "BlobFile",
             typeName: typeName,
-            option: "{\"@Version\":\"1.0.0\",\"Container Name\":\"containerName\",\"Blob Path\":\"hoge.txt\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Container Name\":\"containerName\",\"Blob Path\":\"hoge.txt\"}",
             token: cts.Token);
 
         // act
@@ -396,12 +396,12 @@ public class BlockAndAppendBlobFileTest : IClassFixture<ProviderTestFixture<Bloc
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
             token: cts.Token);
         var sut = await controller.CreateFileAsync(
             name: "BlobFile",
             typeName: typeName,
-            option: "{\"@Version\":\"1.0.0\",\"Container Name\":\"containerName\",\"Blob Path\":\"hoge.txt\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Container Name\":\"containerName\",\"Blob Path\":\"hoge.txt\"}",
             token: cts.Token);
         await sut.OpenAsync(cts.Token);
 
@@ -434,12 +434,12 @@ public class BlockAndAppendBlobFileTest : IClassFixture<ProviderTestFixture<Bloc
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
             token: cts.Token);
         var sut = await controller.CreateFileAsync(
             name: "BlobFile",
             typeName: typeName,
-            option: "{\"@Version\":\"1.0.0\",\"Container Name\":\"containerName\",\"Blob Path\":\"hoge.txt\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Container Name\":\"containerName\",\"Blob Path\":\"hoge.txt\"}",
             token: cts.Token);
 
         // act
@@ -471,12 +471,12 @@ public class BlockAndAppendBlobFileTest : IClassFixture<ProviderTestFixture<Bloc
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
             token: cts.Token);
         var sut = await controller.CreateFileAsync(
             name: "BlobFile",
             typeName: typeName,
-            option: "{\"@Version\":\"1.0.0\",\"Container Name\":\"containerName\",\"Blob Path\":\"hoge.txt\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Container Name\":\"containerName\",\"Blob Path\":\"hoge.txt\"}",
             token: cts.Token);
         await sut.OpenAsync(cts.Token);
 
@@ -506,12 +506,12 @@ public class BlockAndAppendBlobFileTest : IClassFixture<ProviderTestFixture<Bloc
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
             token: cts.Token);
         var sut = await controller.CreateFileAsync(
             name: "BlobFile",
             typeName: typeName,
-            option: "{\"@Version\":\"1.0.0\",\"Container Name\":\"containerName\",\"Blob Path\":\"hoge.txt\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Container Name\":\"containerName\",\"Blob Path\":\"hoge.txt\"}",
             token: cts.Token);
 
         // act
@@ -543,12 +543,12 @@ public class BlockAndAppendBlobFileTest : IClassFixture<ProviderTestFixture<Bloc
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
             token: cts.Token);
         var sut = await controller.CreateFileAsync(
             name: "BlobFile",
             typeName: typeName,
-            option: "{\"@Version\":\"1.0.0\",\"Container Name\":\"containerName\",\"Blob Path\":\"hoge.txt\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Container Name\":\"containerName\",\"Blob Path\":\"hoge.txt\"}",
             token: cts.Token);
         await sut.OpenAsync(cts.Token);
 
@@ -578,12 +578,12 @@ public class BlockAndAppendBlobFileTest : IClassFixture<ProviderTestFixture<Bloc
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
             token: cts.Token);
         var sut = await controller.CreateFileAsync(
             name: "BlobFile",
             typeName: typeName,
-            option: "{\"@Version\":\"1.0.0\",\"Container Name\":\"containerName\",\"Blob Path\":\"hoge.txt\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Container Name\":\"containerName\",\"Blob Path\":\"hoge.txt\"}",
             token: cts.Token);
 
         // act
@@ -615,12 +615,12 @@ public class BlockAndAppendBlobFileTest : IClassFixture<ProviderTestFixture<Bloc
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
             token: cts.Token);
         var sut = await controller.CreateFileAsync(
             name: "BlobFile",
             typeName: typeName,
-            option: "{\"@Version\":\"1.0.0\",\"Container Name\":\"containerName\",\"Blob Path\":\"hoge.txt\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Container Name\":\"containerName\",\"Blob Path\":\"hoge.txt\"}",
             token: cts.Token);
         await sut.OpenAsync(cts.Token);
 
@@ -666,12 +666,12 @@ public class BlockAndAppendBlobFileTest : IClassFixture<ProviderTestFixture<Bloc
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
             token: cts.Token);
         var sut = await controller.CreateFileAsync(
             name: "BlobFile",
             typeName: typeName,
-            option: "{\"@Version\":\"1.0.0\",\"Container Name\":\"containerName\",\"Blob Path\":\"hoge.txt\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Container Name\":\"containerName\",\"Blob Path\":\"hoge.txt\"}",
             token: cts.Token);
 
         // act
@@ -704,12 +704,12 @@ public class BlockAndAppendBlobFileTest : IClassFixture<ProviderTestFixture<Bloc
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
             token: cts.Token);
         var sut = await controller.CreateFileAsync(
             name: "BlobFile",
             typeName: typeName,
-            option: "{\"@Version\":\"1.0.0\",\"Container Name\":\"containerName\",\"Blob Path\":\"hoge.txt\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Container Name\":\"containerName\",\"Blob Path\":\"hoge.txt\"}",
             token: cts.Token);
         await sut.OpenAsync(cts.Token);
 
@@ -742,12 +742,12 @@ public class BlockAndAppendBlobFileTest : IClassFixture<ProviderTestFixture<Bloc
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
             token: cts.Token);
         var sut = await controller.CreateFileAsync(
             name: "BlobFile",
             typeName: typeName,
-            option: "{\"@Version\":\"1.0.0\",\"Container Name\":\"containerName\",\"Blob Path\":\"hoge.txt\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Container Name\":\"containerName\",\"Blob Path\":\"hoge.txt\"}",
             token: cts.Token);
 
         // act
@@ -822,12 +822,12 @@ public class BlockAndAppendBlobFileTest : IClassFixture<ProviderTestFixture<Bloc
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
             token: cts.Token);
         var sut = await controller.CreateFileAsync(
             name: "BlobFile",
             typeName: typeName,
-            option: "{\"@Version\":\"1.0.0\",\"Container Name\":\"containerName\",\"Blob Path\":\"hoge.txt\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Container Name\":\"containerName\",\"Blob Path\":\"hoge.txt\"}",
             token: cts.Token);
         await sut.OpenAsync(cts.Token);
 
@@ -866,12 +866,12 @@ public class BlockAndAppendBlobFileTest : IClassFixture<ProviderTestFixture<Bloc
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
-            option: "{\"@Version\":\"1.0.0\",\"Account Name\":\"iotsolution1\",\"Access Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Account Name\":\"iotsolution1\",\"Account Key\":\"YMktKCsVW7tZrnFKLqFRD8MRICu3hNXxaNTB9Ejr/XyTnM30Eimpy6JvHDNWubcj\",\"Use Https\":true,\"Endpoint Suffix\":\"core.windows.net\"}",
             token: cts.Token);
         var sut = await controller.CreateFileAsync(
             name: "BlobFile",
             typeName: typeName,
-            option: "{\"@Version\":\"1.0.0\",\"Container Name\":\"containerName\",\"Blob Path\":\"hoge.txt\"}",
+            option: "{\"@Version\":\"0.0.1\",\"Container Name\":\"containerName\",\"Blob Path\":\"hoge.txt\"}",
             token: cts.Token);
 
         // act

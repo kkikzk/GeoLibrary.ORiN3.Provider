@@ -21,7 +21,6 @@ internal class BlobContainerClientWrapper(BlobContainerClient client) : IBlobCon
 
     public IAsyncPageable<BlobItem> GetBlobsAsync(string? prefix, CancellationToken cancellationToken)
     {
-
         var azurePageable = _client.GetBlobsAsync(prefix: prefix, cancellationToken: cancellationToken);
         return new AsyncPageableWrapper<BlobItem>(azurePageable);
     }
@@ -38,6 +37,6 @@ internal class BlobContainerClientWrapper(BlobContainerClient client) : IBlobCon
 
     public IPageBlobClient GetPageBlobClient(string blobPath)
     {
-        throw new NotImplementedException();
+        return new PageBlobClientWrapper(_client.GetPageBlobClient(blobPath));
     }
 }

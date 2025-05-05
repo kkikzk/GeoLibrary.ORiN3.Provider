@@ -42,7 +42,7 @@ public class ProviderTestFixture<T> : IDisposable
         }
     }
 
-    public async Task InitAsync<S>(ITestOutputHelper outputHelper, CancellationToken token)
+    public async Task InitAsync<S>(ITestOutputHelper outputHelper, CancellationToken token, uint timeoutIntervalMilliseconds = 1000000)
         where S : RootObjectBase, new()
     {
         using (await _asyncLock.LockAsync(token).ConfigureAwait(false))
@@ -68,7 +68,7 @@ public class ProviderTestFixture<T> : IDisposable
             _providerTask = parameters[1] as Task; // out パラメータの値を取得
 
             _channel = GrpcChannel.ForAddress(ProviderUri);
-            _root = await ORiN3RootObject.AttachAsync(_channel, 5000, token).ConfigureAwait(false);
+            _root = await ORiN3RootObject.AttachAsync(_channel, timeoutIntervalMilliseconds, token).ConfigureAwait(false);
             _initialized = true;
         }
     }
