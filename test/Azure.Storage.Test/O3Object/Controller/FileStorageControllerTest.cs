@@ -44,7 +44,7 @@ public class FileStorageControllerTest : IClassFixture<ProviderTestFixture<FileS
         // arrange
         using var cts = new CancellationTokenSource(10000);
         var actualConnectionString = string.Empty;
-        using var methodReverter = ShareClientEx.SetCreateMethod((connectionString, shareName) =>
+        using var methodReverter = ShareClientEx.SetCreateMethod((connectionString, proxyUri, shareName) =>
         {
             actualConnectionString = connectionString;
             return new ShareClientMock(connectionString, shareName);
@@ -78,7 +78,7 @@ public class FileStorageControllerTest : IClassFixture<ProviderTestFixture<FileS
         // arrange
         using var cts = new CancellationTokenSource(10000);
         var actualConnectionString = string.Empty;
-        using var methodReverter = ShareClientEx.SetCreateMethod((connectionString, shareName) =>
+        using var methodReverter = ShareClientEx.SetCreateMethod((connectionString, proxyUri, shareName) =>
         {
             actualConnectionString = connectionString;
             return new ShareClientMock(connectionString, shareName);

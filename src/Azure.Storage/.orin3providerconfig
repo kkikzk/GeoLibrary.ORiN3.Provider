@@ -1,6 +1,6 @@
 ﻿{
   "providerPath": "GeoLibrary.ORiN3.Provider.Azure.Storage.dll",
-  "version": "0.0.2",
+  "version": "0.0.4",
   "providerId": "7AB23490-62D2-4B34-B4D9-C4223BB11066",
   "providerName": "Azure Storage Provider",
   "manual": {
@@ -10,7 +10,7 @@
   "license": {
     "default": "./_License"
   },
-  "author": "GeoLibrary",
+  "author": "KAKEI Kazuki",
   "comment": {
     "default": "This is an Azure Storage Provider.",
     "ja-JP": "Azure Storageプロバイダです。"
@@ -70,6 +70,17 @@
           "rule": {
             "type": "string"
           }
+        },
+        {
+          "name": "Proxy Uri",
+          "optional": true,
+          "comment": {
+            "default": "Specify the address of the proxy server.",
+            "ja-JP": "プロキシサーバーのアドレスを指定します。"
+          },
+          "rule": {
+            "type": "string"
+          }
         }
       ]
     },
@@ -123,6 +134,17 @@
           "comment": {
             "default": "Specifies the endpoint suffix.",
             "ja-JP": "エンドポイントサフィックスを指定します。"
+          },
+          "rule": {
+            "type": "string"
+          }
+        },
+        {
+          "name": "Proxy Uri",
+          "optional": true,
+          "comment": {
+            "default": "Specify the address of the proxy server.",
+            "ja-JP": "プロキシサーバーのアドレスを指定します。"
           },
           "rule": {
             "type": "string"

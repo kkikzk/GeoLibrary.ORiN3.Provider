@@ -10,6 +10,7 @@ public record ConnectionString(string Protocol, string AccountName, string Accou
         string AccountKey { get; }
         bool UseHttps { get; }
         string EndpointSuffix { get; }
+        string ProxyUri { get; }
     }
 
     public override string ToString() =>

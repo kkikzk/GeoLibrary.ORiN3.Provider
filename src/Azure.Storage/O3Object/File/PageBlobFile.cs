@@ -54,7 +54,7 @@ internal class PageBlobFile : BlobFileBase<IPageBlobClient, PageBlobFile.PageBlo
         {
             var connectionString = ConnectionString.Create(this);
             var containerName = ArgumentHelper.GetArgument(_analyzedResult!.ContainerName, nameof(_analyzedResult.ContainerName));
-            var containerClient = new BlobContainerClientEx(connectionString.ToString(), containerName);
+            var containerClient = new BlobContainerClientEx(connectionString.ToString(), ProxyUri, containerName);
             _blobClient = GetClient(containerClient, _analyzedResult!.BlobPath.Value);
             var exists = await _blobClient.ExistsAsync(token).ConfigureAwait(false);
             if (!exists.Value)

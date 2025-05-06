@@ -94,11 +94,12 @@ GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageControlle
 
 <h3>JSON Options</h3>
 <table border="1" cellspacing="0" cellpadding="4">
-    <tr><th>Key</th>             <th>Type</th>   <th>Required</th> <th>Encrypted</th> <th>Description</th>                              <th>Value Range</th>                            <th>Default</th></tr>
-    <tr><td>Account Name</td>    <td>string</td> <td>✓</td>        <td></td>          <td>The Azure Storage account name to connect to.</td>     <td>Follows Azure naming rules</td>       <td></td></tr>
-    <tr><td>Account Key</td>     <td>string</td> <td>✓</td>        <td>✓</td>         <td>The access key for the Azure Storage account.</td>     <td>Valid access key</td>                 <td></td></tr>
-    <tr><td>Use Https</td>       <td>bool</td>   <td></td>         <td></td>          <td>Whether to use HTTPS</td>                            <td>`true` or `false`</td>                <td>true</td></tr>
-    <tr><td>Endpoint Suffix</td><td>string</td> <td></td>         <td></td>          <td>The endpoint suffix for Azure</td>                     <td>Any suffix</td>                       <td>core.windows.net</td></tr>
+    <tr><th>Key</th>             <th>Type</th>   <th>Required</th> <th>Encrypted</th> <th>Description</th>                                   <th>Value Range</th>                <th>Default</th></tr>
+    <tr><td>Account Name</td>    <td>string</td> <td>✓</td>       <td></td>          <td>The Azure Storage account name to connect to.</td> <td>Follows Azure naming rules</td> <td></td></tr>
+    <tr><td>Account Key</td>     <td>string</td> <td>✓</td>       <td>✓</td>        <td>The access key for the Azure Storage account.</td> <td>Valid access key</td>           <td></td></tr>
+    <tr><td>Use Https</td>       <td>bool</td>   <td></td>         <td></td>          <td>Whether to use HTTPS</td>                          <td>`true` or `false`</td>          <td>true</td></tr>
+    <tr><td>Endpoint Suffix</td> <td>string</td> <td></td>         <td></td>          <td>The endpoint suffix for Azure</td>                 <td>Any suffix</td>                 <td>core.windows.net</td></tr>
+    <tr><td>Proxy Uri</td>       <td>string</td> <td></td>         <td></td>          <td>Address of the proxy server</td>                   <td>Valid URI</td>                  <td></td></tr>
 </table>
 
 <h3>Parent Object</h3>
@@ -284,11 +285,12 @@ GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.FileStorageControlle
 
 <h3>JSON Options</h3>
 <table border="1" cellspacing="0" cellpadding="4">
-    <tr><th>Key</th><th>Type</th><th>Required</th><th>Encrypted</th><th>Description</th><th>Value Range</th><th>Default</th></tr>
-    <tr><td>Account Name</td><td>string</td><td>✓</td><td></td><td>The Azure Storage account name to connect to.</td><td>Follows Azure naming rules</td><td></td></tr>
-    <tr><td>Account Key</td><td>string</td><td>✓</td><td>✓</td><td>The access key for the Azure Storage account.</td><td>Valid access key</td><td></td></tr>
-    <tr><td>Use Https</td><td>bool</td><td></td><td></td><td>Whether to use HTTPS</td><td>`true` or `false`</td><td>true</td></tr>
-    <tr><td>Endpoint Suffix</td><td>string</td><td></td><td></td><td>Endpoint suffix for Azure</td><td>Any suffix</td><td>core.windows.net</td></tr>
+    <tr><th>Key</th>             <th>Type</th>   <th>Required</th> <th>Encrypted</th> <th>Description</th>                                   <th>Value Range</th>                <th>Default</th></tr>
+    <tr><td>Account Name</td>    <td>string</td> <td>✓</td>       <td></td>          <td>The Azure Storage account name to connect to.</td> <td>Follows Azure naming rules</td> <td></td></tr>
+    <tr><td>Account Key</td>     <td>string</td> <td>✓</td>       <td>✓</td>        <td>The access key for the Azure Storage account.</td> <td>Valid access key</td>           <td></td></tr>
+    <tr><td>Use Https</td>       <td>bool</td>   <td></td>         <td></td>          <td>Whether to use HTTPS</td>                          <td>`true` or `false`</td>          <td>true</td></tr>
+    <tr><td>Endpoint Suffix</td> <td>string</td> <td></td>         <td></td>          <td>Endpoint suffix for Azure</td>                     <td>Any suffix</td>                 <td>core.windows.net</td></tr>
+    <tr><td>Proxy Uri</td>       <td>string</td> <td></td>         <td></td>          <td>Address of the proxy server</td>                   <td>Valid URI</td>                  <td></td></tr>
 </table>
 
 <h3>Parent Object</h3>

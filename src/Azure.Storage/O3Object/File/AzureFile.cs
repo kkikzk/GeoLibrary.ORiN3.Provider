@@ -47,6 +47,7 @@ internal class AzureFile : FileBase, ConnectionString.IHasNameAndKey
     public string AccountKey { private set; get; } = string.Empty;
     public bool UseHttps { private set; get; } = true;
     public string EndpointSuffix { private set; get; } = "core.windows.net";
+    public string ProxyUri { private set; get; } = string.Empty;
 
     protected override Task OnInitializingAsync(JsonElement option, bool needVersionCheck, object? fromParent, CancellationToken token)
     {
@@ -56,6 +57,7 @@ internal class AzureFile : FileBase, ConnectionString.IHasNameAndKey
         AccountKey = nameAndKey!.AccountKey;
         UseHttps = nameAndKey!.UseHttps;
         EndpointSuffix = nameAndKey!.EndpointSuffix;
+        ProxyUri = nameAndKey!.ProxyUri;
 
         var optionManager = new OptionManager<AzureFileOption>(option);
         _analyzedResult = optionManager.Analyze();
@@ -72,7 +74,7 @@ internal class AzureFile : FileBase, ConnectionString.IHasNameAndKey
             await base.OnOpeningAsync(rootElement, argument, token).ConfigureAwait(false);
 
             var connectionString = ConnectionString.Create(this);
-            var shareClient = new ShareClientEx(connectionString.ToString(), _analyzedResult!.ShareName.Value);
+            var shareClient = new ShareClientEx(connectionString.ToString(), ProxyUri, _analyzedResult!.ShareName.Value);
             _ = await shareClient.CreateIfNotExistsAsync(token).ConfigureAwait(false);
 
             var dirClient = shareClient.GetRootDirectoryClient();

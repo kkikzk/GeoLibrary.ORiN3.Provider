@@ -62,7 +62,7 @@ internal class BlobStorageController : BaseStorageController
             ORiN3ProviderLogger.LogTrace($"Bytes={data}, Container Name={containerName}, Blob Path={blobPath}, Overwrite={overwrite}");
 
             var connectionString = ConnectionString.Create(this);
-            var containerClient = new BlobContainerClientEx(connectionString.ToString(), containerName);
+            var containerClient = new BlobContainerClientEx(connectionString.ToString(), ProxyUri, containerName);
             await containerClient.CreateIfNotExistsAsync(token).ConfigureAwait(false);
             var blobClient = containerClient.GetBlobClient(blobPath);
 
@@ -130,7 +130,7 @@ internal class BlobStorageController : BaseStorageController
 
             var fileInfo = new FileInfo(filePath);
             var connectionString = ConnectionString.Create(this);
-            var containerClient = new BlobContainerClientEx(connectionString.ToString(), containerName);
+            var containerClient = new BlobContainerClientEx(connectionString.ToString(), ProxyUri, containerName);
             await containerClient.CreateIfNotExistsAsync(token).ConfigureAwait(false);
             var blobClient = containerClient.GetBlobClient(prefix == null ? fileInfo.Name : prefix + fileInfo.Name);
             using var uploadFileStream = System.IO.File.OpenRead(fileInfo.FullName);
@@ -195,7 +195,7 @@ internal class BlobStorageController : BaseStorageController
 
             var directoryInfo = new DirectoryInfo(directoryPath);
             var connectionString = ConnectionString.Create(this);
-            var containerClient = new BlobContainerClientEx(connectionString.ToString(), containerName);
+            var containerClient = new BlobContainerClientEx(connectionString.ToString(), ProxyUri, containerName);
             await containerClient.CreateIfNotExistsAsync(token).ConfigureAwait(false);
             
             foreach (var file in Directory.EnumerateFiles(directoryInfo.FullName))
@@ -254,7 +254,7 @@ internal class BlobStorageController : BaseStorageController
             ORiN3ProviderLogger.LogTrace($"Container Name={containerName}, Blob Path={blobName}, ETag={eTag}");
 
             var connectionString = ConnectionString.Create(this);
-            var containerClient = new BlobContainerClientEx(connectionString.ToString(), containerName);
+            var containerClient = new BlobContainerClientEx(connectionString.ToString(), ProxyUri, containerName);
             var blobClient = containerClient.GetBlobClient(blobName);
             var conditions = new BlobRequestConditions { IfMatch = eTag };
             using var response = await blobClient.DeleteAsync(DeleteSnapshotsOption.IncludeSnapshots, conditions, token).ConfigureAwait(false);
@@ -308,7 +308,7 @@ internal class BlobStorageController : BaseStorageController
             ORiN3ProviderLogger.LogTrace($"Container Name={containerName}, Prefix={prefix}");
 
             var connectionString = ConnectionString.Create(this);
-            var containerClient = new BlobContainerClientEx(connectionString.ToString(), containerName);
+            var containerClient = new BlobContainerClientEx(connectionString.ToString(), ProxyUri, containerName);
             var segmentSize = 100;
             var resultSegment = containerClient.GetBlobsAsync(prefix: prefix, cancellationToken: token).AsPages(default, segmentSize);
             var list = new List<string>();
@@ -370,7 +370,7 @@ internal class BlobStorageController : BaseStorageController
             ORiN3ProviderLogger.LogTrace($"Bytes={data}, Container Name={containerName}, Blob Path={blobPath}, ETag={eTag}");
 
             var connectionString = ConnectionString.Create(this);
-            var containerClient = new BlobContainerClientEx(connectionString.ToString(), containerName);
+            var containerClient = new BlobContainerClientEx(connectionString.ToString(), ProxyUri, containerName);
             await containerClient.CreateIfNotExistsAsync(token).ConfigureAwait(false);
             var blobClient = containerClient.GetAppendBlobClient(blobPath);
             await blobClient.CreateIfNotExistsAsync(token).ConfigureAwait(false);

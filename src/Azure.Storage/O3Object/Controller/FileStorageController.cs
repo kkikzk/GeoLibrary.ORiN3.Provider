@@ -58,7 +58,7 @@ internal class FileStorageController : BaseStorageController
             ORiN3ProviderLogger.LogTrace($"Bytes={data.Length}, Share Name={shareName}, Remote File Path={filePath}");
 
             var connectionString = ConnectionString.Create(this);
-            var shareClient = new ShareClientEx(connectionString.ToString(), shareName);
+            var shareClient = new ShareClientEx(connectionString.ToString(), ProxyUri, shareName);
             await shareClient.CreateIfNotExistsAsync(token).ConfigureAwait(false);
             var dirClient = shareClient.GetRootDirectoryClient();
 
@@ -138,7 +138,7 @@ internal class FileStorageController : BaseStorageController
             var remotePath = string.IsNullOrEmpty(remoteDirectoryPath) ? fileInfo.Name : $"{remoteDirectoryPath}/{fileInfo.Name}";
 
             var connectionString = ConnectionString.Create(this);
-            var shareClient = new ShareClientEx(connectionString.ToString(), shareName);
+            var shareClient = new ShareClientEx(connectionString.ToString(), ProxyUri, shareName);
             await shareClient.CreateIfNotExistsAsync(token);
             var dirClient = shareClient.GetRootDirectoryClient();
 
@@ -209,7 +209,7 @@ internal class FileStorageController : BaseStorageController
             ORiN3ProviderLogger.LogTrace($"Directory Path={directoryPath}, Share Name={shareName}, Remote Directory Path={(string.IsNullOrEmpty(remoteDirectoryPath) ? "\"\"" : remoteDirectoryPath)}");
 
             var connectionString = ConnectionString.Create(this);
-            var shareClient = new ShareClientEx(connectionString.ToString(), shareName);
+            var shareClient = new ShareClientEx(connectionString.ToString(), ProxyUri, shareName);
             await shareClient.CreateIfNotExistsAsync(token).ConfigureAwait(false);
             var dirClient = shareClient.GetRootDirectoryClient();
 
@@ -280,7 +280,7 @@ internal class FileStorageController : BaseStorageController
             ORiN3ProviderLogger.LogTrace($"Share Name={shareName}, Remote File Path={remoteFilePath}");
 
             var connectionString = ConnectionString.Create(this);
-            var shareClient = new ShareClientEx(connectionString.ToString(), shareName);
+            var shareClient = new ShareClientEx(connectionString.ToString(), ProxyUri, shareName);
             var dirClient = shareClient.GetRootDirectoryClient();
 
             if (remoteFilePath.Contains('/'))
@@ -336,7 +336,7 @@ internal class FileStorageController : BaseStorageController
             ORiN3ProviderLogger.LogTrace($"Share Name={shareName}, Remote Directory Path={remoteDirectoryPath}");
 
             var connectionString = ConnectionString.Create(this);
-            var shareClient = new ShareClientEx(connectionString.ToString(), shareName);
+            var shareClient = new ShareClientEx(connectionString.ToString(), ProxyUri, shareName);
             var dirClient = shareClient.GetRootDirectoryClient();
 
             if (remoteDirectoryPath.Contains('/'))
@@ -406,7 +406,7 @@ internal class FileStorageController : BaseStorageController
             ORiN3ProviderLogger.LogTrace($"Share Name={shareName}, Remote Directory Path={(string.IsNullOrEmpty(directoryPath) ? "\"\"" : directoryPath)}");
 
             var connectionString = ConnectionString.Create(this);
-            var shareClient = new ShareClientEx(connectionString.ToString(), shareName);
+            var shareClient = new ShareClientEx(connectionString.ToString(), ProxyUri, shareName);
             var dirClient = shareClient.GetRootDirectoryClient();
 
             if (!string.IsNullOrEmpty(directoryPath))

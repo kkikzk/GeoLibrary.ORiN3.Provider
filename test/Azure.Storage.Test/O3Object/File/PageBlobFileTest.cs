@@ -49,7 +49,7 @@ public class PageBlobFileTest : IClassFixture<ProviderTestFixture<PageBlobFileTe
         var actualConnectionString = string.Empty;
         var actualcontainerName = string.Empty;
         var actualBlobPath = string.Empty;
-        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, containerName) =>
+        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, proxyUri, containerName) =>
         {
             actualConnectionString = connectionString;
             actualcontainerName = containerName;
@@ -93,7 +93,7 @@ public class PageBlobFileTest : IClassFixture<ProviderTestFixture<PageBlobFileTe
         // arrange
         using var cts = new CancellationTokenSource(10000);
         var actualLength = 0L;
-        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, containerName) =>
+        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, proxyUri, containerName) =>
         {
             return new BlobContainerClientMock(connectionString, containerName)
             {
@@ -148,7 +148,7 @@ public class PageBlobFileTest : IClassFixture<ProviderTestFixture<PageBlobFileTe
         // arrange
         using var cts = new CancellationTokenSource(10000);
         var called = false;
-        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, containerName) =>
+        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, proxyUri, containerName) =>
         {
             return new BlobContainerClientMock(connectionString, containerName)
             {
@@ -194,7 +194,7 @@ public class PageBlobFileTest : IClassFixture<ProviderTestFixture<PageBlobFileTe
         // arrange
         using var cts = new CancellationTokenSource(10000);
         var called = false;
-        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, containerName) =>
+        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, proxyUri, containerName) =>
         {
             return new BlobContainerClientMock(connectionString, containerName)
             {
@@ -243,7 +243,7 @@ public class PageBlobFileTest : IClassFixture<ProviderTestFixture<PageBlobFileTe
         // arrange
         using var cts = new CancellationTokenSource(10000);
         var called = false;
-        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, containerName) =>
+        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, proxyUri, containerName) =>
         {
             return new BlobContainerClientMock(connectionString, containerName)
             {
@@ -292,7 +292,7 @@ public class PageBlobFileTest : IClassFixture<ProviderTestFixture<PageBlobFileTe
         // arrange
         using var cts = new CancellationTokenSource(10000);
         var called = false;
-        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, containerName) =>
+        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, proxyUri, containerName) =>
         {
             return new BlobContainerClientMock(connectionString, containerName)
             {
@@ -336,7 +336,7 @@ public class PageBlobFileTest : IClassFixture<ProviderTestFixture<PageBlobFileTe
     {
         // arrange
         using var cts = new CancellationTokenSource(10000);
-        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, containerName) =>
+        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, proxyUri, containerName) =>
         {
             return new BlobContainerClientMock(connectionString, containerName)
             {
@@ -376,7 +376,7 @@ public class PageBlobFileTest : IClassFixture<ProviderTestFixture<PageBlobFileTe
     {
         // arrange
         using var cts = new CancellationTokenSource(10000);
-        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, containerName) =>
+        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, proxyUri, containerName) =>
         {
             return new BlobContainerClientMock(connectionString, containerName)
             {

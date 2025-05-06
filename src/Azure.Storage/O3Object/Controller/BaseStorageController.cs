@@ -27,12 +27,17 @@ internal class BaseStorageController : ControllerBase, ConnectionString.IHasName
         [Optional]
         [JsonElementName("Endpoint Suffix")]
         public OptionValue<string> EndpointSuffix { get; set; } = new();
+
+        [Optional]
+        [JsonElementName("Proxy Uri")]
+        public OptionValue<string> ProxyUri { get; set; } = new();
     }
 
     public string AccountName { private set; get; } = string.Empty;
     public string AccountKey { private set; get; } = string.Empty;
     public bool UseHttps { private set; get; } = true;
     public string EndpointSuffix { private set; get; } = "core.windows.net";
+    public string ProxyUri { private set; get; } = string.Empty;
 
     protected override async Task OnInitializingAsync(JsonElement option, bool needVersionCheck, object? fromParent, CancellationToken token)
     {
@@ -47,6 +52,7 @@ internal class BaseStorageController : ControllerBase, ConnectionString.IHasName
         UseHttps = _analyzedResult.UseHttps.IsDefined ? _analyzedResult.UseHttps.Value : true;
 #pragma warning restore IDE0075
         EndpointSuffix = _analyzedResult.EndpointSuffix.IsDefined ? _analyzedResult.EndpointSuffix.Value : "core.windows.net";
+        ProxyUri = _analyzedResult.ProxyUri.IsDefined ? _analyzedResult.ProxyUri.Value : string.Empty;
     }
 
     protected override Task<IFile> OnCreatingFileAsync(string name, string typeName, Type type, string option, object? _, CancellationToken token)

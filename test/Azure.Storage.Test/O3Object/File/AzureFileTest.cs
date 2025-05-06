@@ -48,7 +48,7 @@ public class AzureFileTest : IClassFixture<ProviderTestFixture<AzureFileTest>>, 
         var actualConnectionString = string.Empty;
         var actualShareName = string.Empty;
         var actualFileName = string.Empty;
-        using var methodReverter = ShareClientEx.SetCreateMethod((connectionString, shareName) =>
+        using var methodReverter = ShareClientEx.SetCreateMethod((connectionString, proxyUri, shareName) =>
         {
             actualConnectionString = connectionString;
             actualShareName = shareName;
@@ -164,9 +164,9 @@ public class AzureFileTest : IClassFixture<ProviderTestFixture<AzureFileTest>>, 
         // arrange
         var fileName = "hoge.txt";
         using var cts = new CancellationTokenSource(10000);
-        using var methodReverter = ShareClientEx.SetCreateMethod((connectionString, containerName) =>
+        using var methodReverter = ShareClientEx.SetCreateMethod((connectionString, proxyUri, shareName) =>
         {
-            return new ShareClientMock(connectionString, containerName)
+            return new ShareClientMock(connectionString, shareName)
             {
                 GetRootDirectoryClientMock = () =>
                 {
@@ -219,9 +219,9 @@ public class AzureFileTest : IClassFixture<ProviderTestFixture<AzureFileTest>>, 
         // arrange
         using var cts = new CancellationTokenSource(10000);
         var actualLength = 0L;
-        using var methodReverter = ShareClientEx.SetCreateMethod((connectionString, containerName) =>
+        using var methodReverter = ShareClientEx.SetCreateMethod((connectionString, proxyUri, shareName) =>
         {
-            return new ShareClientMock(connectionString, containerName)
+            return new ShareClientMock(connectionString, shareName)
             {
                 GetRootDirectoryClientMock = () =>
                 {
@@ -276,9 +276,9 @@ public class AzureFileTest : IClassFixture<ProviderTestFixture<AzureFileTest>>, 
         // arrange
         using var cts = new CancellationTokenSource(10000);
         var called = false;
-        using var methodReverter = ShareClientEx.SetCreateMethod((connectionString, containerName) =>
+        using var methodReverter = ShareClientEx.SetCreateMethod((connectionString, proxyUri, shareName) =>
         {
-            return new ShareClientMock(connectionString, containerName)
+            return new ShareClientMock(connectionString, shareName)
             {
                 GetRootDirectoryClientMock = () =>
                 {
@@ -332,9 +332,9 @@ public class AzureFileTest : IClassFixture<ProviderTestFixture<AzureFileTest>>, 
         // arrange
         using var cts = new CancellationTokenSource(10000);
         var called = false;
-        using var methodReverter = ShareClientEx.SetCreateMethod((connectionString, containerName) =>
+        using var methodReverter = ShareClientEx.SetCreateMethod((connectionString, proxyUri, shareName) =>
         {
-            return new ShareClientMock(connectionString, containerName)
+            return new ShareClientMock(connectionString, shareName)
             {
                 GetRootDirectoryClientMock = () =>
                 {
@@ -391,9 +391,9 @@ public class AzureFileTest : IClassFixture<ProviderTestFixture<AzureFileTest>>, 
         // arrange
         using var cts = new CancellationTokenSource(10000);
         var called = false;
-        using var methodReverter = ShareClientEx.SetCreateMethod((connectionString, containerName) =>
+        using var methodReverter = ShareClientEx.SetCreateMethod((connectionString, proxyUri, shareName) =>
         {
-            return new ShareClientMock(connectionString, containerName)
+            return new ShareClientMock(connectionString, shareName)
             {
                 GetRootDirectoryClientMock = () =>
                 {
@@ -450,9 +450,9 @@ public class AzureFileTest : IClassFixture<ProviderTestFixture<AzureFileTest>>, 
         // arrange
         using var cts = new CancellationTokenSource(10000);
         var called = false;
-        using var methodReverter = ShareClientEx.SetCreateMethod((connectionString, containerName) =>
+        using var methodReverter = ShareClientEx.SetCreateMethod((connectionString, proxyUri, shareName) =>
         {
-            return new ShareClientMock(connectionString, containerName)
+            return new ShareClientMock(connectionString, shareName)
             {
                 GetRootDirectoryClientMock = () =>
                 {
@@ -505,9 +505,9 @@ public class AzureFileTest : IClassFixture<ProviderTestFixture<AzureFileTest>>, 
         // arrange
         var fileName = "hoge.txt";
         using var cts = new CancellationTokenSource(10000);
-        using var methodReverter = ShareClientEx.SetCreateMethod((connectionString, containerName) =>
+        using var methodReverter = ShareClientEx.SetCreateMethod((connectionString, proxyUri, shareName) =>
         {
-            return new ShareClientMock(connectionString, containerName)
+            return new ShareClientMock(connectionString, shareName)
             {
                 GetRootDirectoryClientMock = () =>
                 {
@@ -561,9 +561,9 @@ public class AzureFileTest : IClassFixture<ProviderTestFixture<AzureFileTest>>, 
         // arrange
         var fileName = "hoge.txt";
         using var cts = new CancellationTokenSource(10000);
-        using var methodReverter = ShareClientEx.SetCreateMethod((connectionString, containerName) =>
+        using var methodReverter = ShareClientEx.SetCreateMethod((connectionString, proxyUri, shareName) =>
         {
-            return new ShareClientMock(connectionString, containerName)
+            return new ShareClientMock(connectionString, shareName)
             {
                 GetRootDirectoryClientMock = () =>
                 {
@@ -610,9 +610,9 @@ public class AzureFileTest : IClassFixture<ProviderTestFixture<AzureFileTest>>, 
     {
         // arrange
         using var cts = new CancellationTokenSource(10000);
-        using var methodReverter = ShareClientEx.SetCreateMethod((connectionString, containerName) =>
+        using var methodReverter = ShareClientEx.SetCreateMethod((connectionString, proxyUri, shareName) =>
         {
-            return new ShareClientMock(connectionString, containerName)
+            return new ShareClientMock(connectionString, shareName)
             {
                 GetRootDirectoryClientMock = () =>
                 {
@@ -659,9 +659,9 @@ public class AzureFileTest : IClassFixture<ProviderTestFixture<AzureFileTest>>, 
     {
         // arrange
         using var cts = new CancellationTokenSource(10000);
-        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, containerName) =>
+        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, proxyUri, shareName) =>
         {
-            return new BlobContainerClientMock(connectionString, containerName);
+            return new BlobContainerClientMock(connectionString, shareName);
         });
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureFileStorageController",
@@ -700,9 +700,9 @@ public class AzureFileTest : IClassFixture<ProviderTestFixture<AzureFileTest>>, 
     {
         // arrange
         using var cts = new CancellationTokenSource(10000);
-        using var methodReverter = ShareClientEx.SetCreateMethod((connectionString, containerName) =>
+        using var methodReverter = ShareClientEx.SetCreateMethod((connectionString, proxyUri, shareName) =>
         {
-            return new ShareClientMock(connectionString, containerName)
+            return new ShareClientMock(connectionString, shareName)
             {
                 GetRootDirectoryClientMock = () =>
                 {
@@ -752,9 +752,9 @@ public class AzureFileTest : IClassFixture<ProviderTestFixture<AzureFileTest>>, 
     {
         // arrange
         using var cts = new CancellationTokenSource(10000);
-        using var methodReverter = ShareClientEx.SetCreateMethod((connectionString, containerName) =>
+        using var methodReverter = ShareClientEx.SetCreateMethod((connectionString, proxyUri, shareName) =>
         {
-            return new ShareClientMock(connectionString, containerName);
+            return new ShareClientMock(connectionString, shareName);
         });
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureFileStorageController",
@@ -787,9 +787,9 @@ public class AzureFileTest : IClassFixture<ProviderTestFixture<AzureFileTest>>, 
     {
         // arrange
         using var cts = new CancellationTokenSource(10000);
-        using var methodReverter = ShareClientEx.SetCreateMethod((connectionString, containerName) =>
+        using var methodReverter = ShareClientEx.SetCreateMethod((connectionString, proxyUri, shareName) =>
         {
-            return new ShareClientMock(connectionString, containerName);
+            return new ShareClientMock(connectionString, shareName);
         });
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureFileStorageController",
@@ -820,9 +820,9 @@ public class AzureFileTest : IClassFixture<ProviderTestFixture<AzureFileTest>>, 
     {
         // arrange
         using var cts = new CancellationTokenSource(10000);
-        using var methodReverter = ShareClientEx.SetCreateMethod((connectionString, containerName) =>
+        using var methodReverter = ShareClientEx.SetCreateMethod((connectionString, proxyUri, shareName) =>
         {
-            return new ShareClientMock(connectionString, containerName);
+            return new ShareClientMock(connectionString, shareName);
         });
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureFileStorageController",
@@ -855,9 +855,9 @@ public class AzureFileTest : IClassFixture<ProviderTestFixture<AzureFileTest>>, 
     {
         // arrange
         using var cts = new CancellationTokenSource(10000);
-        using var methodReverter = ShareClientEx.SetCreateMethod((connectionString, containerName) =>
+        using var methodReverter = ShareClientEx.SetCreateMethod((connectionString, proxyUri, shareName) =>
         {
-            return new ShareClientMock(connectionString, containerName);
+            return new ShareClientMock(connectionString, shareName);
         });
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureFileStorageController",
@@ -888,9 +888,9 @@ public class AzureFileTest : IClassFixture<ProviderTestFixture<AzureFileTest>>, 
     {
         // arrange
         using var cts = new CancellationTokenSource(10000);
-        using var methodReverter = ShareClientEx.SetCreateMethod((connectionString, containerName) =>
+        using var methodReverter = ShareClientEx.SetCreateMethod((connectionString, proxyUri, shareName) =>
         {
-            return new ShareClientMock(connectionString, containerName);
+            return new ShareClientMock(connectionString, shareName);
         });
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureFileStorageController",
@@ -923,9 +923,9 @@ public class AzureFileTest : IClassFixture<ProviderTestFixture<AzureFileTest>>, 
     {
         // arrange
         using var cts = new CancellationTokenSource(10000);
-        using var methodReverter = ShareClientEx.SetCreateMethod((connectionString, containerName) =>
+        using var methodReverter = ShareClientEx.SetCreateMethod((connectionString, proxyUri, shareName) =>
         {
-            return new ShareClientMock(connectionString, containerName)
+            return new ShareClientMock(connectionString, shareName)
             {
                 GetRootDirectoryClientMock = () =>
                 {
@@ -988,9 +988,9 @@ public class AzureFileTest : IClassFixture<ProviderTestFixture<AzureFileTest>>, 
     {
         // arrange
         using var cts = new CancellationTokenSource(10000);
-        using var methodReverter = ShareClientEx.SetCreateMethod((connectionString, containerName) =>
+        using var methodReverter = ShareClientEx.SetCreateMethod((connectionString, proxyUri, shareName) =>
         {
-            return new ShareClientMock(connectionString, containerName);
+            return new ShareClientMock(connectionString, shareName);
         });
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureFileStorageController",
@@ -1024,9 +1024,9 @@ public class AzureFileTest : IClassFixture<ProviderTestFixture<AzureFileTest>>, 
     {
         // arrange
         using var cts = new CancellationTokenSource(10000);
-        using var methodReverter = ShareClientEx.SetCreateMethod((connectionString, containerName) =>
+        using var methodReverter = ShareClientEx.SetCreateMethod((connectionString, proxyUri, shareName) =>
         {
-            return new ShareClientMock(connectionString, containerName)
+            return new ShareClientMock(connectionString, shareName)
             {
                 GetRootDirectoryClientMock = () =>
                 {
@@ -1080,9 +1080,9 @@ public class AzureFileTest : IClassFixture<ProviderTestFixture<AzureFileTest>>, 
     {
         // arrange
         using var cts = new CancellationTokenSource(10000);
-        using var methodReverter = ShareClientEx.SetCreateMethod((connectionString, containerName) =>
+        using var methodReverter = ShareClientEx.SetCreateMethod((connectionString, proxyUri, shareName) =>
         {
-            return new ShareClientMock(connectionString, containerName);
+            return new ShareClientMock(connectionString, shareName);
         });
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureFileStorageController",

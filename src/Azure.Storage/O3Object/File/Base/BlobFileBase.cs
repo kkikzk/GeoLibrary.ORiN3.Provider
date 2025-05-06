@@ -37,6 +37,7 @@ internal abstract class BlobFileBase<TClient, SOption> : FileBase, ConnectionStr
     public string AccountKey { private set; get; } = string.Empty;
     public bool UseHttps { private set; get; } = true;
     public string EndpointSuffix { private set; get; } = "core.windows.net";
+    public string ProxyUri { private set; get; } = string.Empty;
 
     protected override Task OnInitializingAsync(JsonElement option, bool needVersionCheck, object? fromParent, CancellationToken token)
     {
@@ -46,6 +47,7 @@ internal abstract class BlobFileBase<TClient, SOption> : FileBase, ConnectionStr
         AccountKey = nameAndKey!.AccountKey;
         UseHttps = nameAndKey!.UseHttps;
         EndpointSuffix = nameAndKey!.EndpointSuffix;
+        ProxyUri = nameAndKey!.ProxyUri;
         _workingDir = temp.GetValue(1) as DirectoryInfo;
 
         _analyzedResult = AnalyzeOption(option);
@@ -70,7 +72,7 @@ internal abstract class BlobFileBase<TClient, SOption> : FileBase, ConnectionStr
 
             var connectionString = ConnectionString.Create(this);
             var containerName = ArgumentHelper.GetArgument(_analyzedResult!.ContainerName, nameof(_analyzedResult.ContainerName));
-            var containerClient = new BlobContainerClientEx(connectionString.ToString(), containerName);
+            var containerClient = new BlobContainerClientEx(connectionString.ToString(), ProxyUri, containerName);
             var blobClient = GetClient(containerClient, _analyzedResult!.BlobPath.Value);
 
             var exists = await blobClient.ExistsAsync(token).ConfigureAwait(false);

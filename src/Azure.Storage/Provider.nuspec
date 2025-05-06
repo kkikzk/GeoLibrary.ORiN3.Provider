@@ -2,7 +2,7 @@
 <package >
   <metadata>
     <id>GeoLibrary.ORiN3.Provider.Azure.Storage</id>
-    <version>0.0.2</version>
+    <version>0.0.4</version>
     <title>GeoLibrary.ORiN3.Provider.Azure.Storage</title>
     <authors>KAKEI Kazuki</authors>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
@@ -16,7 +16,7 @@
     </dependencies>
     <icon>128x128.png</icon>
     <releaseNotes>
-        Added support for Azure File Storage.
+        Proxy support added.
     </releaseNotes>
     <projectUrl>https://github.com/kkikzk/GeoLibrary.ORiN3.Provider</projectUrl>
     <repository type="git" url="https://github.com/kkikzk/GeoLibrary.ORiN3.Provider.git" />

@@ -44,7 +44,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
         // arrange
         using var cts = new CancellationTokenSource(10000);
         var actualConnectionString = string.Empty;
-        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, containerName) =>
+        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, proxyUri, containerName) =>
         {
             actualConnectionString = connectionString;
             return new BlobContainerClientMock(connectionString, containerName);
@@ -80,7 +80,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
         // arrange
         using var cts = new CancellationTokenSource(10000);
         var actualConnectionString = string.Empty;
-        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, containerName) =>
+        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, proxyUri, containerName) =>
         {
             actualConnectionString = connectionString;
             return new BlobContainerClientMock(connectionString, containerName);
@@ -122,7 +122,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
         var actualBlobPath = string.Empty;
         var actualData = Array.Empty<byte>();
         var actualOverwrite = false;
-        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, containerName) =>
+        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, proxyUri, containerName) =>
         {
             actualContainerName = containerName;
             return new BlobContainerClientMock(connectionString, containerName)
@@ -196,7 +196,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
     {
         // arrange
         using var cts = new CancellationTokenSource(10000);
-        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, containerName) => new BlobContainerClientMock(connectionString, containerName));
+        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, proxyUri, containerName) => new BlobContainerClientMock(connectionString, containerName));
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
@@ -242,7 +242,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
     {
         // arrange
         using var cts = new CancellationTokenSource(10000);
-        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, containerName) => new BlobContainerClientMock(connectionString, containerName));
+        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, proxyUri, containerName) => new BlobContainerClientMock(connectionString, containerName));
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
@@ -389,7 +389,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
     {
         // arrange
         using var cts = new CancellationTokenSource(10000);
-        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, containerName) => new BlobContainerClientMock(connectionString, containerName)
+        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, proxyUri, containerName) => new BlobContainerClientMock(connectionString, containerName)
         {
             GetBlobClientMock = (blobName) => new BlobClientMock(blobName)
             {
@@ -441,7 +441,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
         var actualBlobPath = string.Empty;
         var actualData = Array.Empty<byte>();
         var actualOverwrite = false;
-        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, containerName) =>
+        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, proxyUri, containerName) =>
         {
             actualContainerName = containerName;
             return new BlobContainerClientMock(connectionString, containerName)
@@ -515,7 +515,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
     {
         // arrange
         using var cts = new CancellationTokenSource(10000);
-        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, containerName) => new BlobContainerClientMock(connectionString, containerName));
+        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, proxyUri, containerName) => new BlobContainerClientMock(connectionString, containerName));
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
@@ -562,7 +562,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
         // arrange
         var fileInfo = TestDir.Get("UploadBlockFromFile").CombineWithFileName("abc.txt");
         using var cts = new CancellationTokenSource(10000);
-        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, containerName) => new BlobContainerClientMock(connectionString, containerName));
+        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, proxyUri, containerName) => new BlobContainerClientMock(connectionString, containerName));
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
@@ -710,7 +710,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
         // arrange
         var fileInfo = TestDir.Get("UploadBlockFromFile").CombineWithFileName("abc.txt");
         using var cts = new CancellationTokenSource(10000);
-        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, containerName) => new BlobContainerClientMock(connectionString, containerName)
+        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, proxyUri, containerName) => new BlobContainerClientMock(connectionString, containerName)
         {
             GetBlobClientMock = (blobName) => new BlobClientMock(blobName)
             {
@@ -750,7 +750,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
         // arrange
         var fileInfo = TestDir.Get("UploadBlockFromFile").CombineWithFileName("void.txt");
         using var cts = new CancellationTokenSource(10000);
-        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, containerName) => new BlobContainerClientMock(connectionString, containerName)
+        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, proxyUri, containerName) => new BlobContainerClientMock(connectionString, containerName)
         {
             GetBlobClientMock = (blobName) => new BlobClientMock(blobName)
             {
@@ -802,7 +802,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
         var actualBlobPath = new List<string>();
         var actualData = new List<byte[]>();
         var actualOverwrite = new List<bool>();
-        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, containerName) =>
+        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, proxyUri, containerName) =>
         {
             actualContainerName = containerName;
             return new BlobContainerClientMock(connectionString, containerName)
@@ -877,7 +877,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
     {
         // arrange
         using var cts = new CancellationTokenSource(10000);
-        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, containerName) => new BlobContainerClientMock(connectionString, containerName));
+        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, proxyUri, containerName) => new BlobContainerClientMock(connectionString, containerName));
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
@@ -918,7 +918,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
         // arrange
         var dirInfo = TestDir.Get("UploadBlockFromDirectory");
         using var cts = new CancellationTokenSource(10000);
-        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, containerName) => new BlobContainerClientMock(connectionString, containerName));
+        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, proxyUri, containerName) => new BlobContainerClientMock(connectionString, containerName));
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
@@ -1066,7 +1066,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
         // arrange
         var dirInfo = TestDir.Get("UploadBlockFromDirectory");
         using var cts = new CancellationTokenSource(10000);
-        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, containerName) => new BlobContainerClientMock(connectionString, containerName)
+        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, proxyUri, containerName) => new BlobContainerClientMock(connectionString, containerName)
         {
             GetBlobClientMock = (blobName) => new BlobClientMock(blobName)
             {
@@ -1106,7 +1106,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
         // arrange
         var dirInfo = TestDir.Get("UploadBlockFromDirectory").Combine("VoidDir");
         using var cts = new CancellationTokenSource(10000);
-        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, containerName) => new BlobContainerClientMock(connectionString, containerName)
+        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, proxyUri, containerName) => new BlobContainerClientMock(connectionString, containerName)
         {
             GetBlobClientMock = (blobName) => new BlobClientMock(blobName)
             {
@@ -1152,7 +1152,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
         string? actualETag = null;
         var actualContainerName = string.Empty;
         var actualBlobPath = string.Empty;
-        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, containerName) =>
+        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, proxyUri, containerName) =>
         {
             actualContainerName = containerName;
             return new BlobContainerClientMock(connectionString, containerName)
@@ -1203,7 +1203,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
     {
         // arrange
         using var cts = new CancellationTokenSource(10000);
-        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, containerName) => new BlobContainerClientMock(connectionString, containerName));
+        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, proxyUri, containerName) => new BlobContainerClientMock(connectionString, containerName));
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
@@ -1240,7 +1240,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
     {
         // arrange
         using var cts = new CancellationTokenSource(10000);
-        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, containerName) => new BlobContainerClientMock(connectionString, containerName));
+        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, proxyUri, containerName) => new BlobContainerClientMock(connectionString, containerName));
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
@@ -1349,7 +1349,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
     {
         // arrange
         using var cts = new CancellationTokenSource(10000);
-        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, containerName) => new BlobContainerClientMock(connectionString, containerName)
+        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, proxyUri, containerName) => new BlobContainerClientMock(connectionString, containerName)
         {
             GetBlobClientMock = (blobName) => new BlobClientMock(blobName)
             {
@@ -1395,7 +1395,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
         using var cts = new CancellationTokenSource(10000);
         var actualContainerName = string.Empty;
         string? actualPrefix = null;
-        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, containerName) =>
+        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, proxyUri, containerName) =>
         {
             actualContainerName = containerName;
             return new BlobContainerClientMock(connectionString, containerName)
@@ -1441,7 +1441,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
     {
         // arrange
         using var cts = new CancellationTokenSource(10000);
-        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, containerName) => new BlobContainerClientMock(connectionString, containerName));
+        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, proxyUri, containerName) => new BlobContainerClientMock(connectionString, containerName));
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
@@ -1482,7 +1482,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
     {
         // arrange
         using var cts = new CancellationTokenSource(10000);
-        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, containerName) => new BlobContainerClientMock(connectionString, containerName));
+        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, proxyUri, containerName) => new BlobContainerClientMock(connectionString, containerName));
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
@@ -1557,7 +1557,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
     {
         // arrange
         using var cts = new CancellationTokenSource(10000);
-        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, containerName) => new BlobContainerClientMock(connectionString, containerName)
+        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, proxyUri, containerName) => new BlobContainerClientMock(connectionString, containerName)
         {
             GetBlobsAsyncMock = (prerix, token) => throw new RequestFailedException(status: 1, errorCode: "hoge", message: "fuga", innerException: null)
         });
@@ -1591,7 +1591,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
     {
         // arrange
         using var cts = new CancellationTokenSource(10000);
-        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, containerName) => new BlobContainerClientMock(connectionString, containerName)
+        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, proxyUri, containerName) => new BlobContainerClientMock(connectionString, containerName)
         {
             GetBlobsAsyncMock = (prerix, token) => new AsyncPageableBlobItemMock(201)
         });
@@ -1637,7 +1637,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
         var actualData = Array.Empty<byte>();
         var actualETag = string.Empty;
         var actualETag2 = string.Empty;
-        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, containerName) =>
+        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, proxyUri, containerName) =>
         {
             actualContainerName = containerName;
             return new BlobContainerClientMock(connectionString, containerName)
@@ -1729,7 +1729,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
     {
         // arrange
         using var cts = new CancellationTokenSource(10000);
-        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, containerName) => new BlobContainerClientMock(connectionString, containerName));
+        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, proxyUri, containerName) => new BlobContainerClientMock(connectionString, containerName));
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
@@ -1775,7 +1775,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
     {
         // arrange
         using var cts = new CancellationTokenSource(10000);
-        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, containerName) => new BlobContainerClientMock(connectionString, containerName));
+        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, proxyUri, containerName) => new BlobContainerClientMock(connectionString, containerName));
         var controller = await _fixture.Root.CreateControllerAsync(
             name: "AzureBlobStorageController",
             typeName: "GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Controller.BlobStorageController, GeoLibrary.ORiN3.Provider.Azure.Storage",
@@ -1922,7 +1922,7 @@ public class BlobStorageControllerTest : IClassFixture<ProviderTestFixture<BlobS
     {
         // arrange
         using var cts = new CancellationTokenSource(10000);
-        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, containerName) => new BlobContainerClientMock(connectionString, containerName)
+        using var methodReverter = BlobContainerClientEx.SetCreateMethod((connectionString, proxyUri, containerName) => new BlobContainerClientMock(connectionString, containerName)
         {
             GetAppendBlobClientMock = (blobName) => new AppendBlobClientMock(blobName)
             {
