@@ -30,10 +30,16 @@ public class ReadOnlyMemoryStream : Stream
     {
         return Position = origin switch
         {
-            SeekOrigin.Begin => (int)offset,
-            SeekOrigin.Current => _position + (int)offset,
-            SeekOrigin.End => _memory.Length + (int)offset,
-            _ => throw new ArgumentOutOfRangeException()
+            SeekOrigin.Begin => (offset < 0 || offset > _memory.Length)
+                ? throw new ArgumentOutOfRangeException(nameof(offset), "Offset is out of range.")
+                : (int)offset,
+            SeekOrigin.Current => (_position + offset < 0 || _position + offset > _memory.Length)
+                ? throw new ArgumentOutOfRangeException(nameof(offset), "Offset is out of range.")
+                : _position + (int)offset,
+            SeekOrigin.End => (_memory.Length + offset < 0 || _memory.Length + offset > _memory.Length)
+                ? throw new ArgumentOutOfRangeException(nameof(offset), "Offset is out of range.")
+                : _memory.Length + (int)offset,
+            _ => throw new ArgumentOutOfRangeException(nameof(origin), "Invalid SeekOrigin value.")
         };
     }
 
