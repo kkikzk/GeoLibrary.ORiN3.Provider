@@ -1,21 +1,15 @@
 ﻿namespace GeoLibrary.ORiN3.Provider.BaseLib.IO;
 
-public class ReadOnlyMemoryStream : Stream
+public class ReadOnlyMemoryStream(ReadOnlyMemory<byte> memory) : Stream
 {
-    private readonly ReadOnlyMemory<byte> _memory;
-    private int _position;
+    private readonly ReadOnlyMemory<byte> _memory = memory;
+    private int _position = 0;
 
     public override bool CanRead => true;
     public override bool CanSeek => true;
     public override bool CanWrite => false;
     public override long Length => _memory.Length;
     public override long Position { get => _position; set => _position = (int)value; }
-
-    public ReadOnlyMemoryStream(ReadOnlyMemory<byte> memory)
-    {
-        _memory = memory;
-        _position = 0;
-    }
 
     public override int Read(byte[] buffer, int offset, int count)
     {

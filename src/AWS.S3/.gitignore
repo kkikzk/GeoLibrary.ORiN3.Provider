@@ -360,4 +360,4 @@ MigrationBackup/
 
 *.DS_Store
 
-/nupkg
+ProviderNuspec.nuspec

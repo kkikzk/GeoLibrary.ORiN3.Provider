@@ -1,6 +1,7 @@
 ﻿using Azure;
 using Azure.Storage.Blobs.Models;
 using GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Interface;
+using GeoLibrary.ORiN3.Provider.BaseLib;
 using ORiN3.Provider.Core;
 using System.Text.Json;
 

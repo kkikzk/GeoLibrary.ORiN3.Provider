@@ -7,6 +7,17 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageReadmeFile>Readme.md</PackageReadmeFile>
+    <Copyright>© 2025 KAKEI Kazuki</Copyright>
+    <PackageIcon>128x128.png</PackageIcon>
+    <RepositoryUrl>https://github.com/kkikzk/GeoLibrary.ORiN3.Provider.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageProjectUrl>https://github.com/kkikzk/GeoLibrary.ORiN3.Provider</PackageProjectUrl>
+    <PackageTags>ORiN3</PackageTags>
+    <IncludeSymbols>True</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <Authors>KAKEI Kazuki</Authors>
+    <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="ORiN3.Provider.Core" Version="$(ORiN3ProviderCoreVersion)" />
@@ -20,6 +31,20 @@
     <None Update="_Doc\Manual\Provider\en\**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <PackageCopyToOutput>true</PackageCopyToOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Readme.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\icon\128x128.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Include="..\..\LICENSE">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
     </None>
   </ItemGroup>
 </Project>

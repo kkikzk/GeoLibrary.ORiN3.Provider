@@ -75,8 +75,15 @@ public class ProviderTestFixture<T> : IDisposable
 
     public void Dispose()
     {
-        Root.ShutdownAsync().Wait();
-        Root.Dispose();
+        try
+        {
+            Root.ShutdownAsync().Wait();
+            Root.Dispose();
+        }
+        catch
+        {
+            // nothing to do
+        }
         _providerTask?.Wait();
         _channel?.Dispose();
         GC.SuppressFinalize(this);

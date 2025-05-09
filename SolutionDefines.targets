@@ -19,7 +19,7 @@
     <AzureFilesVersion>[12.22.*,12.23.0)</AzureFilesVersion>
   </PropertyGroup>
   <PropertyGroup> <!-- AWS S3 -->
-    <AWSS3Version>[3.7.*,3.8.0)</AWSS3Version>
+    <AWSS3Version>[4.0.*,4.1.0)</AWSS3Version>
   </PropertyGroup>
   <PropertyGroup> <!-- FTP Client -->
     <FluentFTPVersion>[52.0.*,52.1.0)</FluentFTPVersion>

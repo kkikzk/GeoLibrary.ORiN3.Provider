@@ -15,16 +15,16 @@ internal class S3RootObject : RootObjectBase
         LicenseCheckEnabled = false;
     }
 
-    private static DirectoryInfo? _tempDir;
-    internal static DirectoryInfo TempDir
+    private static DirectoryInfo? _workingDir;
+    internal static DirectoryInfo WorkingDir
     {
         get
         {
-            if (_tempDir == null)
+            if (_workingDir == null)
             {
-                throw new GeoLibraryProviderException(GeoLibraryProviderResultCode.Unknown, $"{nameof(_tempDir)} is null.");
+                throw new GeoLibraryProviderException(GeoLibraryProviderResultCode.Unknown, $"{nameof(_workingDir)} is null.");
             }
-            return _tempDir;
+            return _workingDir;
         }
     }
 
@@ -55,16 +55,16 @@ internal class S3RootObject : RootObjectBase
         {
             var id = Guid.NewGuid();
             var tempDir = GetCurrentDirectory();
-            ORiN3ProviderLogger.LogTrace($"TempDir={tempDir.FullName}");
+            ORiN3ProviderLogger.LogTrace($"WorkingDir={tempDir.FullName}");
             if (!tempDir.Exists)
             {
                 await tempDir.SafeCreateAsync().ConfigureAwait(false);
             }
 
-            _tempDir = new DirectoryInfo(Path.Combine(tempDir.FullName, id.ToString()));
-            if (!_tempDir.Exists)
+            _workingDir = new DirectoryInfo(Path.Combine(tempDir.FullName, id.ToString()));
+            if (!_workingDir.Exists)
             {
-                await _tempDir.SafeCreateAsync().ConfigureAwait(false);
+                await _workingDir.SafeCreateAsync().ConfigureAwait(false);
             }
         }
         catch (Exception ex)
@@ -89,7 +89,7 @@ internal class S3RootObject : RootObjectBase
     {
         try
         {
-            await TempDir.SafeDeleteAsync(recursive: true).ConfigureAwait(false);
+            await WorkingDir.SafeDeleteAsync(recursive: true).ConfigureAwait(false);
         }
         catch
         {

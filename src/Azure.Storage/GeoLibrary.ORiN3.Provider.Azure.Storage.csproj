@@ -36,4 +36,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\common\BaseLib\GeoLibrary.ORiN3.Provider.BaseLib.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
+  </ItemGroup>
 </Project>
