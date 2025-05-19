@@ -4,23 +4,55 @@
   <PropertyGroup>
     <TargetFramework>$(DotNetVersion)</TargetFramework>
     <LangVersion>$(DotNetLangVersion)</LangVersion>
-    <Company>$(CompanyName)</Company>
-    <Product>$(ProductName)</Product>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <ApplicationIcon>..\..\icon\128x128.ico</ApplicationIcon>
+    <AssemblyVersion>0.0.1</AssemblyVersion>
+  </PropertyGroup>
+  <PropertyGroup> <!-- for nupkg -->
+    <IsPackable>true</IsPackable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageOutputPath>../../nupkgs</PackageOutputPath>
+    <NoDefaultExcludes>true</NoDefaultExcludes>
+    <NoWarn>NU5118</NoWarn>
+    <!-- nupkg properties -->
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
+    <PackageIcon>128x128.png</PackageIcon>
+    <PackageId>$(AssemblyName)</PackageId>
+    <Version>$(AssemblyVersion)</Version>
+    <Title>$(AssemblyName)</Title>
+    <Description>GeoLibrary.ORiN3.Provider.AWS.S3 is a ORiN3 provider that writes/reads data to/from AWS S3.</Description>
+    <PackageReleaseNotes></PackageReleaseNotes>
+    <PackageProjectUrl>https://github.com/kkikzk/GeoLibrary.ORiN3.Provider</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/kkikzk/GeoLibrary.ORiN3.Provider.git</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <Authors>KAKEI Kazuki</Authors>
+    <Copyright>© 2025 KAKEI Kazuki</Copyright>
+    <PackageTags>ORiN3 ORiN3SDK Azure ORiN3:FD9A4E36-A886-46F1-986C-64EFF92D16E8 ProviderID:7AB23490-62D2-4B34-B4D9-C4223BB11066</PackageTags>
     <PackageReadmeFile>Readme.md</PackageReadmeFile>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Azure.Storage.Blobs" Version="$(AzureBlobsVersion)" />
-    <PackageReference Include="Azure.Storage.Files.Shares" Version="$(AzureFilesVersion)" />
+    <PackageReference Include="Azure.Storage.Blobs" Version="$(AzureBlobsVersion)">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>compile;runtime;build;native;contentfiles;analyzers</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Azure.Storage.Files.Shares" Version="$(AzureFilesVersion)">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>compile;runtime;build;native;contentfiles;analyzers</IncludeAssets>
+    </PackageReference>
+    <ProjectReference Include="..\..\common\BaseLib\GeoLibrary.ORiN3.Provider.BaseLib.csproj">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>compile;runtime;build;native;contentfiles;analyzers</IncludeAssets>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup Condition="'$(DesignTimeBuild)' != 'true'">
+    <None Include="$(OutputPath)**/*.*" Exclude="$(OutputPath)logs/**">
+      <Pack>true</Pack>
+      <PackagePath>lib\$(TargetFramework)</PackagePath>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Update=".orin3providerconfig">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Provider.nuspec">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Update="_Doc\Manual\Provider\ja\**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -31,10 +63,13 @@
     <None Update="_License\**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Readme.md" Pack="true" PackagePath="\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\common\BaseLib\GeoLibrary.ORiN3.Provider.BaseLib.csproj" />
+    <None Include="..\..\icon\128x128.png" Pack="true" PackagePath="/" />
+    <None Include="LICENSE.txt">
+      <Pack>true</Pack>
+      <PackagePath>\</PackagePath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Readme.md" Pack="true" PackagePath="/" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />

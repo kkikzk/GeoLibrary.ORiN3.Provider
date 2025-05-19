@@ -1,7 +1,6 @@
 ﻿using Azure;
 using Azure.Storage.Blobs.Models;
 using Design.ORiN3.Provider.V1;
-using Design.ORiN3.Provider.V1.Base;
 using GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.File;
 using GeoLibrary.ORiN3.Provider.Azure.Storage.O3Object.Interface;
 using GeoLibrary.ORiN3.Provider.Azure.Storage.Test.Mock;

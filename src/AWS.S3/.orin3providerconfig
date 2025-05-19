@@ -1,7 +1,5 @@
 ﻿{
   "providerPath": "GeoLibrary.ORiN3.Provider.AWS.S3.dll",
-  "version": "0.0.1",
-  "providerId": "EBD91922-184D-4ECD-A7D8-3082DC617847",
   "providerName": "AWS S3 Provider",
   "manual": {
     "default": "./_Doc/Manual/Provider/en/index.html",
@@ -80,13 +78,35 @@
           "rule": {
             "type": "string"
           }
+        }
+      ]
+    },
+    {
+      "id": "F66FCFF2-FE5B-4F1C-AA9E-DF9A431C0E96",
+      "orin3ObjectType": "ORiN3File",
+      "displayName": "AWS S3",
+      "typeName": "GeoLibrary.ORiN3.Provider.AWS.S3.O3Object.File.S3ObjectFile, GeoLibrary.ORiN3.Provider.AWS.S3",
+      "comment": {
+        "default": "This is an ORiN3 File that functions as a client to connect to AWS S3.",
+        "ja-JP": "AWS S3に接続するためのクライアントとして動作するORiN3のFileです。"
+      },
+      "parents": [ "764458D8-F51E-4F01-8F74-163BFDA682B9" ],
+      "options": [
+        {
+          "name": "Bucket Name",
+          "comment": {
+            "default": "",
+            "ja-JP": "AWS S3のバケット名を指定します。"
+          },
+          "rule": {
+            "type": "string"
+          }
         },
         {
-          "name": "Src IP Address",
-          "optional": true,
+          "name": "Object Key",
           "comment": {
-            "default": "Specify the NIC that communicates with AWS S3.",
-            "ja-JP": "AWS S3と通信を行うNICを指定します。"
+            "default": "",
+            "ja-JP": "AWS S3のオブジェクト名を指定します。"
           },
           "rule": {
             "type": "string"

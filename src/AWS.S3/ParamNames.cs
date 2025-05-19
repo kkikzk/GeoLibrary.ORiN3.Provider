@@ -9,7 +9,7 @@ public static class ParamNames
     public const string ObjectNames = "Object Names";
     public const string AWSErrorCode = "AWS Error Code";
     public const string HTTPStatus = "HTTP Status";
-    public const string ObjectPath = "Object Path";
+    public const string ObjectKey = "Object Key";
     public const string Uri = "Uri";
     public const string ETag = "ETag";
     public const string VersionId = "Version Id";

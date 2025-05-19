@@ -27,9 +27,17 @@
     <RepositoryType>git</RepositoryType>
     <Authors>KAKEI Kazuki</Authors>
     <Copyright>© 2025 KAKEI Kazuki</Copyright>
-    <PackageTags>ORiN3 ORiN3SDK Azure ORiN3:FD9A4E36-A886-46F1-986C-64EFF92D16E8 ProviderID:7AB23490-62D2-4B34-B4D9-C4223BB11066</PackageTags>
+    <PackageTags>ORiN3 ORiN3SDK AWS S3 ORiN3:FD9A4E36-A886-46F1-986C-64EFF92D16E8 ProviderID:EBD91922-184D-4ECD-A7D8-3082DC617847</PackageTags>
     <PackageReadmeFile>Readme.md</PackageReadmeFile>
   </PropertyGroup>
+  <ItemGroup>
+    <Content Include=".orin3providerconfigex">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>.orin3providerconfigex.tt</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AWSSDK.S3" Version="$(AWSS3Version)">
       <PrivateAssets>all</PrivateAssets>
@@ -39,6 +47,12 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>compile;runtime;build;native;contentfiles;analyzers</IncludeAssets>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup Condition="'$(DesignTimeBuild)' != 'true'">
+    <None Include="$(OutputPath)**/*.*" Exclude="$(OutputPath)logs/**">
+      <Pack>true</Pack>
+      <PackagePath>lib\$(TargetFramework)</PackagePath>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <None Update=".orin3providerconfig">
@@ -50,23 +64,12 @@
     <None Update="_Doc\Manual\Provider\en\**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="ProviderNuspec.nuspec">
-      <DependentUpon>ProviderNuspec.tt</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </None>
-    <None Update="ProviderNuspec.tt">
-      <LastGenOutput>ProviderNuspec.nuspec</LastGenOutput>
+    <None Update=".orin3providerconfigex.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>.orin3providerconfigex.</LastGenOutput>
     </None>
     <None Update="_License\aws-sdk-net\License.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None
-        Include="$(OutputPath)**/*.*"
-        Exclude="$(OutputPath)logs/**">
-      <Pack>true</Pack>
-      <PackagePath>lib\$(TargetFramework)</PackagePath>
     </None>
     <None Include="..\..\icon\128x128.png" Pack="true" PackagePath="/" />
     <None Include="LICENSE.txt">

@@ -1,11 +1,9 @@
-﻿using Amazon;
-using Amazon.Runtime;
-using Amazon.S3;
+﻿using Amazon.S3;
 using Amazon.S3.Model;
 using Design.ORiN3.Provider.V1;
+using GeoLibrary.ORiN3.Provider.AWS.S3.O3Object.Interface;
 using GeoLibrary.ORiN3.Provider.AWS.S3.O3Object.Root;
 using GeoLibrary.ORiN3.Provider.BaseLib;
-using GeoLibrary.ORiN3.Provider.BaseLib.Net.Http;
 using ORiN3.Provider.Core;
 using ORiN3.Provider.Core.Abstract;
 using ORiN3.Provider.Core.OptionAnalyzer;
@@ -15,8 +13,14 @@ using System.Text.Json;
 
 namespace GeoLibrary.ORiN3.Provider.AWS.S3.O3Object.Controller;
 
-public class S3StorageController : ControllerBase, AmazonS3ConfigEx.IAmazonS3ConfigData
+public class S3StorageController : ControllerBase, S3StorageController.IAccessData
 {
+    internal interface IAccessData : AmazonS3ConfigEx.IAmazonS3ConfigData
+    {
+        string AccessKey { get; }
+        string SecretAccessKey { get; }
+    }
+
     private class BaseStorageControllerOption
     {
         [JsonElementName("Region Endpoint")]
@@ -37,18 +41,6 @@ public class S3StorageController : ControllerBase, AmazonS3ConfigEx.IAmazonS3Con
         [Optional]
         [JsonElementName("Proxy Uri")]
         public OptionValue<string> ProxyUri { get; set; } = new();
-
-        [Optional]
-        [JsonElementName("Src IP Address")]
-        public OptionValue<string> SrcIPAddress { get; set; } = new();
-    }
-
-    public class CustomHttpClientFactory : HttpClientFactory, IDisposable
-    {
-        private readonly HttpClient _client;
-        public CustomHttpClientFactory(string srcIp) => _client = HttpClientEx.Create(srcIp);
-        public override HttpClient CreateHttpClient(IClientConfig _) => _client;
-        public void Dispose() => _client.Dispose();
     }
 
     public string RegionEndpoint { private set; get; } = string.Empty;
@@ -56,7 +48,6 @@ public class S3StorageController : ControllerBase, AmazonS3ConfigEx.IAmazonS3Con
     public string SecretAccessKey { private set; get; } = string.Empty;
     public bool UseHttps { private set; get; } = true;
     public string ProxyUri { private set; get; } = string.Empty;
-    public string SrcIPAddress { private set; get; } = string.Empty;
 
     protected override async Task OnInitializingAsync(JsonElement option, bool needVersionCheck, object? fromParent, CancellationToken token)
     {
@@ -68,7 +59,6 @@ public class S3StorageController : ControllerBase, AmazonS3ConfigEx.IAmazonS3Con
         SecretAccessKey = ArgumentHelper.GetArgument(opt.SecretAccessKey, nameof(opt.SecretAccessKey));
         UseHttps = ArgumentHelper.GetArgumentOrDefault(opt.UseHttps, nameof(opt.UseHttps), true);
         ProxyUri = ArgumentHelper.GetArgumentOrDefault(opt.ProxyUri, nameof(opt.ProxyUri), string.Empty);
-        SrcIPAddress = ArgumentHelper.GetArgumentOrDefault(opt.SrcIPAddress, nameof(opt.SrcIPAddress), string.Empty);
     }
 
     protected override Task<IFile> OnCreatingFileAsync(string name, string typeName, Type type, string option, object? _, CancellationToken token)
@@ -81,8 +71,8 @@ public class S3StorageController : ControllerBase, AmazonS3ConfigEx.IAmazonS3Con
         var result = commandName switch
         {
             "UploadObject" => await UploadObjectAsync(argument, token).ConfigureAwait(false),
-            "UpdateObjectFromFile" => await UpdateObjectFromFileAsync(argument, token).ConfigureAwait(false),
-            "UpdateObjectFromDirectory" => await UpdateObjectFromDirectoryAsync(argument, token).ConfigureAwait(false),
+            "UploadObjectFromFile" => await UploadObjectFromFileAsync(argument, token).ConfigureAwait(false),
+            "UploadObjectFromDirectory" => await UploadObjectFromDirectoryAsync(argument, token).ConfigureAwait(false),
             "ListObjects" => await ListObjectsAsync(argument, token).ConfigureAwait(false),
             "DeleteObject" => await DeleteObjectAsync(argument, token).ConfigureAwait(false),
             _ => await base.OnExecutingAsync(commandName, argument, token).ConfigureAwait(false),
@@ -136,7 +126,7 @@ public class S3StorageController : ControllerBase, AmazonS3ConfigEx.IAmazonS3Con
         return result;
     }
 
-    private static async Task<bool> ExistsObjectAsync(AmazonS3Client client, string bucketName, string objectKey, CancellationToken token)
+    private static async Task<bool> ExistsObjectAsync(AmazonS3ClientEx client, string bucketName, string objectKey, CancellationToken token)
     {
         try
         {
@@ -154,7 +144,7 @@ public class S3StorageController : ControllerBase, AmazonS3ConfigEx.IAmazonS3Con
         ORiN3ProviderLogger.LogTrace($"{nameof(UploadObjectAsync)} called.");
         return await ExecuteCoreAsync(argument, async (argument, result, token) =>
         {
-            result[ParamNames.ObjectPath] = string.Empty;
+            result[ParamNames.ObjectKey] = string.Empty;
             result[ParamNames.Uri] = string.Empty;
             result[ParamNames.ETag] = string.Empty;
 
@@ -165,7 +155,7 @@ public class S3StorageController : ControllerBase, AmazonS3ConfigEx.IAmazonS3Con
             ORiN3ProviderLogger.LogTrace($"Uploading {bucketName}/{objectKey} ({data.Length} bytes), overwrite={overwrite}");
 
             var config = AmazonS3ConfigEx.GetConfig(this);
-            using var client = new AmazonS3Client(AccessKey, SecretAccessKey, config);
+            using var client = new AmazonS3ClientEx(AccessKey, SecretAccessKey, config);
             if (!overwrite)
             {
                 if (await ExistsObjectAsync(client, bucketName, objectKey, token).ConfigureAwait(false))
@@ -178,30 +168,30 @@ public class S3StorageController : ControllerBase, AmazonS3ConfigEx.IAmazonS3Con
             }
 
             using var stream = new MemoryStream(data);
-            var putReq = new PutObjectRequest
+            var request = new PutObjectRequest
             {
                 BucketName = bucketName,
                 Key = objectKey,
                 InputStream = stream
             };
-            var putResp = await client.PutObjectAsync(putReq, token).ConfigureAwait(false);
+            var response = await client.PutObjectAsync(request, token).ConfigureAwait(false);
 
             var regionName = config.RegionEndpoint.SystemName;
             result[ParamNames.Result] = ResponseCode.Success;
-            result[ParamNames.ObjectPath] = objectKey;
+            result[ParamNames.ObjectKey] = objectKey;
             result[ParamNames.Uri] = $"https://{bucketName}.s3.{regionName}.amazonaws.com/{objectKey}";
-            result[ParamNames.ETag] = putResp.ETag;
-            result[ParamNames.HTTPStatus] = (int)putResp.HttpStatusCode;
+            result[ParamNames.ETag] = response.ETag;
+            result[ParamNames.HTTPStatus] = (int)response.HttpStatusCode;
         }, token).ConfigureAwait(false);
     }
 
-    public async Task<IDictionary<string, object?>> UpdateObjectFromFileAsync(IDictionary<string, object?> argument, CancellationToken token)
+    public async Task<IDictionary<string, object?>> UploadObjectFromFileAsync(IDictionary<string, object?> argument, CancellationToken token)
     {
-        ORiN3ProviderLogger.LogTrace($"{nameof(UpdateObjectFromFileAsync)} called.");
+        ORiN3ProviderLogger.LogTrace($"{nameof(UploadObjectFromFileAsync)} called.");
 
         return await ExecuteCoreAsync(argument, async (argument, result, token) =>
         {
-            result[ParamNames.ObjectPath] = string.Empty;
+            result[ParamNames.ObjectKey] = string.Empty;
             result[ParamNames.Uri] = string.Empty;
             result[ParamNames.ETag] = string.Empty;
 
@@ -214,13 +204,28 @@ public class S3StorageController : ControllerBase, AmazonS3ConfigEx.IAmazonS3Con
             }
             var overwrite = ArgumentHelper.GetArgumentOrDefault(argument, "Overwrite", true);
             ORiN3ProviderLogger.LogTrace($"File Path={filePath}, Bucket Name={bucketName}, Prefix={prefix ?? "\"\""}, Overwrite={overwrite}");
+            if (!System.IO.File.Exists(filePath))
+            {
+                throw new FileNotFoundException($"File not found: {filePath}");
+            }
 
             var fileInfo = new FileInfo(filePath);
             var objectKey = (prefix ?? string.Empty) + fileInfo.Name;
             using var stream = System.IO.File.OpenRead(fileInfo.FullName);
 
             var config = AmazonS3ConfigEx.GetConfig(this);
-            using var client = new AmazonS3Client(AccessKey, SecretAccessKey, config);
+            using var client = new AmazonS3ClientEx(AccessKey, SecretAccessKey, config);
+            if (!overwrite)
+            {
+                if (await ExistsObjectAsync(client, bucketName, objectKey, token).ConfigureAwait(false))
+                {
+                    ORiN3ProviderLogger.LogTrace($"Object '{objectKey}' found and overwrite is disabled.");
+                    result[ParamNames.Result] = ResponseCode.OtherError;
+                    result[ParamNames.ErrorMessage] = "Object exists and overwrite is disabled.";
+                    return;
+                }
+            }
+
             var request = new PutObjectRequest
             {
                 BucketName = bucketName,
@@ -230,7 +235,7 @@ public class S3StorageController : ControllerBase, AmazonS3ConfigEx.IAmazonS3Con
             var response = await client.PutObjectAsync(request, token).ConfigureAwait(false);
 
             result[ParamNames.Result] = ResponseCode.Success;
-            result[ParamNames.ObjectPath] = objectKey;
+            result[ParamNames.ObjectKey] = objectKey;
             var regionName = config.RegionEndpoint.SystemName;
             result[ParamNames.Uri] = $"https://{bucketName}.s3.{regionName}.amazonaws.com/{objectKey}";
             result[ParamNames.ETag] = response.ETag;
@@ -238,9 +243,9 @@ public class S3StorageController : ControllerBase, AmazonS3ConfigEx.IAmazonS3Con
         }, token).ConfigureAwait(false);
     }
 
-    public async Task<IDictionary<string, object?>> UpdateObjectFromDirectoryAsync(IDictionary<string, object?> argument, CancellationToken token)
+    public async Task<IDictionary<string, object?>> UploadObjectFromDirectoryAsync(IDictionary<string, object?> argument, CancellationToken token)
     {
-        ORiN3ProviderLogger.LogTrace($"{nameof(UpdateObjectFromDirectoryAsync)} called.");
+        ORiN3ProviderLogger.LogTrace($"{nameof(UploadObjectFromDirectoryAsync)} called.");
 
         return await ExecuteCoreAsync(argument, async (argument, result, token) =>
         {
@@ -261,7 +266,7 @@ public class S3StorageController : ControllerBase, AmazonS3ConfigEx.IAmazonS3Con
             }
 
             var config = AmazonS3ConfigEx.GetConfig(this);
-            using var client = new AmazonS3Client(AccessKey, SecretAccessKey, config);
+            using var client = new AmazonS3ClientEx(AccessKey, SecretAccessKey, config);
 
             HttpStatusCode lastStatus = 0;
             var counter = 0;
@@ -300,7 +305,7 @@ public class S3StorageController : ControllerBase, AmazonS3ConfigEx.IAmazonS3Con
             ORiN3ProviderLogger.LogTrace($"Listing {bucketName}/ prefix='{prefix}'");
 
             var config = AmazonS3ConfigEx.GetConfig(this);
-            using var client = new AmazonS3Client(AccessKey, SecretAccessKey, config);
+            using var client = new AmazonS3ClientEx(AccessKey, SecretAccessKey, config);
             var req = new ListObjectsV2Request { BucketName = bucketName, Prefix = prefix };
             var keys = new List<string>();
 
@@ -327,16 +332,16 @@ public class S3StorageController : ControllerBase, AmazonS3ConfigEx.IAmazonS3Con
         ORiN3ProviderLogger.LogTrace($"{nameof(DeleteObjectAsync)} called.");
         return await ExecuteCoreAsync(argument, async (argument, result, token) =>
         {
-            result[ParamNames.ObjectPath] = string.Empty;
+            result[ParamNames.ObjectKey] = string.Empty;
             result[ParamNames.VersionId] = string.Empty;
 
             var bucketName = ArgumentHelper.GetArgument<string>(argument, "Bucket Name");
             var objectKey = ArgumentHelper.GetArgument<string>(argument, "Object Key");
-            var versionId = ArgumentHelper.GetArgumentOrDefault<string?>(argument, "VersionId", null);
+            var versionId = ArgumentHelper.GetArgumentOrDefault<string?>(argument, "Version Id", null);
             ORiN3ProviderLogger.LogTrace($"Deleting {bucketName}/{objectKey}, VersionId='{versionId}'");
 
             var config = AmazonS3ConfigEx.GetConfig(this);
-            using var client = new AmazonS3Client(AccessKey, SecretAccessKey, config);
+            using var client = new AmazonS3ClientEx(AccessKey, SecretAccessKey, config);
             var request = new DeleteObjectRequest
             {
                 BucketName = bucketName,
@@ -346,7 +351,7 @@ public class S3StorageController : ControllerBase, AmazonS3ConfigEx.IAmazonS3Con
             var response = await client.DeleteObjectAsync(request, token).ConfigureAwait(false);
 
             result[ParamNames.Result] = ResponseCode.Success;
-            result[ParamNames.ObjectPath] = objectKey;
+            result[ParamNames.ObjectKey] = objectKey;
             result[ParamNames.VersionId] = response.VersionId;
             result[ParamNames.HTTPStatus] = (int)response.HttpStatusCode;
         }, token).ConfigureAwait(false);

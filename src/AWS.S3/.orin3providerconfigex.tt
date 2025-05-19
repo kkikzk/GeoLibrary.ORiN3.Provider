@@ -1,0 +1,42 @@
+﻿<#@ template language="C#" hostspecific="true" #>
+<#@ output extension="" #>
+<#@ assembly name="System.Core" #>
+<#@ assembly name="System.Text.Json" #>
+<#@ assembly name="System.Memory" #>
+<#@ assembly name="System.Xml" #>
+<#@ assembly name="System.Xml.Linq" #>
+<#@ import namespace="System.IO" #>
+<#@ import namespace="System.Text.Json" #>
+<#@ import namespace="System.Text.Json.Nodes" #>
+<#@ import namespace="System.Xml.Linq" #>
+<#@ import namespace="System.Linq" #>
+<#
+var dir = Path.GetDirectoryName(Host.TemplateFile);
+var projFile = Directory.GetFiles(dir, "*.csproj")[0];
+if (!File.Exists(projFile))
+{
+    throw new FileNotFoundException("Project file not found", projFile);
+}
+
+var projDoc = XDocument.Load(projFile);
+var ns = projDoc.Root.Name.Namespace;
+var versionElement = projDoc.Descendants(ns + "AssemblyVersion").FirstOrDefault();
+if (versionElement == null)
+{
+    throw new InvalidOperationException("AssemblyVersion element not found in project file");
+}
+var version = versionElement.Value;
+
+var tagsElement = projDoc.Descendants(ns + "PackageTags").FirstOrDefault();
+if (tagsElement == null)
+{
+    throw new InvalidOperationException("PackageTags element not found in project file");
+}
+
+var tags = tagsElement.Value.Split(' ');
+var tag = tags.Where(_ => _.StartsWith("ProviderID:")).FirstOrDefault().Split(':')[1];
+#>
+{
+  "version": "<#= version #>",
+  "providerId": "<#= tag #>"
+}

@@ -1,16 +1,11 @@
-﻿using Microsoft.AspNetCore.DataProtection.KeyManagement;
-using ORiN3.Provider.Core.OptionAnalyzer;
+﻿using ORiN3.Provider.Core.OptionAnalyzer;
 
 namespace GeoLibrary.ORiN3.Provider.BaseLib;
 
 public class ArgumentHelper
 {
-    private class ArgumentHelperException : ApplicationException
+    private class ArgumentHelperException(string message) : ApplicationException(message)
     {
-        public ArgumentHelperException(string message)
-            : base(message) 
-        {
-        }
     }
 
     public static T GetArgument<T>(OptionValue<T> option, string name)

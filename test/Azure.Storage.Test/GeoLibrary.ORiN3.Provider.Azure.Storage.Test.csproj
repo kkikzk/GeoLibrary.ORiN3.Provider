@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <Import Project="./../../SolutionDefines.targets" />
   <Import Project="./../../SolutionDefines.ProjectVersion.targets" />
   <PropertyGroup>
@@ -16,8 +16,11 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Azure.Storage.Blobs" Version="$(AzureBlobsVersion)" />
+    <PackageReference Include="Azure.Storage.Files.Shares" Version="$(AzureFilesVersion)" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\common\BaseLib\GeoLibrary.ORiN3.Provider.BaseLib.csproj" />
     <ProjectReference Include="..\..\common\TestBaseLib\GeoLibrary.ORiN3.Provider.TestBaseLib.csproj" />
     <ProjectReference Include="..\..\src\Azure.Storage\GeoLibrary.ORiN3.Provider.Azure.Storage.csproj" />
   </ItemGroup>

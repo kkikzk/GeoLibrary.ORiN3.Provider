@@ -6,18 +6,29 @@
     <LangVersion>$(DotNetLangVersion)</LangVersion>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+  </PropertyGroup>
+  <PropertyGroup> <!-- for nupkg -->
+    <IsPackable>true</IsPackable>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <PackageReadmeFile>Readme.md</PackageReadmeFile>
-    <Copyright>© 2025 KAKEI Kazuki</Copyright>
+    <PackageOutputPath>../../nupkgs</PackageOutputPath>
+    <!-- nupkg properties -->
+    <PackageLicenseFile>LICENSE.txt</PackageLicenseFile>
     <PackageIcon>128x128.png</PackageIcon>
+    <PackageId>$(AssemblyName)</PackageId>
+    <Version>$(AssemblyVersion)</Version>
+    <Title>$(AssemblyName)</Title>
+    <Description>GeoLibrary.ORiN3.Provider.BaseLib is a Library for ORiN3 provider</Description>
+    <PackageReleaseNotes>First release.</PackageReleaseNotes>
+    <PackageProjectUrl>https://github.com/kkikzk/GeoLibrary.ORiN3.Provider</PackageProjectUrl>
     <RepositoryUrl>https://github.com/kkikzk/GeoLibrary.ORiN3.Provider.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageProjectUrl>https://github.com/kkikzk/GeoLibrary.ORiN3.Provider</PackageProjectUrl>
+    <Authors>KAKEI Kazuki</Authors>
+    <Copyright>© 2025 KAKEI Kazuki</Copyright>
     <PackageTags>ORiN3</PackageTags>
+    <PackageReadmeFile>Readme.md</PackageReadmeFile>
     <IncludeSymbols>True</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>
-    <Authors>KAKEI Kazuki</Authors>
-    <PackageLicenseFile>LICENSE</PackageLicenseFile>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="ORiN3.Provider.Core" Version="$(ORiN3ProviderCoreVersion)" />
@@ -42,9 +53,10 @@
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </None>
-    <None Include="..\..\LICENSE">
-      <Pack>True</Pack>
+    <None Include="LICENSE.txt">
+      <Pack>true</Pack>
       <PackagePath>\</PackagePath>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 </Project>

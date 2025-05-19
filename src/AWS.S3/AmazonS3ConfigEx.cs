@@ -1,20 +1,23 @@
-﻿using Amazon.S3;
+﻿using Amazon;
+using Amazon.S3;
 using System.Net;
-using static GeoLibrary.ORiN3.Provider.AWS.S3.O3Object.Controller.S3StorageController;
 
 namespace GeoLibrary.ORiN3.Provider.AWS.S3;
 
-internal class AmazonS3ConfigEx
+internal class AmazonS3ConfigEx(AmazonS3Config config)
 {
     public interface IAmazonS3ConfigData
     {
         string RegionEndpoint { get; }
         bool UseHttps { get; }
         string ProxyUri { get; }
-        string SrcIPAddress { get; }
     }
 
-    public static AmazonS3Config GetConfig(IAmazonS3ConfigData configData)
+    private readonly AmazonS3Config _config = config;
+
+    public RegionEndpoint RegionEndpoint { get { return _config.RegionEndpoint; } }
+
+    public static AmazonS3ConfigEx GetConfig(IAmazonS3ConfigData configData)
     {
         var config = new AmazonS3Config
         {
@@ -27,11 +30,11 @@ internal class AmazonS3ConfigEx
             config.SetWebProxy(new WebProxy(configData.ProxyUri));
         }
 
-        if (!string.IsNullOrEmpty(configData.SrcIPAddress))
-        {
-            config.HttpClientFactory = new CustomHttpClientFactory(configData.SrcIPAddress);
-        }
+        return new AmazonS3ConfigEx(config);
+    }
 
-        return config;
+    public static implicit operator AmazonS3Config(AmazonS3ConfigEx config)
+    {
+        return config._config;
     }
 }
