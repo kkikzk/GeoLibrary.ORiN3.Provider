@@ -1,7 +1,5 @@
 ﻿{
   "providerPath": "GeoLibrary.ORiN3.Provider.Azure.Storage.dll",
-  "version": "0.0.4",
-  "providerId": "7AB23490-62D2-4B34-B4D9-C4223BB11066",
   "providerName": "Azure Storage Provider",
   "manual": {
     "default": "./_Doc/Manual/Provider/en/index.html",

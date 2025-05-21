@@ -6,7 +6,7 @@
     <LangVersion>$(DotNetLangVersion)</LangVersion>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <AssemblyVersion>0.0.1</AssemblyVersion>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
   </PropertyGroup>
   <PropertyGroup> <!-- for nupkg -->
     <IsPackable>true</IsPackable>
@@ -20,8 +20,8 @@
     <PackageId>$(AssemblyName)</PackageId>
     <Version>$(AssemblyVersion)</Version>
     <Title>$(AssemblyName)</Title>
-    <Description>GeoLibrary.ORiN3.Provider.AWS.S3 is a ORiN3 provider that writes/reads data to/from AWS S3.</Description>
-    <PackageReleaseNotes></PackageReleaseNotes>
+    <Description>GeoLibrary.ORiN3.Provider.Azure.Storage is a ORiN3 provider that writes/reads data to/from Azure Storage.</Description>
+    <PackageReleaseNotes>First release</PackageReleaseNotes>
     <PackageProjectUrl>https://github.com/kkikzk/GeoLibrary.ORiN3.Provider</PackageProjectUrl>
     <RepositoryUrl>https://github.com/kkikzk/GeoLibrary.ORiN3.Provider.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
@@ -30,6 +30,14 @@
     <PackageTags>ORiN3 ORiN3SDK Azure ORiN3:FD9A4E36-A886-46F1-986C-64EFF92D16E8 ProviderID:7AB23490-62D2-4B34-B4D9-C4223BB11066</PackageTags>
     <PackageReadmeFile>Readme.md</PackageReadmeFile>
   </PropertyGroup>
+  <ItemGroup>
+    <Content Include=".orin3providerconfigex">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>.orin3providerconfigex.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Content>
+  </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Azure.Storage.Blobs" Version="$(AzureBlobsVersion)">
       <PrivateAssets>all</PrivateAssets>
@@ -53,6 +61,10 @@
   <ItemGroup>
     <None Update=".orin3providerconfig">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update=".orin3providerconfigex.tt">
+      <LastGenOutput>.orin3providerconfigex.</LastGenOutput>
+      <Generator>TextTemplatingFileGenerator</Generator>
     </None>
     <None Update="_Doc\Manual\Provider\ja\**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
