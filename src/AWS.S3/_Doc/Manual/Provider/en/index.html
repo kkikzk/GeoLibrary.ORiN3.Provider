@@ -1,0 +1,613 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>AWS S3 Provider Manual</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+    <h1>AWS S3 Provider Manual</h1>
+
+    <p>This document describes how to use the AWS S3 Provider.</p>
+
+    <ul>
+        <li>
+            <a href="#S3StorageController">S3StorageController</a>
+            <ul>
+                <li>
+                    コマンド
+                    <ul>
+                        <li><a href="#UploadObject">UploadObject</a></li>
+                        <li><a href="#UploadObjectFromFile">UploadObjectFromFile</a></li>
+                        <li><a href="#UploadObjectFromDirectory">UploadObjectFromDirectory</a></li>
+                        <li><a href="#ListObjects">ListObjects</a></li>
+                        <li><a href="#DeleteObject">DeleteObject</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#S3ObjectFile">S3ObjectFile</a>
+        </li>
+        <li>
+            <a href="#Appendix">Appendix</a>
+        </li>
+    </ul>
+
+    <a href="../../Common/ja/index.html">ORiN3 Common Manual</a>
+
+    <!-- ############################## S3StorageController ############################## -->
+
+    <h2 id="S3StorageController">S3StorageController</h2>
+    <p>S3StorageController is a controller for connecting to AWS S3 and performing object operations.</p>
+
+    <h3>Connection Parameters</h3>
+    <p>The items to be specified in the JSON options are shown below. Enter the Key and corresponding Value for each item according to JSON notation.</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Key</th>
+                <th>Type</th>
+                <th>Required</th>
+                <th>Encrypted</th>
+                <th>Description</th>
+                <th>Value Range</th>
+                <th>Default Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Region Endpoint</td>
+                <td>string</td>
+                <td>Yes</td>
+                <td></td>
+                <td>The AWS S3 region endpoint to connect to. (e.g., <code>ap-northeast-1</code>)</td>
+                <td>Valid AWS region name</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Access Key</td>
+                <td>string</td>
+                <td>Yes</td>
+                <td></td>
+                <td>The access key ID for your AWS account.</td>
+                <td>Valid access key ID</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Secret Access Key</td>
+                <td>string</td>
+                <td>Yes</td>
+                <td>Yes</td>
+                <td>The secret access key for your AWS account.</td>
+                <td>Valid secret access key</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Use Https</td>
+                <td>bool</td>
+                <td></td>
+                <td></td>
+                <td>Whether to use HTTPS.</td>
+                <td><code>true</code> or <code>false</code></td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td>Proxy Uri</td>
+                <td>string</td>
+                <td></td>
+                <td></td>
+                <td>The address of the proxy server.</td>
+                <td>Valid URI</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Commands</h3>
+
+    <h4 id="UploadObject">UploadObject</h4>
+    <p>Uploads the object content as a byte array to an AWS S3 bucket.</p>
+    <h5>Input Parameters</h5>
+    <table>
+        <thead>
+            <tr>
+                <th>Key</th>
+                <th>Type</th>
+                <th>Required</th>
+                <th>Description</th>
+                <th>Default Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Bytes</td>
+                <td>string</td>
+                <td>Yes</td>
+                <td>Data to upload (Base64 encoded string).</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Bucket Name</td>
+                <td>string</td>
+                <td>Yes</td>
+                <td>Target bucket name for upload.</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Object Key</td>
+                <td>string</td>
+                <td>Yes</td>
+                <td>S3 object key.</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Overwrite</td>
+                <td>bool</td>
+                <td></td>
+                <td>Whether to overwrite an existing object.</td>
+                <td>true</td>
+            </tr>
+        </tbody>
+    </table>
+    <h5>Output Parameters</h5>
+    <table>
+        <thead>
+            <tr>
+                <th>Key</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Result</td>
+                <td>int</td>
+                <td>Execution result code.</td>
+            </tr>
+            <tr>
+                <td>ObjectKey</td>
+                <td>string</td>
+                <td>Key of the uploaded object.</td>
+            </tr>
+            <tr>
+                <td>Uri</td>
+                <td>string</td>
+                <td>URI of the object. (e.g., <code>https://[Bucket Name].s3.[Region Endpoint].amazonaws.com/[Object Key]</code>)</td>
+            </tr>
+            <tr>
+                <td>ETag</td>
+                <td>string</td>
+                <td>ETag value.</td>
+            </tr>
+            <tr>
+                <td>HTTPStatus</td>
+                <td>int</td>
+                <td>HTTP status code.</td>
+            </tr>
+            <tr>
+                <td>AWSErrorCode</td>
+                <td>string</td>
+                <td>AWS error code.</td>
+            </tr>
+            <tr>
+                <td>ErrorMessage</td>
+                <td>string</td>
+                <td>Error message.</td>
+            </tr>
+            <tr>
+                <td>StackTrace</td>
+                <td>string</td>
+                <td>Stack trace.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h4 id="UploadObjectFromFile">UploadObjectFromFile</h4>
+    <p>Uploads a local file to an AWS S3 bucket. The object key is generated from the local file name. If an optional Prefix is specified, the object key will be <code>Prefix + file name</code>. The local directory name is not used.</p>
+    <h5>Input Parameters</h5>
+    <table>
+        <thead>
+            <tr>
+                <th>Key</th>
+                <th>Type</th>
+                <th>Required</th>
+                <th>Description</th>
+                <th>Default Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>File Path</td>
+                <td>string</td>
+                <td>Yes</td>
+                <td>Full path of the file to upload.</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Bucket Name</td>
+                <td>string</td>
+                <td>Yes</td>
+                <td>Target bucket name for upload.</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Prefix</td>
+                <td>string</td>
+                <td></td>
+                <td>Prefix for the object key. Appending <code>/</code> treats it as a virtual folder.</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Overwrite</td>
+                <td>bool</td>
+                <td></td>
+                <td>Whether to overwrite an existing object.</td>
+                <td>true</td>
+            </tr>
+        </tbody>
+    </table>
+    <h5>Output Parameters</h5>
+    <table>
+        <thead>
+            <tr>
+                <th>Key</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Result</td>
+                <td>int</td>
+                <td>Execution result code.</td>
+            </tr>
+            <tr>
+                <td>ObjectKey</td>
+                <td>string</td>
+                <td>Key of the uploaded object.</td>
+            </tr>
+            <tr>
+                <td>Uri</td>
+                <td>string</td>
+                <td>URI of the object.</td>
+            </tr>
+            <tr>
+                <td>ETag</td>
+                <td>string</td>
+                <td>ETag value.</td>
+            </tr>
+            <tr>
+                <td>HTTPStatus</td>
+                <td>int</td>
+                <td>HTTP status code.</td>
+            </tr>
+            <tr>
+                <td>AWSErrorCode</td>
+                <td>string</td>
+                <td>AWS error code.</td>
+            </tr>
+            <tr>
+                <td>ErrorMessage</td>
+                <td>string</td>
+                <td>Error message.</td>
+            </tr>
+            <tr>
+                <td>StackTrace</td>
+                <td>string</td>
+                <td>Stack trace.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h4 id="UploadObjectFromDirectory">UploadObjectFromDirectory</h4>
+    <p>Uploads all files in a local directory to an AWS S3 bucket. Files in subdirectories are not uploaded. If an error occurs during processing, subsequent file uploads are interrupted. The number of successfully uploaded files can be confirmed by the 'Uploaded Count' in the return value. Object keys are generated from each local file name. If an optional Prefix is specified, each object key will be <code>Prefix + file name</code>. The local directory name is not used for the object key path.</p>
+    <h5>Input Parameters</h5>
+    <table>
+        <thead>
+            <tr>
+                <th>Key</th>
+                <th>Type</th>
+                <th>Required</th>
+                <th>Description</th>
+                <th>Default Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Directory Path</td>
+                <td>string</td>
+                <td>Yes</td>
+                <td>Path of the directory to upload.</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Bucket Name</td>
+                <td>string</td>
+                <td>Yes</td>
+                <td>Target bucket name for upload.</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Prefix</td>
+                <td>string</td>
+                <td></td>
+                <td>Prefix for the object key. Appending <code>/</code> treats it as a virtual folder.</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Overwrite</td>
+                <td>bool</td>
+                <td></td>
+                <td>Whether to overwrite existing objects.</td>
+                <td>true</td>
+            </tr>
+        </tbody>
+    </table>
+    <h5>Output Parameters</h5>
+    <table>
+        <thead>
+            <tr>
+                <th>Key</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Result</td>
+                <td>int</td>
+                <td>Execution result code.</td>
+            </tr>
+            <tr>
+                <td>UploadedCount</td>
+                <td>int</td>
+                <td>Number of files uploaded.</td>
+            </tr>
+            <tr>
+                <td>HTTPStatus</td>
+                <td>int</td>
+                <td>HTTP status code of the last upload operation.</td>
+            </tr>
+            <tr>
+                <td>AWSErrorCode</td>
+                <td>string</td>
+                <td>AWS error code.</td>
+            </tr>
+            <tr>
+                <td>ErrorMessage</td>
+                <td>string</td>
+                <td>Error message.</td>
+            </tr>
+            <tr>
+                <td>StackTrace</td>
+                <td>string</td>
+                <td>Stack trace.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h4 id="ListObjects">ListObjects</h4>
+    <p>Retrieves a list of objects in the specified bucket. If a Prefix is specified, it retrieves a list of objects under that specific virtual directory.</p>
+    <h5>Input Parameters</h5>
+    <table>
+        <thead>
+            <tr>
+                <th>Key</th>
+                <th>Type</th>
+                <th>Required</th>
+                <th>Description</th>
+                <th>Default Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Bucket Name</td>
+                <td>string</td>
+                <td>Yes</td>
+                <td>Target bucket name.</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Prefix</td>
+                <td>string</td>
+                <td></td>
+                <td>Prefix of the target object key.</td>
+                <td>None</td>
+            </tr>
+        </tbody>
+    </table>
+    <h5>Output Parameters</h5>
+    <table>
+        <thead>
+            <tr>
+                <th>Key</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Result</td>
+                <td>int</td>
+                <td>Execution result code.</td>
+            </tr>
+            <tr>
+                <td>ObjectCount</td>
+                <td>int</td>
+                <td>Number of objects retrieved.</td>
+            </tr>
+            <tr>
+                <td>ObjectNames</td>
+                <td>string[]</td>
+                <td>List of object keys.</td>
+            </tr>
+            <tr>
+                <td>HTTPStatus</td>
+                <td>int</td>
+                <td>HTTP status code.</td>
+            </tr>
+            <tr>
+                <td>AWSErrorCode</td>
+                <td>string</td>
+                <td>AWS error code.</td>
+            </tr>
+            <tr>
+                <td>ErrorMessage</td>
+                <td>string</td>
+                <td>Error message.</td>
+            </tr>
+            <tr>
+                <td>StackTrace</td>
+                <td>string</td>
+                <td>Stack trace.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h4 id="DeleteObject">DeleteObject</h4>
+    <p>Deletes an object. If a Version Id is specified, that version of the object is deleted.</p>
+    <h5>Input Parameters</h5>
+    <table>
+        <thead>
+            <tr>
+                <th>Key</th>
+                <th>Type</th>
+                <th>Required</th>
+                <th>Description</th>
+                <th>Default Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Bucket Name</td>
+                <td>string</td>
+                <td>Yes</td>
+                <td>Target bucket name.</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Object Key</td>
+                <td>string</td>
+                <td>Yes</td>
+                <td>Key of the object to delete.</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Version Id</td>
+                <td>string</td>
+                <td></td>
+                <td>Version ID of the object to delete.</td>
+                <td>null</td>
+            </tr>
+        </tbody>
+    </table>
+    <h5>Output Parameters</h5>
+    <table>
+        <thead>
+            <tr>
+                <th>Key</th>
+                <th>Type</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Result</td>
+                <td>int</td>
+                <td>Execution result code.</td>
+            </tr>
+            <tr>
+                <td>ObjectKey</td>
+                <td>string</td>
+                <td>Key of the deleted object.</td>
+            </tr>
+            <tr>
+                <td>VersionId</td>
+                <td>string</td>
+                <td>Version ID of the deleted object (if applicable).</td>
+            </tr>
+            <tr>
+                <td>HTTPStatus</td>
+                <td>int</td>
+                <td>HTTP status code.</td>
+            </tr>
+            <tr>
+                <td>AWSErrorCode</td>
+                <td>string</td>
+                <td>AWS error code.</td>
+            </tr>
+            <tr>
+                <td>ErrorMessage</td>
+                <td>string</td>
+                <td>Error message.</td>
+            </tr>
+            <tr>
+                <td>StackTrace</td>
+                <td>string</td>
+                <td>Stack trace.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ############################## S3ObjectFile ############################## -->
+
+    <h2 id="S3ObjectFile">S3ObjectFile</h2>
+    <p>S3ObjectFile is a class for handling a single object on AWS S3. It downloads the specified S3 object and provides read-only stream access via a local temporary file. Write operations are not supported.</p>
+
+    <h3>Initialization Parameters</h3>
+    <p>The items to be specified in the JSON options are shown below.</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Key</th>
+                <th>Type</th>
+                <th>Required</th>
+                <th>Description</th>
+                <th>Value Range</th>
+                <th>Default Value</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Bucket Name</td>
+                <td>string</td>
+                <td>Yes</td>
+                <td>S3 bucket name for the operation.</td>
+                <td>Valid bucket name</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Object Key</td>
+                <td>string</td>
+                <td>Yes</td>
+                <td>S3 object key for the operation.</td>
+                <td>Valid object key</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Main Operations</h3>
+    <ul>
+        <li>Reads data from the specified S3 object (<code>Read</code>).</li>
+        <li>Gets or sets the current position within the stream (<code>Seek</code>).</li>
+        <li>Gets the length of the stream (<code>Length</code>).</li>
+        <li>Opens (<code>Open</code>) and closes (<code>Close</code>) the file.</li>
+    </ul>
+    <p class="note"><code>S3ObjectFile</code> is read-only. Attempting to write will result in an error.</p>
+
+    <!-- ############################## Appendix ############################## -->
+
+    <h2 id="Appendix">Appendix</h2>
+    <h3 id="Result">Result</h3>
+    <ul>
+        <li><strong>Unknown (-1):</strong> Unknown error</li>
+        <li><strong>Success (0):</strong> Operation completed successfully</li>
+        <li><strong>AWSError (1):</strong> Error reported from AWS SDK or service</li>
+        <li><strong>OtherError (2):</strong> Other errors (network issues, unexpected errors)</li>
+    </ul>
+
+</body>
+</html>

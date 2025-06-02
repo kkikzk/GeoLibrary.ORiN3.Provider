@@ -1,0 +1,614 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>AWS S3 Provider Manual</title>
+    <link rel="stylesheet" href="../styles.css">
+</head>
+<body>
+
+    <h1>AWS S3 Provider Manual</h1>
+
+    <p>このドキュメントは、AWS S3プロバイダの使用方法について説明します。</p>
+
+    <ul>
+        <li>
+            <a href="#S3StorageController">S3StorageController</a>
+            <ul>
+                <li>
+                    コマンド
+                    <ul>
+                        <li><a href="#UploadObject">UploadObject</a></li>
+                        <li><a href="#UploadObjectFromFile">UploadObjectFromFile</a></li>
+                        <li><a href="#UploadObjectFromDirectory">UploadObjectFromDirectory</a></li>
+                        <li><a href="#ListObjects">ListObjects</a></li>
+                        <li><a href="#DeleteObject">DeleteObject</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="#S3ObjectFile">S3ObjectFile</a>
+        </li>
+        <li>
+            <a href="#Appendix">Appendix</a>
+        </li>
+    </ul>
+
+    <a href="../../Common/ja/index.html">ORiN3プロバイダ共通マニュアル</a>
+
+
+    <!-- ############################## S3StorageController ############################## -->
+
+    <h2 id="S3StorageController">S3StorageController</h2>
+    <p>S3StorageControllerは、AWS S3への接続とオブジェクト操作を行うためのコントローラです。</p>
+
+    <h3>接続パラメータ</h3>
+    <p>JSONオプションに指定する項目を以下に示します。各項目はJSON記法に則ってKeyと対応するValueを入力してください。</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Key</th>
+                <th>型</th>
+                <th>必須</th>
+                <th>暗号化</th>
+                <th>説明</th>
+                <th>値範囲</th>
+                <th>デフォルト値</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Region Endpoint</td>
+                <td>string</td>
+                <td>✓</td>
+                <td></td>
+                <td>接続するAWS S3のリージョンエンドポイントです。 (例: <code>ap-northeast-1</code>)</td>
+                <td>有効なAWSリージョン名</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Access Key</td>
+                <td>string</td>
+                <td>✓</td>
+                <td></td>
+                <td>AWSアカウントのアクセスキーIDです。</td>
+                <td>有効なアクセスキーID</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Secret Access Key</td>
+                <td>string</td>
+                <td>✓</td>
+                <td>✓</td>
+                <td>AWSアカウントのシークレットアクセスキーです。</td>
+                <td>有効なシークレットアクセスキー</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Use Https</td>
+                <td>bool</td>
+                <td></td>
+                <td></td>
+                <td>HTTPSを使用するかどうか。</td>
+                <td><code>true</code> or <code>false</code></td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td>Proxy Uri</td>
+                <td>string</td>
+                <td></td>
+                <td></td>
+                <td>プロキシサーバーのアドレス。</td>
+                <td>有効なURI</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>コマンド</h3>
+
+    <h4 id="UploadObject">UploadObject</h4>
+    <p>オブジェクトの中身をバイト配列で指定してAWS S3バケットにアップロードします。</p>
+    <h5>入力パラメータ</h5>
+    <table>
+        <thead>
+            <tr>
+                <th>Key</th>
+                <th>型</th>
+                <th>必須</th>
+                <th>説明</th>
+                <th>デフォルト値</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Bytes</td>
+                <td>string</td>
+                <td>✓</td>
+                <td>アップロードするデータ (Base64エンコードされた文字列)。</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Bucket Name</td>
+                <td>string</td>
+                <td>✓</td>
+                <td>アップロード先バケット名。</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Object Key</td>
+                <td>string</td>
+                <td>✓</td>
+                <td>S3オブジェクトキー。</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Overwrite</td>
+                <td>bool</td>
+                <td></td>
+                <td>既存オブジェクトを上書きするかどうか。</td>
+                <td>true</td>
+            </tr>
+        </tbody>
+    </table>
+    <h5>出力パラメータ</h5>
+    <table>
+        <thead>
+            <tr>
+                <th>Key</th>
+                <th>型</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Result</td>
+                <td>int</td>
+                <td>実行結果コード。</td>
+            </tr>
+            <tr>
+                <td>ObjectKey</td>
+                <td>string</td>
+                <td>アップロードしたオブジェクトのキー。</td>
+            </tr>
+            <tr>
+                <td>Uri</td>
+                <td>string</td>
+                <td>オブジェクトのURI。 (例: <code>https://[Bucket Name].s3.[Region Endpoint].amazonaws.com/[Object Key]</code>)</td>
+            </tr>
+            <tr>
+                <td>ETag</td>
+                <td>string</td>
+                <td>ETag値。</td>
+            </tr>
+            <tr>
+                <td>HTTPStatus</td>
+                <td>int</td>
+                <td>HTTPステータスコード。</td>
+            </tr>
+            <tr>
+                <td>AWSErrorCode</td>
+                <td>string</td>
+                <td>AWSエラーコード。</td>
+            </tr>
+            <tr>
+                <td>ErrorMessage</td>
+                <td>string</td>
+                <td>エラーメッセージ。</td>
+            </tr>
+            <tr>
+                <td>StackTrace</td>
+                <td>string</td>
+                <td>スタックトレース。</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h4 id="UploadObjectFromFile">UploadObjectFromFile</h4>
+    <p>ローカルファイルをAWS S3バケットにアップロードします。オブジェクトキーはローカルのディレクトリ名+ファイル名と同じになります。必要に応じてPrefixを指定してください。Prefixを指定した場合、オブジェクト名はPrefix+ファイル名となります。</p>
+    <h5>入力パラメータ</h5>
+    <table>
+        <thead>
+            <tr>
+                <th>Key</th>
+                <th>型</th>
+                <th>必須</th>
+                <th>説明</th>
+                <th>デフォルト値</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>File Path</td>
+                <td>string</td>
+                <td>✓</td>
+                <td>アップロードするファイルのフルパス。</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Bucket Name</td>
+                <td>string</td>
+                <td>✓</td>
+                <td>アップロード先バケット名。</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Prefix</td>
+                <td>string</td>
+                <td></td>
+                <td>オブジェクトキーの接頭辞。末尾に <code>/</code> を付けると仮想フォルダとして扱われます。</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Overwrite</td>
+                <td>bool</td>
+                <td></td>
+                <td>既存オブジェクトを上書きするかどうか。</td>
+                <td>true</td>
+            </tr>
+        </tbody>
+    </table>
+    <h5>出力パラメータ</h5>
+    <table>
+        <thead>
+            <tr>
+                <th>Key</th>
+                <th>型</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Result</td>
+                <td>int</td>
+                <td>実行結果コード。</td>
+            </tr>
+            <tr>
+                <td>ObjectKey</td>
+                <td>string</td>
+                <td>アップロードしたオブジェクトのキー。</td>
+            </tr>
+            <tr>
+                <td>Uri</td>
+                <td>string</td>
+                <td>オブジェクトのURI。</td>
+            </tr>
+            <tr>
+                <td>ETag</td>
+                <td>string</td>
+                <td>ETag値。</td>
+            </tr>
+            <tr>
+                <td>HTTPStatus</td>
+                <td>int</td>
+                <td>HTTPステータスコード。</td>
+            </tr>
+            <tr>
+                <td>AWSErrorCode</td>
+                <td>string</td>
+                <td>AWSエラーコード。</td>
+            </tr>
+            <tr>
+                <td>ErrorMessage</td>
+                <td>string</td>
+                <td>エラーメッセージ。</td>
+            </tr>
+            <tr>
+                <td>StackTrace</td>
+                <td>string</td>
+                <td>スタックトレース。</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h4 id="UploadObjectFromDirectory">UploadObjectFromDirectory</h4>
+    <p>ローカルディレクトリ内の全ファイルをAWS S3バケットにアップロードします。サブディレクトリ以下のファイルはアップロード対象外です。処理の途中でエラーが発生した場合、以降のファイルアップロードは中断します。アップロードに成功したファイルの数は戻り値の『Uploaded Count』で確認できます。オブジェクトキーはローカルのディレクトリ名+ファイル名と同じになります。必要に応じてPrefixを指定してください。Prefixを指定した場合、オブジェクト名はPrefix+ファイル名となります。</p>
+    <h5>入力パラメータ</h5>
+    <table>
+        <thead>
+            <tr>
+                <th>Key</th>
+                <th>型</th>
+                <th>必須</th>
+                <th>説明</th>
+                <th>デフォルト値</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Directory Path</td>
+                <td>string</td>
+                <td>✓</td>
+                <td>アップロード対象ディレクトリのパス。</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Bucket Name</td>
+                <td>string</td>
+                <td>✓</td>
+                <td>アップロード先バケット名。</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Prefix</td>
+                <td>string</td>
+                <td></td>
+                <td>オブジェクトキーの接頭辞。末尾に <code>/</code> を付けると仮想フォルダとして扱われます。</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Overwrite</td>
+                <td>bool</td>
+                <td></td>
+                <td>既存オブジェクトを上書きするかどうか。</td>
+                <td>true</td>
+            </tr>
+        </tbody>
+    </table>
+    <h5>出力パラメータ</h5>
+    <table>
+        <thead>
+            <tr>
+                <th>Key</th>
+                <th>型</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Result</td>
+                <td>int</td>
+                <td>実行結果コード。</td>
+            </tr>
+            <tr>
+                <td>UploadedCount</td>
+                <td>int</td>
+                <td>アップロードしたファイル数。</td>
+            </tr>
+            <tr>
+                <td>HTTPStatus</td>
+                <td>int</td>
+                <td>最後のアップロード操作のHTTPステータスコード。</td>
+            </tr>
+            <tr>
+                <td>AWSErrorCode</td>
+                <td>string</td>
+                <td>AWSエラーコード。</td>
+            </tr>
+            <tr>
+                <td>ErrorMessage</td>
+                <td>string</td>
+                <td>エラーメッセージ。</td>
+            </tr>
+            <tr>
+                <td>StackTrace</td>
+                <td>string</td>
+                <td>スタックトレース。</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h4 id="ListObjects">ListObjects</h4>
+    <p>指定バケット内のオブジェクト一覧を取得します。Prefixを指定すれば特定の仮想ディレクトリ以下のオブジェクト一覧を取得できます。</p>
+    <h5>入力パラメータ</h5>
+    <table>
+        <thead>
+            <tr>
+                <th>Key</th>
+                <th>型</th>
+                <th>必須</th>
+                <th>説明</th>
+                <th>デフォルト値</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Bucket Name</td>
+                <td>string</td>
+                <td>✓</td>
+                <td>対象バケット名。</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Prefix</td>
+                <td>string</td>
+                <td></td>
+                <td>対象オブジェクトキーの接頭辞。</td>
+                <td>なし</td>
+            </tr>
+        </tbody>
+    </table>
+    <h5>出力パラメータ</h5>
+    <table>
+        <thead>
+            <tr>
+                <th>Key</th>
+                <th>型</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Result</td>
+                <td>int</td>
+                <td>実行結果コード。</td>
+            </tr>
+            <tr>
+                <td>ObjectCount</td>
+                <td>int</td>
+                <td>取得できたオブジェクト数。</td>
+            </tr>
+            <tr>
+                <td>ObjectNames</td>
+                <td>string[]</td>
+                <td>オブジェクトキーのリスト。</td>
+            </tr>
+            <tr>
+                <td>HTTPStatus</td>
+                <td>int</td>
+                <td>HTTPステータスコード。</td>
+            </tr>
+            <tr>
+                <td>AWSErrorCode</td>
+                <td>string</td>
+                <td>AWSエラーコード。</td>
+            </tr>
+            <tr>
+                <td>ErrorMessage</td>
+                <td>string</td>
+                <td>エラーメッセージ。</td>
+            </tr>
+            <tr>
+                <td>StackTrace</td>
+                <td>string</td>
+                <td>スタックトレース。</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h4 id="DeleteObject">DeleteObject</h4>
+    <p>オブジェクトを削除します。Version Idを指定した場合、そのバージョンのオブジェクトを削除します。</p>
+    <h5>入力パラメータ</h5>
+    <table>
+        <thead>
+            <tr>
+                <th>Key</th>
+                <th>型</th>
+                <th>必須</th>
+                <th>説明</th>
+                <th>デフォルト値</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Bucket Name</td>
+                <td>string</td>
+                <td>✓</td>
+                <td>対象バケット名。</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Object Key</td>
+                <td>string</td>
+                <td>✓</td>
+                <td>削除対象オブジェクトのキー。</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Version Id</td>
+                <td>string</td>
+                <td></td>
+                <td>削除対象オブジェクトのバージョンID。</td>
+                <td>null</td>
+            </tr>
+        </tbody>
+    </table>
+    <h5>出力パラメータ</h5>
+    <table>
+        <thead>
+            <tr>
+                <th>Key</th>
+                <th>型</th>
+                <th>説明</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Result</td>
+                <td>int</td>
+                <td>実行結果コード。</td>
+            </tr>
+            <tr>
+                <td>ObjectKey</td>
+                <td>string</td>
+                <td>削除したオブジェクトのキー。</td>
+            </tr>
+            <tr>
+                <td>VersionId</td>
+                <td>string</td>
+                <td>削除したオブジェクトのバージョンID (該当する場合)。</td>
+            </tr>
+            <tr>
+                <td>HTTPStatus</td>
+                <td>int</td>
+                <td>HTTPステータスコード。</td>
+            </tr>
+            <tr>
+                <td>AWSErrorCode</td>
+                <td>string</td>
+                <td>AWSエラーコード。</td>
+            </tr>
+            <tr>
+                <td>ErrorMessage</td>
+                <td>string</td>
+                <td>エラーメッセージ。</td>
+            </tr>
+            <tr>
+                <td>StackTrace</td>
+                <td>string</td>
+                <td>スタックトレース。</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- ############################## S3ObjectFile ############################## -->
+
+    <h2 id="S3ObjectFile">S3ObjectFile</h2>
+    <p>S3ObjectFileは、AWS S3上の単一オブジェクトを扱うためのクラスです。指定されたS3オブジェクトをダウンロードし、ローカルの一時ファイルを経由して読み取り専用のストリームとしてアクセスを提供します。書き込み操作はサポートされていません。</p>
+
+    <h3>初期化パラメータ</h3>
+    <p>JSONオプションに指定する項目を以下に示します。</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Key</th>
+                <th>型</th>
+                <th>必須</th>
+                <th>説明</th>
+                <th>値範囲</th>
+                <th>デフォルト値</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Bucket Name</td>
+                <td>string</td>
+                <td>✓</td>
+                <td>操作対象のS3バケット名。</td>
+                <td>有効なバケット名</td>
+                <td></td>
+            </tr>
+            <tr>
+                <td>Object Key</td>
+                <td>string</td>
+                <td>✓</td>
+                <td>操作対象のS3オブジェクトキー。</td>
+                <td>有効なオブジェクトキー</td>
+                <td></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>主な操作</h3>
+    <ul>
+        <li>指定されたS3オブジェクトのデータを読み取る (<code>Read</code>)。</li>
+        <li>ストリーム内の現在の位置を取得または設定する (<code>Seek</code>)。</li>
+        <li>ストリームの長さを取得する (<code>Length</code>)。</li>
+        <li>ファイルを開く (<code>Open</code>)、閉じる (<code>Close</code>)。</li>
+    </ul>
+    <p class="note"><code>S3ObjectFile</code> は読み取り専用です。書き込みを行おうとするとエラーが発生します。</p>
+
+    <!-- ############################## Appendix ############################## -->
+
+    <h2 id="Appendix">Appendix</h2>
+    <h3 id="Result">Result</h3>
+    <ul>
+        <li><strong>Unknown (-1):</strong> Unknown error</li>
+        <li><strong>Success (0):</strong> Operation completed successfully</li>
+        <li><strong>AWSError (1):</strong> Error reported from AWS SDK or service</li>
+        <li><strong>OtherError (2):</strong> Other errors (network issues, unexpected errors)</li>
+    </ul>
+
+</body>
+</html>

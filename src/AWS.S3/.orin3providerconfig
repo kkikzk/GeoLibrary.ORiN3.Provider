@@ -84,7 +84,7 @@
     {
       "id": "F66FCFF2-FE5B-4F1C-AA9E-DF9A431C0E96",
       "orin3ObjectType": "ORiN3File",
-      "displayName": "AWS S3",
+      "displayName": "AWS S3 Object",
       "typeName": "GeoLibrary.ORiN3.Provider.AWS.S3.O3Object.File.S3ObjectFile, GeoLibrary.ORiN3.Provider.AWS.S3",
       "comment": {
         "default": "This is an ORiN3 File that functions as a client to connect to AWS S3.",

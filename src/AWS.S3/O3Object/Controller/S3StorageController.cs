@@ -152,9 +152,9 @@ public class S3StorageController : ControllerBase, S3StorageController.IAccessDa
             var bucketName = ArgumentHelper.GetArgument<string>(argument, "Bucket Name");
             var objectKey = ArgumentHelper.GetArgument<string>(argument, "Object Key");
             var overwrite = ArgumentHelper.GetArgumentOrDefault(argument, "Overwrite", true);
-            ORiN3ProviderLogger.LogTrace($"Uploading {bucketName}/{objectKey} ({data.Length} bytes), overwrite={overwrite}");
 
             var config = AmazonS3ConfigEx.GetConfig(this);
+            ORiN3ProviderLogger.LogTrace($"Uploading {bucketName}/{objectKey} ({data.Length} bytes), overwrite={overwrite}, region={config.RegionEndpoint}");
             using var client = new AmazonS3ClientEx(AccessKey, SecretAccessKey, config);
             if (!overwrite)
             {
@@ -214,6 +214,7 @@ public class S3StorageController : ControllerBase, S3StorageController.IAccessDa
             using var stream = System.IO.File.OpenRead(fileInfo.FullName);
 
             var config = AmazonS3ConfigEx.GetConfig(this);
+            ORiN3ProviderLogger.LogTrace($"Region={config.RegionEndpoint}");
             using var client = new AmazonS3ClientEx(AccessKey, SecretAccessKey, config);
             if (!overwrite)
             {
@@ -266,6 +267,7 @@ public class S3StorageController : ControllerBase, S3StorageController.IAccessDa
             }
 
             var config = AmazonS3ConfigEx.GetConfig(this);
+            ORiN3ProviderLogger.LogTrace($"Region={config.RegionEndpoint}");
             using var client = new AmazonS3ClientEx(AccessKey, SecretAccessKey, config);
 
             HttpStatusCode lastStatus = 0;
@@ -302,9 +304,9 @@ public class S3StorageController : ControllerBase, S3StorageController.IAccessDa
 
             var bucketName = ArgumentHelper.GetArgument<string>(argument, "Bucket Name");
             var prefix = ArgumentHelper.GetArgumentOrDefault<string?>(argument, "Prefix", null);
-            ORiN3ProviderLogger.LogTrace($"Listing {bucketName}/ prefix='{prefix}'");
 
             var config = AmazonS3ConfigEx.GetConfig(this);
+            ORiN3ProviderLogger.LogTrace($"Listing {bucketName}/ prefix='{prefix}', region='{config.RegionEndpoint}'");
             using var client = new AmazonS3ClientEx(AccessKey, SecretAccessKey, config);
             var req = new ListObjectsV2Request { BucketName = bucketName, Prefix = prefix };
             var keys = new List<string>();
@@ -338,9 +340,9 @@ public class S3StorageController : ControllerBase, S3StorageController.IAccessDa
             var bucketName = ArgumentHelper.GetArgument<string>(argument, "Bucket Name");
             var objectKey = ArgumentHelper.GetArgument<string>(argument, "Object Key");
             var versionId = ArgumentHelper.GetArgumentOrDefault<string?>(argument, "Version Id", null);
-            ORiN3ProviderLogger.LogTrace($"Deleting {bucketName}/{objectKey}, VersionId='{versionId}'");
 
             var config = AmazonS3ConfigEx.GetConfig(this);
+            ORiN3ProviderLogger.LogTrace($"Deleting {bucketName}/{objectKey}, VersionId='{versionId}', Region='{config.RegionEndpoint}'");
             using var client = new AmazonS3ClientEx(AccessKey, SecretAccessKey, config);
             var request = new DeleteObjectRequest
             {

@@ -58,6 +58,9 @@
     <None Update=".orin3providerconfig">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="_Doc\Manual\Provider\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="_Doc\Manual\Provider\ja\**">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
